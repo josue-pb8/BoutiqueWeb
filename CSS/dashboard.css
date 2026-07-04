@@ -1,0 +1,161 @@
+/* Configuración general */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+/* Barra lateral */
+.Menu-Lateral{
+    width: 250px;
+    height: 100vh;
+    background-color: #D4AF37;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 0px;
+    border-right: 2px solid #D4AF37;
+}
+
+/* Logo */
+.logo{
+    text-align: center;
+    padding: 20px;
+}
+.logo img{
+    width: 100px;   /* Puedes ajustar el tamaño */
+    height: 100px;
+}
+
+.logo h1{
+    font-size: 30px;
+    color: #000;
+    margin-top: 10px;
+}
+
+/* Menú */
+.Menu-Lateral ul{
+    list-style: none;
+    margin-top: 20px;
+}
+
+.Menu-Lateral li{
+    margin: 15px 0;
+}
+
+/* Enlaces */
+.Menu-Lateral a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+}
+
+/* Íconos */
+/* Íconos del menú */
+.Menu-Lateral ul img{
+    width: 22px;
+    height: 22px;
+}
+
+/* Efecto al pasar el cursor */
+.Menu-Lateral a:hover{
+    background-color: #c1baa5;
+    color: white;
+    border-radius: 8px;
+}
+
+/* Sección Cerrar sesión */
+.cerrar{
+    margin-top: 100px;
+}
+
+.cerrar a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+}
+
+.cerrar img{
+    width: 22px;
+    height: 22px;
+}
+
+.cerrar a:hover{
+    background-color: #c1baa5;
+    color: white;
+    border-radius: 8px;
+}
+main{
+    margin-left: 250px;
+}
+
+header{
+    width: 100%;
+    height: 70px;
+    background: #D4AF37;
+}
+
+.menu-superior{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+}
+
+.menu-superior button{
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.administrador{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.administrador img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.lado-derecho{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 15px;
+}
+.buscador{
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    padding: 0 10px;
+    background-color: white;
+}
+.buscador img{
+    width: 18px;
+    height: 18px;
+}
+
+.buscador input{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+}
