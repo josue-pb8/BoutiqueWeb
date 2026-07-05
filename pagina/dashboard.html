@@ -9,7 +9,7 @@
 <body>
     <aside class="Menu-Lateral">
       <div class="logo">
-        <img src="../Image/logotipo.jpg" alt="Logo Graper">
+        <img src="#" alt="Logo Graper">
             <h1>GRAPER</h1>
         </div>
         <ul>
@@ -50,21 +50,159 @@
     <p>Bienvenido, Administrador 👋</p>
 
     <div class="tarjetas">
-
-        <div class="tarjeta">
-
+        <div class="tarjeta1">
             <div class="icono">
                 <img src="../Image/ventas.png" alt="Ventas">
             </div>
-
             <div class="informacion">
                 <h3>Ventas del día</h3>
-                <h2>$12,450.00</h2>
-                <p>+12% vs ayer</p>
+                <h2>$1,500.00</h2>
+                <p>+12% vs ayer.</p>
             </div>
+        </div>
+    <div class="tarjeta2">
+        <div class="icono">
+            <img src="../Image/peso.png" alt="Ganancias">
+        </div>
+        <div class="informacion">
+            <h3>Ganancias Semanal</h3>
+            <h2>$1,500.00</h2>
+            <p>+18% vs la semana pasada.</p>
+        </div>
+    </div>
+
+    <div class="tarjeta3">
+        <div class="icono">
+            <img src="/Image/perdida.png" alt="Perdidas">
+        </div>
+        <div class="informacion">
+            <h3>Perdidas Semanal</h3>
+            <h2>$500.00</h2>
+            <p>-5% vs la semana pasada</p>
+        </div>
+    </div>
+    <div class="tarjeta4">
+        <div class="icono">
+            <img src="/Image/inventario.png" alt="Productos">
+        </div>
+        <div class="informacion">
+            <h3>Total Productos</h3>
+            <h2>256</h2>
+            <p>En inventario</p>
+        </div>
+    </div>
+</div>
+    <section class="graficas">
+
+    <div class="grafica">
+        <div class="encabezado-grafica">
+            <h3>Productos más vendidos</h3>
+            <button>Ver más</button>
+        </div>
+
+        <div class="barra">
+            <span>Vestido Floral</span>
+            <div class="linea"><div class="relleno" style="width: 90%;"></div></div>
+            <p>120</p>
+        </div>
+
+        <div class="barra">
+            <span>Blusa Elegante</span>
+            <div class="linea"><div class="relleno" style="width: 75%;"></div></div>
+            <p>98</p>
+        </div>
+
+        <div class="barra">
+            <span>Jeans Clásico</span>
+            <div class="linea"><div class="relleno" style="width: 65%;"></div></div>
+            <p>87</p>
+        </div>
+    </div>
+
+    <div class="grafica">
+        <div class="encabezado-grafica">
+            <h3>Ganancias por mes</h3>
+            <button>Ver más</button>
+        </div>
+
+        <div class="grafica-falsa">
+            Gráfica de ganancias
+        </div>
+    </div>
+
+    <div class="grafica">
+        <div class="encabezado-grafica">
+            <h3>Pérdidas por mes</h3>
+            <button>Ver más</button>
+        </div>
+
+        <div class="grafica-falsa">
+            Gráfica de pérdidas
         </div>
     </div>
 </section>
-</main>
+    <section class="ventas-recientes">
+
+    <h3>Ventas recientes</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Cliente</th>
+                <th>Productos</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>#0001</td>
+                <td>20/05/2024</td>
+                <td>María López</td>
+                <td>3 productos</td>
+                <td>$1,250.00</td>
+                <td><span class="completada">Completada</span></td>
+                <td><button>Ver detalles</button></td>
+            </tr>
+
+            <tr>
+                <td>#0002</td>
+                <td>20/05/2024</td>
+                <td>Ana García</td>
+                <td>2 productos</td>
+                <td>$850.00</td>
+                <td><span class="completada">Completada</span></td>
+                <td><button>Ver detalles</button></td>
+            </tr>
+
+            <tr>
+                <td>#0003</td>
+                <td>19/05/2024</td>
+                <td>Carla Martínez</td>
+                <td>4 productos</td>
+                <td>$2,150.00</td>
+                <td><span class="completada">Completada</span></td>
+                <td><button>Ver detalles</button></td>
+            </tr>
+
+            <tr>
+                <td>#0004</td>
+                <td>19/05/2024</td>
+                <td>Laura Pérez</td>
+                <td>1 producto</td>
+                <td>$450.00</td>
+                <td><span class="pendiente">Pendiente</span></td>
+                <td><button>Ver detalles</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>
+    </section>
+    </main>
 </body>
 </html>

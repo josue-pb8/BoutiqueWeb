@@ -159,3 +159,178 @@ header{
     outline: none;
     padding: 10px;
 }
+/*Tarjeta*/
+.inicio{
+    padding: 20px;
+}
+
+.inicio h1{
+    font-size: 30px;
+}
+
+.inicio p{
+    margin-top: 10px;
+}
+
+.tarjetas{
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+}
+.tarjeta1,
+.tarjeta2,
+.tarjeta3,
+.tarjeta4{
+    width: 300px;
+    height: 120px;
+    background: #e9e7e2;
+    border: 1px solid black;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.icono{
+    margin-right: 20px;
+}
+
+.icono img{
+    width: 50px;
+    height: 50px;
+}
+
+.informacion h2{
+    margin: 8px 0;
+}
+
+.informacion p{
+    color: green;
+    font-size: 14px;
+}
+
+.informacion h3{
+    font-size: 15px;
+}
+/*Graficas*/
+.graficas{
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.grafica{
+    width: 350px;
+    height: 260px;
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.encabezado-grafica{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.encabezado-grafica h3{
+    font-size: 16px;
+}
+
+.encabezado-grafica button{
+    padding: 8px 12px;
+    border: 1px solid #D4AF37;
+    background: #fff7e6;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.barra{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.barra span{
+    width: 120px;
+    font-size: 13px;
+}
+
+.linea{
+    width: 150px;
+    height: 12px;
+    background: #eee;
+}
+
+.relleno{
+    height: 100%;
+    background: #df6f7b;
+}
+
+.barra p{
+    font-size: 13px;
+}
+
+.grafica-falsa{
+    height: 180px;
+    margin-top: 25px;
+    border: 1px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+/*Ventas recientes*/
+.ventas-recientes{
+    margin-top: 30px;
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.ventas-recientes h3{
+    margin-bottom: 20px;
+}
+
+.ventas-recientes table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ventas-recientes th,
+.ventas-recientes td{
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 14px;
+}
+
+.ventas-recientes th{
+    background: #f8f4ee;
+}
+
+.completada{
+    background: #dff3e3;
+    color: green;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.pendiente{
+    background: #fff1d6;
+    color: #9a6200;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+.ventas-recientes button{
+    padding: 7px 12px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
