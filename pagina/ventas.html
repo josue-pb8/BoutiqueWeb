@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graper - Dashboard</title>
-    <link rel="stylesheet" href="../CSS/dashboard.css">
+    <title>Graper - Ventas</title>
+    <link rel="stylesheet" href="../CSS/ventas.css">
 </head>
 <body>
     <aside class="Menu-Lateral">
@@ -14,13 +14,13 @@
         </div>
         <ul>
             <li>
-                <a href="dashboard.html" class="activo"><img src="../Image/inicio.png" alt="Inicio">Inicio</a>
+                <a href="dashboard.html"><img src="../Image/inicio.png" alt="Inicio">Inicio</a>
             </li>
             <li>
                 <a href="#"><img src="../Image/productos.png" alt="Productos">Productos</a>
             </li>
             <li>
-                <a href="/pagina/ventas.html"><img src="../Image/ventas.png" alt="Ventas">Ventas</a>
+                <a href="ventas.html" class="activo"><img src="../Image/ventas.png" alt="Ventas">Ventas</a>
             </li>
             <li>
                 <a href="#"><img src="../Image/cliente.png" alt="Clientes">Clientes</a>
@@ -59,103 +59,57 @@
                 </div>
             </div>
     </header>
-    <section class="inicio">
+    <section class="ventas">
 
-    <h1>Inicio</h1>
+    <h1>Ventas</h1>
 
-    <p>Bienvenido, Administrador 👋</p>
+    <p>Consulta y administra todas la ventas realizadas</p>
 
     <div class="tarjetas">
+
         <div class="tarjeta1">
             <div class="icono">
                 <img src="../Image/ventas.png" alt="Ventas">
             </div>
             <div class="informacion">
-                <h3>Ventas del día</h3>
+                <h3>Ventas totales</h3>
                 <h2>$1,500.00</h2>
-                <p>+12% vs ayer.</p>
+                <p>+12% vs periodo anterior</p>
             </div>
         </div>
     <div class="tarjeta2">
         <div class="icono">
-            <img src="../Image/peso.png" alt="Ganancias">
+            <img src="../Image/peso.png" alt="TotalVentas">
         </div>
         <div class="informacion">
-            <h3>Ganancias Semanal</h3>
-            <h2>$1,500.00</h2>
-            <p>+18% vs la semana pasada.</p>
+            <h3>Total de ventas</h3>
+            <h2>150</h2>
+            <p>+8% vs el periodo anterior</p>
         </div>
     </div>
 
     <div class="tarjeta3">
         <div class="icono">
-            <img src="/Image/perdida.png" alt="Perdidas">
+            <img src="/Image/perdida.png" alt="Ticket">
         </div>
         <div class="informacion">
-            <h3>Perdidas Semanal</h3>
+            <h3>Ticket promedio</h3>
             <h2>$500.00</h2>
-            <p>-5% vs la semana pasada</p>
+            <p>+5% vs el periodo anterior</p>
         </div>
     </div>
     <div class="tarjeta4">
         <div class="icono">
-            <img src="/Image/inventario.png" alt="Productos">
+            <img src="/Image/inventario.png" alt="Apartados">
         </div>
         <div class="informacion">
-            <h3>Total Productos</h3>
-            <h2>256</h2>
-            <p>En inventario</p>
+            <h3>Apartados activos</h3>
+            <h2>30</h2>
+            <p>Ver detalle</p>
         </div>
     </div>
 </div>
-    <section class="graficas">
 
-    <div class="grafica">
-        <div class="encabezado-grafica">
-            <h3>Productos más vendidos</h3>
-            <button>Ver más</button>
-        </div>
-
-        <div class="barra">
-            <span>Vestido Floral</span>
-            <div class="linea"><div class="relleno" style="width: 90%;"></div></div>
-            <p>120</p>
-        </div>
-
-        <div class="barra">
-            <span>Blusa Elegante</span>
-            <div class="linea"><div class="relleno" style="width: 75%;"></div></div>
-            <p>98</p>
-        </div>
-
-        <div class="barra">
-            <span>Jeans Clásico</span>
-            <div class="linea"><div class="relleno" style="width: 65%;"></div></div>
-            <p>87</p>
-        </div>
-    </div>
-
-    <div class="grafica">
-        <div class="encabezado-grafica">
-            <h3>Ganancias por mes</h3>
-            <button>Ver más</button>
-        </div>
-
-        <div class="grafica-falsa">
-            Gráfica de ganancias
-        </div>
-    </div>
-
-    <div class="grafica">
-        <div class="encabezado-grafica">
-            <h3>Pérdidas por mes</h3>
-            <button>Ver más</button>
-        </div>
-
-        <div class="grafica-falsa">
-            Gráfica de pérdidas
-        </div>
-    </div>
 </section>
     <section class="ventas-recientes">
 
