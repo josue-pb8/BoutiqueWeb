@@ -1,0 +1,662 @@
+/* ==========================================================================
+   CONFIGURACIÓN GENERAL Y RESETEO DE NAVEGADOR
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Contenedor Grid Maestro */
+.dashboard-layout {
+    display: table;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ==========================================================================
+   SIDEBAR LATERAL IZQUIERDO (Diseño Limpio Blanco / Camel)
+   ========================================================================== */
+.sidebar {
+    display: table-cell;
+    width: 260px;
+    background-color: #ffffff;
+    vertical-align: top;
+    border-right: 1px solid #f0f0f0;
+    padding: 30px 20px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 45px;
+    padding-left: 5px;
+}
+
+.logo-icon {
+    color: #c5a97e;
+}
+
+.logo-icon .material-symbols-outlined {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.logo-container h2 {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #1e1b18;
+}
+
+.brand-gold {
+    color: #c5a97e;
+}
+
+/* Lista de Navegación del Menú */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #c5a97e; /* Fondo café claro de tus botones de menú */
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease;
+}
+
+.menu-item .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* Botón de la vista en la que estás actualmente */
+.menu-item.active {
+    background-color: #7d6445; /* Café oscuro original para el botón activo */
+}
+
+.menu-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(197, 169, 126, 0.3);
+}
+
+.btn-logout {
+    margin-top: 40px;
+    background-color: #c5a97e;
+}
+
+/* ==========================================================================
+   CONTENEDOR PRINCIPAL DERECHO Y TOP NAVBAR
+   ========================================================================== */
+.content-wrapper {
+    display: table-cell;
+    vertical-align: top;
+    background-color: #ffffff;
+}
+
+/* Barra superior blanca de estatus */
+.top-navbar {
+    height: 70px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1e1b18;
+}
+
+.role-indicator {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666666;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.icon-bell {
+    color: #1e1b18;
+    cursor: pointer;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.icon-avatar {
+    font-size: 26px;
+    color: #1e1b18;
+}
+
+.user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1b18;
+}
+
+/* ==========================================================================
+   ESPACIO DE TRABAJO (Fondo Café Arena Original)
+   ========================================================================== */
+.main-content {
+    background-color: #c5a97e; /* Color idéntico a tus imágenes de fondo */
+    min-height: calc(100vh - 70px);
+    padding: 40px;
+}
+
+/* Título e Input Superior */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: #000000;
+    letter-spacing: 0.5px;
+}
+
+.global-search-bar {
+    position: relative;
+    width: 320px;
+}
+
+.global-search-bar input {
+    width: 100%;
+    background-color: #e3d3bd;
+    border: none;
+    outline: none;
+    padding: 12px 45px 12px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333333;
+}
+
+.global-search-bar input::placeholder {
+    color: #6d5b43;
+}
+
+.global-search-bar .material-symbols-outlined {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1e1b18;
+}
+
+/* Fila de controles de Fecha y Botones principales */
+.controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 45px;
+}
+
+.input-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.date-capsule {
+    background-color: #e3d3bd;
+    padding: 12px 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1b18;
+}
+
+.action-buttons-group {
+    display: flex;
+    gap: 20px;
+}
+
+/* Botones en forma de cápsula blanca con texto negro */
+.btn-capsule-white {
+    background-color: #ffffff;
+    color: #1e1b18;
+    border: none;
+    outline: none;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: background 0.2s;
+}
+
+.btn-capsule-white:hover {
+    background-color: #f5f5f5;
+}
+
+/* Fila de Buscador Interno de Tabla y Selectores */
+.filters-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.internal-search-box {
+    position: relative;
+    width: 350px;
+}
+
+.internal-search-box input {
+    width: 100%;
+    background-color: #e3d3bd;
+    border: none;
+    outline: none;
+    padding: 14px 45px 14px 22px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1b18;
+}
+
+.internal-search-box input::placeholder {
+    color: #6d5b43;
+}
+
+.internal-search-box .material-symbols-outlined {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1e1b18;
+}
+
+.select-capsule {
+    position: relative;
+    width: 130px;
+}
+
+.select-capsule select {
+    width: 100%;
+    background-color: #ffffff;
+    border: none;
+    outline: none;
+    padding: 12px 35px 12px 20px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1b18;
+    appearance: none;
+    cursor: pointer;
+}
+
+.select-capsule .material-symbols-outlined {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #1e1b18;
+}
+
+/* ==========================================================================
+   TABLA DE INVENTARIO (Fondo de Filas Crema Claras)
+   ========================================================================== */
+.table-card-container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 6px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Encabezado rosa/crema de la tabla */
+.inventory-table th {
+    background-color: #f7e5df;
+    padding: 16px 20px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #1e1b18;
+    text-align: center;
+}
+
+/* Filas color crema/salmón ultra claro */
+.inventory-table td {
+    background-color: #fdf2ee;
+    padding: 14px 20px;
+    border-bottom: 2px solid #ffffff; /* Separadores de fila blancos */
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1b18;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-img-placeholder {
+    font-size: 24px;
+    color: #1e1b18;
+}
+
+/* Píldoras de Estado del Stock */
+.stock-pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pill-green { background-color: #d4efdf; color: #196f3d; }
+.pill-orange { background-color: #fdebd0; color: #b9770e; }
+.pill-red { background-color: #f9d5d3; color: #922b21; }
+
+/* Botones de acción dentro de la tabla */
+.btn-add-stock {
+    font-size: 24px;
+    color: #1e1b18;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.btn-add-stock:hover { transform: scale(1.15); }
+
+.btn-delete-row {
+    font-size: 24px;
+    color: #ff4d4d;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.btn-delete-row:hover { transform: scale(1.15); }
+
+/* Indicador de páginas inferiores en la tabla */
+.table-footer {
+    padding: 15px 25px;
+    background-color: #fdf2ee;
+}
+
+.view-indicator {
+    font-size: 13px;
+    font-weight: 700;
+    color: #6d5b43;
+}
+
+/* Paginación Externa */
+.pagination-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 30px;
+}
+
+.btn-page {
+    background-color: #ffffff;
+    color: #1e1b18;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.btn-page.active {
+    background-color: #ffffff;
+    border: 2px solid #1e1b18;
+}
+
+.page-dots {
+    font-weight: 800;
+    color: #ffffff;
+    padding: 0 4px;
+}
+
+/* ==========================================================================
+   VENTANA EMERGENTE (MODAL RECONSTRUIDO AL 100%)
+   ========================================================================== */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-window {
+    background-color: #ffffff;
+    width: 680px;
+    border-radius: 16px;
+    padding: 35px 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transform: translateY(-30px);
+    transition: transform 0.3s ease;
+}
+
+.modal-backdrop.active .modal-window {
+    transform: translateY(0);
+}
+
+.modal-header-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e1b18;
+    margin-bottom: 25px;
+}
+
+.modal-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.modal-field-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.modal-field-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e1b18;
+    margin-bottom: 8px;
+}
+
+.modal-field-group label .asterisk {
+    color: #ff5252;
+    margin-left: 2px;
+}
+
+.modal-field-group input, .modal-custom-select select {
+    background-color: #dbdbdb; /* Inputs grises idénticos a los de tu imagen */
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1b18;
+    width: 100%;
+}
+
+.modal-field-group input::placeholder {
+    color: #888888;
+}
+
+.modal-custom-select {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.modal-custom-select select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.modal-custom-select .material-symbols-outlined {
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    color: #1e1b18;
+}
+
+/* Caja gris para subir la fotografía del producto */
+.modal-dropzone-image {
+    background-color: #dbdbdb;
+    border-radius: 14px;
+    height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #777777;
+}
+
+.modal-dropzone-image p {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.modal-dropzone-image .material-symbols-outlined {
+    font-size: 32px;
+}
+
+/* Acciones inferiores de guardado y cancelación */
+.modal-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-modal-action {
+    border: none;
+    outline: none;
+    padding: 11px 26px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.btn-modal-action.btn-cancel {
+    background-color: #dbdbdb;
+    color: #555555;
+}
+
+.btn-modal-action.btn-submit {
+    background-color: #f27474; /* Color rojo coral exacto del botón Guardar */
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   ALERTA NOTIFICACIONES FLOTANTES (TOASTS)
+   ========================================================================== */
+.toast-wrapper {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 99999;
+}
+
+.toast-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 22px;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    min-width: 280px;
+    animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.toast-box.success { background-color: #2ed573; }
+.toast-box.danger { background-color: #ff4757; }
+.toast-box.info { background-color: #747d8c; }
+
+@keyframes slideInRight {
+    from { transform: translateX(120%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
+}
