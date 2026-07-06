@@ -1,0 +1,423 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Graper | Inventario</title>
+
+
+<link rel="stylesheet" href="../dashboardAdminVentas.css">
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="family">
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">layers</span>
+                </div>
+                <h2>BOUTIQUE <span class="brand-gold">GRAPER</span></h2>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item"><span class="material-symbols-outlined">home</span>Inicio</a>
+                <a href="#" class="menu-item"><span class="material-symbols-outlined">checkroom</span>Productos</a>
+                <a href="#" class="menu-item"><span class="material-symbols-outlined">sell</span>Ventas</a>
+                <a href="#" class="menu-item"><span class="material-symbols-outlined">group</span>Clientes</a>
+                <a href="#" class="menu-item"><span class="material-symbols-outlined">bar_chart</span>Estadísticas</a>
+                <a href="#" class="menu-item"><span class="material-symbols-outlined">percent</span>Descuentos</a>
+                <a href="#" class="menu-item active"><span class="material-symbols-outlined">inventory_2</span>Inventario</a>
+                <a href="#" class="menu-item btn-logout"><span class="material-symbols-outlined">logout</span>Cerrar Sesión</a>
+            </nav>
+        </aside>
+
+        <div class="content-wrapper">
+            
+            <header class="top-navbar">
+                <div class="navbar-left">
+                    <button class="btn-menu-toggle"><span class="material-symbols-outlined">menu</span></button>
+                    <span class="role-indicator">Administrador (Ventas)</span>
+                </div>
+                <div class="navbar-right">
+                    <span class="material-symbols-outlined icon-bell">notifications</span>
+                    <div class="user-profile">
+                        <span class="material-symbols-outlined icon-avatar">account_circle</span>
+                        <span class="user-name">Administrador</span>
+                        <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-content">
+                
+                <div class="section-header">
+                    <h1 class="main-title">INVENTARIO</h1>
+                    
+                    <div class="global-search-bar">
+                        <input type="text" placeholder="Buscar Ventas, Clientes, Productos...">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                </div>
+
+                <div class="controls-row">
+                    <div class="date-selector-wrapper">
+                        <label class="input-label">Fecha</label>
+                        <div class="date-capsule">
+                            <span class="material-symbols-outlined">calendar_today</span>
+                            <span>24/06/2026 - 24/07/2026</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons-group">
+                        <button class="btn-capsule-white" id="btnAbrirModal">
+                            <span class="material-symbols-outlined">add</span> NUEVO PRODUCTO
+                        </button>
+                        <button class="btn-capsule-white">
+                            <span class="material-symbols-outlined">bookmark</span> APARTADO
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filters-row">
+                    <div class="internal-search-box">
+                        <input type="text" placeholder="Consulta en el stock de productos...">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+
+                    <div class="dropdowns-group">
+                        <div class="filter-cell">
+                            <label class="input-label">Estado</label>
+                            <div class="select-capsule">
+                                <select id="filterEstado">
+                                    <option value="Todos">Todos</option>
+                                    <option value="Suficiente">Suficiente</option>
+                                    <option value="Alerta">Alerta</option>
+                                    <option value="Critico">Crítico</option>
+                                </select>
+                                <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-card-container">
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagen</th>
+                                <th>Stock Actual</th>
+                                <th>Stock Mínimo</th>
+                                <th>Agregar Stock</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#G81</td>
+                                <td><span class="material-symbols-outlined table-img-placeholder">image</span></td>
+                                <td><span class="stock-pill pill-green">80 Productos</span></td>
+                                <td>30</td>
+                                <td><span class="material-symbols-outlined btn-add-stock">add_box</span></td>
+                                <td><span class="material-symbols-outlined btn-delete-row">delete</span></td>
+                            </tr>
+                            <tr>
+                                <td>#HK21</td>
+                                <td><span class="material-symbols-outlined table-img-placeholder">image</span></td>
+                                <td><span class="stock-pill pill-orange">40 Productos</span></td>
+                                <td>30</td>
+                                <td><span class="material-symbols-outlined btn-add-stock">add_box</span></td>
+                                <td><span class="material-symbols-outlined btn-delete-row">delete</span></td>
+                            </tr>
+                            <tr>
+                                <td>#M1014</td>
+                                <td><span class="material-symbols-outlined table-img-placeholder">image</span></td>
+                                <td><span class="stock-pill pill-red">8 Productos</span></td>
+                                <td>20</td>
+                                <td><span class="material-symbols-outlined btn-add-stock">add_box</span></td>
+                                <td><span class="material-symbols-outlined btn-delete-row">delete</span></td>
+                            </tr>
+                            <tr>
+                                <td>#MP40</td>
+                                <td><span class="material-symbols-outlined table-img-placeholder">image</span></td>
+                                <td><span class="stock-pill pill-red">10 Productos</span></td>
+                                <td>20</td>
+                                <td><span class="material-symbols-outlined btn-add-stock">add_box</span></td>
+                                <td><span class="material-symbols-outlined btn-delete-row">delete</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="table-footer">
+                        <span class="view-indicator">Mostrando 1 a 4 de 30 vistas</span>
+                    </div>
+                </div>
+
+                <div class="pagination-container">
+                    <button class="btn-page"><span class="material-symbols-outlined">chevron_left</span></button>
+                    <button class="btn-page active">1</button>
+                    <button class="btn-page">2</button>
+                    <button class="btn-page">3</button>
+                    <span class="page-dots">...</span>
+                    <button class="btn-page">7</button>
+                    <button class="btn-page">8</button>
+                    <button class="btn-page"><span class="material-symbols-outlined">chevron_right</span></button>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="modalAgregarProducto">
+        <div class="modal-window">
+            <h2 class="modal-header-title">Agregar producto</h2>
+            
+            <form id="formNuevoProducto" autocomplete="off">
+                <div class="modal-layout-grid">
+                    
+                    <div class="modal-form-column">
+                        <div class="modal-field-group">
+                            <label>Nombre del Producto<span class="asterisk">*</span></label>
+                            <input type="text" id="regNombre" placeholder="Ej. Vestido Floral" required>
+                        </div>
+                        <div class="modal-field-group">
+                            <label>Codigo<span class="asterisk">*</span></label>
+                            <input type="text" id="regCodigo" placeholder="Ej. #003A" required>
+                        </div>
+                        <div class="modal-field-group">
+                            <label>Categoria<span class="asterisk">*</span></label>
+                            <div class="modal-custom-select">
+                                <select id="regCategoria" required>
+                                    <option value="" disabled selected hidden>Seleccionar categoria</option>
+                                    <option value="Vestidos">Vestidos</option>
+                                    <option value="Blusas">Blusas</option>
+                                    <option value="Jeans">Jeans</option>
+                                    <option value="Calzado">Calzado</option>
+                                </select>
+                                <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                            </div>
+                        </div>
+                        <div class="modal-field-group">
+                            <label>Precio<span class="asterisk">*</span></label>
+                            <input type="text" id="regPrecio" placeholder="$0.00" required>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-form-column">
+                        <div class="modal-field-group">
+                            <label>Stock Actual<span class="asterisk">*</span></label>
+                            <input type="number" id="regStock" placeholder="Ej. 10" min="0" required>
+                        </div>
+                        
+                        <div class="modal-field-group">
+                            <label>Imagen del Producto<span class="asterisk">*</span></label>
+                            <div class="modal-dropzone-image">
+                                <span class="material-symbols-outlined">add_a_photo</span>
+                                <p>Inserte su imagen</p>
+                            </div>
+                        </div>
+                        
+                        <div class="modal-form-actions">
+                            <button type="button" class="btn-modal-action btn-cancel" id="btnCerrarModal">Cancelar</button>
+                            <button type="submit" class="btn-modal-action btn-submit">Guardar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="notification-toast-container" class="toast-wrapper"></div>
+
+    <script>
+       
+
+
+
+        // Captura de elementos DOM básicos
+        const btnAbrirModal = document.getElementById('btnAbrirModal');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const modalBackdrop = document.getElementById('modalAgregarProducto');
+        const formNuevoProducto = document.getElementById('formNuevoProducto');
+        const inventoryTableBody = document.querySelector('.inventory-table tbody');
+        const toastWrapper = document.getElementById('notification-toast-container');
+
+        // NUEVOS ELEMENTOS CAPTURADOS
+        const filterEstado = document.getElementById('filterEstado');
+        const btnMenuToggle = document.querySelector('.btn-menu-toggle');
+        const sidebarElement = document.querySelector('.sidebar');
+        
+        // 1. ASIGNAR UN ID AL BOTÓN APARTADO DINÁMICAMENTE PARA DETECTARLO
+        const btnApartado = document.querySelector('.btn-capsule-white:not(#btnAbrirModal)');
+        if(btnApartado) btnApartado.id = "btnApartado";
+
+        // FUNCIÓN: Desplegar Toasts/Alertas
+        function lanzarAlerta(texto, tipo = 'success') {
+            const toast = document.createElement('div');
+            toast.classList.add('toast-box', tipo);
+            let iconName = tipo === 'danger' ? 'delete_sweep' : tipo === 'info' ? 'info' : 'check_circle';
+            toast.innerHTML = `<span class="material-symbols-outlined">${iconName}</span><span class="toast-txt">${texto}</span>`;
+            toastWrapper.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.4s ease forwards';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // CONTROL DE MENÚ LATERAL (Ocultar / Mostrar Sidebar)
+        if (btnMenuToggle && sidebarElement) {
+            btnMenuToggle.addEventListener('click', () => {
+                if (sidebarElement.style.display === 'none') {
+                    sidebarElement.style.display = 'table-cell';
+                    lanzarAlerta('Menú expandido', 'info');
+                } else {
+                    sidebarElement.style.display = 'none';
+                    lanzarAlerta('Menú colapsado para mayor espacio', 'info');
+                }
+            });
+        }
+
+        // ACCIÓN DEL BOTÓN APARTADO
+        if (btnApartado) {
+            btnApartado.addEventListener('click', () => {
+                lanzarAlerta('Cargando el módulo de prendas apartadas...', 'info');
+                // Aquí en un futuro puedes redireccionar a otra página: window.location.href = "apartados.html";
+            });
+        }
+
+        // LÓGICA INTELIGENTE DEL FILTRO DE ESTADO (Suficiente, Alerta, Crítico)
+        if (filterEstado) {
+            filterEstado.addEventListener('change', (e) => {
+                const opcionSeleccionada = e.target.value; // "Todos", "Suficiente", "Alerta" o "Critico"
+                const filasTabla = document.querySelectorAll('.inventory-table tbody tr');
+
+                filasTabla.forEach(fila => {
+                    const pastillaStock = fila.querySelector('.stock-pill');
+                    if (!pastillaStock) return;
+
+                    // Validar correspondencia de clases CSS
+                    const esVerde = pastillaStock.classList.contains('pill-green');
+                    const esNaranja = pastillaStock.classList.contains('pill-orange');
+                    const esRojo = pastillaStock.classList.contains('pill-red');
+
+                    if (opcionSeleccionada === 'Todos') {
+                        fila.style.display = ''; // Muestra la fila
+                    } else if (opcionSeleccionada === 'Suficiente' && esVerde) {
+                        fila.style.display = '';
+                    } else if (opcionSeleccionada === 'Alerta' && esNaranja) {
+                        fila.style.display = '';
+                    } else if (opcionSeleccionada === 'Critico' && esRojo) {
+                        fila.style.display = '';
+                    } else {
+                        fila.style.display = 'none'; // Oculta la fila si no coincide con el filtro
+                    }
+                });
+
+                lanzarAlerta(`Filtrando por estado: ${opcionSeleccionada}`, 'info');
+            });
+        }
+
+        // CONTROL DE MODAL (Apertura y cierre)
+        if (btnAbrirModal) btnAbrirModal.addEventListener('click', () => modalBackdrop.classList.add('active'));
+        btnCerrarModal.addEventListener('click', () => {
+            formNuevoProducto.reset();
+            modalBackdrop.classList.remove('active');
+            lanzarAlerta('Operación cancelada', 'info');
+        });
+
+        // CREAR PRODUCTO NUEVO
+        formNuevoProducto.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const codigoVal = document.getElementById('regCodigo').value.trim();
+            const stockVal = parseInt(document.getElementById('regStock').value) || 0;
+            const minStockDefault = 20;
+
+            let pillClass = 'pill-green';
+            if (stockVal <= 10) pillClass = 'pill-red';
+            else if (stockVal <= minStockDefault) pillClass = 'pill-orange';
+
+            const codigoFormateado = codigoVal.startsWith('#') ? codigoVal : '#' + codigoVal;
+
+            const nuevaFilaTr = document.createElement('tr');
+            nuevaFilaTr.innerHTML = `
+                <td>${codigoFormateado}</td>
+                <td><span class="material-symbols-outlined table-img-placeholder">image</span></td>
+                <td><span class="stock-pill ${pillClass}">${stockVal} Productos</span></td>
+                <td>${minStockDefault}</td>
+                <td><span class="material-symbols-outlined btn-add-stock">add_box</span></td>
+                <td><span class="material-symbols-outlined btn-delete-row">delete</span></td>
+            `;
+
+            conectarOperacionesFila(nuevaFilaTr, codigoFormateado);
+            inventoryTableBody.insertBefore(nuevaFilaTr, inventoryTableBody.firstChild);
+
+            formNuevoProducto.reset();
+            modalBackdrop.classList.remove('active');
+            lanzarAlerta(`Producto ${codigoFormateado} registrado`, 'success');
+            
+            // Volver a aplicar el filtro actual por si acaso
+            filterEstado.dispatchEvent(new Event('change'));
+        });
+
+        // FUNCIONES DE FILA (Sumar Stock / Eliminar)
+        function conectarOperacionesFila(filaElemento, codigoID) {
+            filaElemento.querySelector('.btn-delete-row').addEventListener('click', () => {
+                filaElemento.remove();
+                lanzarAlerta(`Producto ${codigoID} eliminado`, 'danger');
+            });
+
+            filaElemento.querySelector('.btn-add-stock').addEventListener('click', () => {
+                const stockPill = filaElemento.querySelector('.stock-pill');
+                let numeroStock = parseInt(stockPill.textContent) || 0;
+                numeroStock += 1;
+                stockPill.textContent = `${numeroStock} Productos`;
+
+                if (numeroStock > 20) stockPill.className = 'stock-pill pill-green';
+                else if (numeroStock > 10) stockPill.className = 'stock-pill pill-orange';
+                else stockPill.className = 'stock-pill pill-red';
+
+                lanzarAlerta(`Stock +1 para ${codigoID}`, 'success');
+                
+                // Re-filtrar en vivo tras el cambio de stock
+                filterEstado.dispatchEvent(new Event('change'));
+            });
+        }
+
+        // Inicializar filas existentes
+        document.querySelectorAll('.inventory-table tbody tr').forEach(row => {
+            const codigoFijo = row.querySelector('td:first-child').textContent;
+            conectarOperacionesFila(row, codigoFijo);
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
