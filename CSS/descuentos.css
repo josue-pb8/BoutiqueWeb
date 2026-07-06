@@ -1,0 +1,236 @@
+/* Configuración general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+/* Barra lateral */
+.Menu-Lateral {
+    width: 250px;
+    height: 100vh;
+    background-color: #D4AF37;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 2px solid #D4AF37;
+}
+
+/* Logo */
+.logo {
+    text-align: center;
+    padding: 20px;
+}
+
+.logo img {
+    width: 100px;
+    height: 100px;
+}
+
+.logo h1 {
+    font-size: 30px;
+    color: #000;
+    margin-top: 10px;
+}
+
+/* Menú lateral */
+.Menu-Lateral ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.Menu-Lateral li {
+    margin: 15px 0;
+}
+
+.Menu-Lateral a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+}
+
+.Menu-Lateral ul img {
+    width: 22px;
+    height: 22px;
+}
+
+.Menu-Lateral a:hover,
+.Menu-Lateral a.activo {
+    background-color: #c1baa5;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Cerrar sesión */
+.cerrar {
+    margin-top: 40px;
+}
+
+.cerrar a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+}
+
+.cerrar img {
+    width: 22px;
+    height: 22px;
+}
+
+.cerrar a:hover {
+    background-color: #c1baa5;
+    color: white;
+    border-radius: 8px;
+}
+
+/* Contenido principal */
+main {
+    margin-left: 250px;
+}
+
+/* Header superior */
+header {
+    width: 100%;
+    height: 70px;
+    background: #D4AF37;
+}
+
+.menu-superior {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+}
+
+.menu-superior button {
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.lado-derecho {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 15px;
+}
+
+/* Buscador */
+.buscador {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 0 10px;
+    background-color: white;
+}
+
+.buscador img {
+    width: 18px;
+    height: 18px;
+}
+
+.buscador input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+}
+
+/* Administrador */
+.administrador {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.administrador img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Sección inicio */
+.inicio {
+    padding: 30px;
+}
+
+.inicio h1 {
+    font-size: 32px;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.inicio > p {
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* Tarjetas */
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.tarjeta1,
+.tarjeta2,
+.tarjeta3,
+.tarjeta4 {
+    background-color: #fff;
+    border: 1px solid #e0d6b0;
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.icono {
+    width: 55px;
+    height: 55px;
+    background-color: #f3e6b3;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icono img {
+    width: 28px;
+    height: 28px;
+}
+
+.informacion h3 {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.informacion h2 {
+    font-size: 28px;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.informacion p {
+    font-size: 14px;
+    color: #777;
+}
