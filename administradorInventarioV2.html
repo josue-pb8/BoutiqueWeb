@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Graper | Dashboard Admin</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../CSS/administradorInventario2.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+    
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <span class="material-symbols-outlined logo-icon">layers</span>
+            <div class="logo-text">
+                <h2>BOUTIQUE</h2>
+                <span>GRAPER</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="#" class="menu-item"><span class="material-symbols-outlined">home</span><span class="menu-text">Inicio</span></a>
+            <a href="#" class="menu-item active"><span class="material-symbols-outlined">inventory_2</span><span class="menu-text">Inventario</span></a>
+            <a href="#" class="menu-item"><span class="material-symbols-outlined">checkroom</span><span class="menu-text">Productos</span></a>
+            <a href="#" class="menu-item"><span class="material-symbols-outlined">sell</span><span class="menu-text">Ventas</span></a>
+            <a href="#" class="menu-item"><span class="material-symbols-outlined">group</span><span class="menu-text">Clientes</span></a>
+            <a href="#" class="menu-item"><span class="material-symbols-outlined">bar_chart</span><span class="menu-text">Estadísticas</span></a>
+            <a href="#" class="menu-item"><span class="material-symbols-outlined">percent</span><span class="menu-text">Descuentos</span></a>
+            <div class="sidebar-spacer"></div>
+            <a href="#" class="menu-item btn-logout"><span class="material-symbols-outlined">logout</span><span class="menu-text">Cerrar Sesión</span></a>
+        </nav>
+    </aside>
+
+    <main class="main-container">
+        
+        <header class="top-navbar">
+            <div class="navbar-left">
+                <span class="material-symbols-outlined menu-toggle" id="btnMenuToggle">menu</span>
+                <span class="welcome-text">.</span>
+            </div>
+            <div class="navbar-right">
+                <div class="search-box-top">
+                    <input type="text" placeholder="Buscar productos, SKUs...">
+                    <span class="material-symbols-outlined">search</span>
+                </div>
+                <div class="date-badge-top">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <span>24/06/2026 - 24/07/2026</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="view-body-scrollable">
+            
+            <div class="dashboard-title-row">
+                <h1 class="view-title">BIENVENIDO, Administrador!</h1>
+                <button class="btn-primary-action" id="btnAbrirModal">
+                    <span class="material-symbols-outlined">add</span> NUEVO PRODUCTO
+                </button>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">SKU Activos</span>
+                    <h3 class="metric-value" id="countSkus">5 <span class="metric-unit">productos</span></h3>
+                    <span class="metric-trend trend-up">+2.5% vs mes ant.</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Total Stock</span>
+                    <h3 class="metric-value" id="countTotalStock">50 <span class="metric-unit">unidades</span></h3>
+                    <span class="metric-trend trend-down">-1.2% vs mes ant.</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Valor Inventario</span>
+                    <h3 class="metric-value" id="countValorInventario">$0.00 <span class="metric-unit">MXN</span></h3>
+                    <span class="metric-trend trend-up">+0.8% vs mes ant.</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Alertas de Stock</span>
+                    <h3 class="metric-value" id="countAlerts">2 <span class="metric-unit">mínimos</span></h3>
+                    <span class="metric-trend trend-down-alert">+3 Alertas vs mes ant.</span>
+                </div>
+            </div>
+
+            <div class="dashboard-middle-grid">
+                <div class="info-panel-card interactive-panel">
+                    <h2 class="panel-title">Alertas de Stock (<span id="alertCountBadge">2</span>)</h2>
+                    <div class="panel-content-list" id="listaAlertas">
+                        <div class="alert-item-row pink-bg" id="alert-#TF12">
+                            <div class="item-details">
+                                <span class="item-name">Top Floral</span>
+                                <span class="item-sub">#TF12 • Mín. 15</span>
+                            </div>
+                            <span class="item-badge-qty text-red" id="alertQty-#TF12">5 un.</span>
+                        </div>
+                        <div class="alert-item-row orange-bg" id="alert-#BS40">
+                            <div class="item-details">
+                                <span class="item-name">Blusa Seda</span>
+                                <span class="item-sub">#BS40 • Mín. 10</span>
+                            </div>
+                            <span class="item-badge-qty text-orange" id="alertQty-#BS40">8 un.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-panel-card interactive-panel">
+                    <h2 class="panel-title">Movimientos Recientes</h2>
+                    <div class="panel-content-list" id="listaMovimientos">
+                        <div class="movement-item-row">
+                            <div class="movement-left">
+                                <span class="status-dot dot-green"></span>
+                                <span class="movement-text">Inicialización del Sistema con 5 Categorías</span>
+                            </div>
+                            <span class="movement-author">System</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-panel-card interactive-panel" style="overflow-y: auto;">
+                    <h2 class="panel-title">Stock por Categoría</h2>
+                    <div class="category-bars-list">
+                        <div class="category-bar-item">
+                            <div class="category-bar-info"><span class="cat-name">Vestidos</span><span class="cat-qty" id="catQtyVestidos">12 un.</span></div>
+                            <div class="progress-track"><div class="progress-fill bar-brown" id="barVestidos" style="width: 30%;"></div></div>
+                        </div>
+                        <div class="category-bar-item">
+                            <div class="category-bar-info"><span class="cat-name">Blusas</span><span class="cat-qty" id="catQtyBlusas">8 un.</span></div>
+                            <div class="progress-track"><div class="progress-fill bar-brown" id="barBlusas" style="width: 20%;"></div></div>
+                        </div>
+                        <div class="category-bar-item">
+                            <div class="category-bar-info"><span class="cat-name">Tops</span><span class="cat-qty" id="catQtyTops">5 un.</span></div>
+                            <div class="progress-track"><div class="progress-fill bar-brown" id="barTops" style="width: 12%;"></div></div>
+                        </div>
+                        <div class="category-bar-item">
+                            <div class="category-bar-info"><span class="cat-name">Jeans / Pantalones</span><span class="cat-qty" id="catQtyJeans">15 un.</span></div>
+                            <div class="progress-track"><div class="progress-fill bar-brown" id="barJeans" style="width: 40%;"></div></div>
+                        </div>
+                        <div class="category-bar-item">
+                            <div class="category-bar-info"><span class="cat-name">Accesorios</span><span class="cat-qty" id="catQtyAccesorios">10 un.</span></div>
+                            <div class="progress-track"><div class="progress-fill bar-brown" id="barAccesorios" style="width: 25%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-card-wrapper">
+                <div class="table-card-header">
+                    <h2 class="table-card-title">Resumen de Inventario General</h2>
+                    <button class="btn-text-link">Ver más productos</button>
+                </div>
+                <div class="table-responsive-container">
+                    <table class="dashboard-summary-table" id="tablaInventario">
+                        <thead>
+                            <tr>
+                                <th>ID SKU</th>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio Unitario</th>
+                                <th>Stock Actual</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-sku="#VD12" data-category="Vestidos" data-price="45.00">
+                                <td>#VD12</td>
+                                <td class="prod-name">Vestido Largo Fiesta</td>
+                                <td>Vestidos</td>
+                                <td>$45.00 MXN</td>
+                                <td><span class="status-pill-qty pill-green">12 un.</span></td>
+                                <td>
+                                    <div class="action-buttons-cell">
+                                        <button class="btn-table-action btn-add"><span class="material-symbols-outlined">add</span></button>
+                                        <button class="btn-table-action btn-delete"><span class="material-symbols-outlined">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-sku="#BS40" data-category="Blusas" data-price="32.50">
+                                <td>#BS40</td>
+                                <td class="prod-name">Blusa Seda</td>
+                                <td>Blusas</td>
+                                <td>$32.50 MXN</td>
+                                <td><span class="status-pill-qty pill-orange">8 un.</span></td>
+                                <td>
+                                    <div class="action-buttons-cell">
+                                        <button class="btn-table-action btn-add"><span class="material-symbols-outlined">add</span></button>
+                                        <button class="btn-table-action btn-delete"><span class="material-symbols-outlined">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-sku="#TF12" data-category="Tops" data-price="18.00">
+                                <td>#TF12</td>
+                                <td class="prod-name">Top Floral</td>
+                                <td>Tops</td>
+                                <td>$18.00 MXN</td>
+                                <td><span class="status-pill-qty pill-red">5 un.</span></td>
+                                <td>
+                                    <div class="action-buttons-cell">
+                                        <button class="btn-table-action btn-add"><span class="material-symbols-outlined">add</span></button>
+                                        <button class="btn-table-action btn-delete"><span class="material-symbols-outlined">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-sku="#JN88" data-category="Jeans" data-price="50.00">
+                                <td>#JN88</td>
+                                <td class="prod-name">Jeans Denim Slim</td>
+                                <td>Jeans / Pantalones</td>
+                                <td>$50.00 MXN</td>
+                                <td><span class="status-pill-qty pill-green">15 un.</span></td>
+                                <td>
+                                    <div class="action-buttons-cell">
+                                        <button class="btn-table-action btn-add"><span class="material-symbols-outlined">add</span></button>
+                                        <button class="btn-table-action btn-delete"><span class="material-symbols-outlined">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-sku="#AC05" data-category="Accesorios" data-price="15.00">
+                                <td>#AC05</td>
+                                <td class="prod-name">Cinturón Cuero Café</td>
+                                <td>Accesorios</td>
+                                <td>$15.00 MXN</td>
+                                <td><span class="status-pill-qty pill-green">10 un.</span></td>
+                                <td>
+                                    <div class="action-buttons-cell">
+                                        <button class="btn-table-action btn-add"><span class="material-symbols-outlined">add</span></button>
+                                        <button class="btn-table-action btn-delete"><span class="material-symbols-outlined">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<div class="toast-wrapper" id="toastContainer"></div>
+
+<div class="modal-backdrop" id="modalNuevoProducto">
+    <div class="modal-card">
+        <h2 class="modal-title">Registrar Nuevo Producto</h2>
+        <form id="formRegistrar">
+            <div class="form-group">
+                <label>Código SKU</label>
+                <input type="text" id="inSku" placeholder="Ej: #VD88" required>
+            </div>
+            <div class="form-group">
+                <label>Nombre del Producto</label>
+                <input type="text" id="inNombre" placeholder="Ej: Crop Top Encaje" required>
+            </div>
+            <div class="form-group">
+                <label>Categoría</label>
+                <select id="inCategoria" required>
+                    <option value="Vestidos">Vestidos</option>
+                    <option value="Blusas">Blusas</option>
+                    <option value="Tops">Tops</option>
+                    <option value="Jeans">Jeans / Pantalones</option>
+                    <option value="Accesorios">Accesorios</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Precio Unitario ($ MXN)</label>
+                <input type="number" id="inPrecio" step="0.01" min="0.1" placeholder="Ej: 29.99" required>
+            </div>
+            <div class="form-group">
+                <label>Stock Inicial</label>
+                <input type="number" id="inStock" min="1" placeholder="Ej: 20" required>
+            </div>
+            <div class="modal-buttons-row">
+                <button type="button" class="btn-modal-action btn-cancel" id="btnCerrarModal">Cancelar</button>
+                <button type="submit" class="btn-modal-action btn-submit">Guardar Producto</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const toastContainer = document.getElementById('toastContainer');
+
+    function lanzarToast(mensaje, tipo = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast-box ${tipo}`;
+        toast.innerHTML = `<span class="material-symbols-outlined toast-icon">${tipo === 'success' ? 'check_circle' : 'info'}</span><span class="toast-text">${mensaje}</span>`;
+        toastContainer.appendChild(toast);
+        setTimeout(() => { toast.style.animation = 'fadeOut 0.3s forwards'; setTimeout(() => toast.remove(), 300); }, 3000);
+    }
+
+    function agregarMovimiento(descripcion) {
+        const lista = document.getElementById('listaMovimientos');
+        const fila = document.createElement('div');
+        fila.className = 'movement-item-row';
+        fila.innerHTML = `<div class="movement-left"><span class="status-dot dot-green"></span><span class="movement-text">${descripcion}</span></div><span class="movement-author">Admin</span>`;
+        lista.insertBefore(fila, lista.firstChild);
+    }
+
+    function recalcularTodo() {
+        const filas = document.querySelectorAll('#tablaInventario tbody tr');
+        document.getElementById('countSkus').innerHTML = `${filas.length} <span class="metric-unit">productos</span>`;
+        
+        let totalStock = 0;
+        let valorInventarioTotal = 0;
+        let alertasActivas = 0;
+
+        // Variables de conteo para 5 categorías independientes
+        let catStocks = { Vestidos: 0, Blusas: 0, Tops: 0, Jeans: 0, Accesorios: 0 };
+
+        filas.forEach(fila => {
+            const sku = fila.getAttribute('data-sku');
+            const cat = fila.getAttribute('data-category');
+            const precio = parseFloat(fila.getAttribute('data-price')) || 0;
+            const pill = fila.querySelector('.status-pill-qty');
+            const qty = parseInt(pill.innerText) || 0;
+
+            totalStock += qty;
+            valorInventarioTotal += (qty * precio); // Multiplicación Matemática Real
+
+            if(catStocks.hasOwnProperty(cat)) {
+                catStocks[cat] += qty;
+            }
+
+            // Regla lógica de alertas
+            const alertaRow = document.getElementById(`alert-${sku}`);
+            let minUmbral = (sku === '#TF12') ? 15 : ((sku === '#BS40') ? 10 : 12);
+            
+            if (qty < minUmbral) {
+                alertasActivas++;
+                if(alertaRow) {
+                    alertaRow.style.display = 'flex';
+                    const qBadge = document.getElementById(`alertQty-${sku}`);
+                    if(qBadge) qBadge.innerText = `${qty} un.`;
+                }
+            } else {
+                if(alertaRow) alertaRow.style.display = 'none';
+            }
+        });
+
+        // Escribir resultados en las tarjetas superiores
+        document.getElementById('countTotalStock').innerHTML = `${totalStock} <span class="metric-unit">unidades</span>`;
+        document.getElementById('countValorInventario').innerHTML = `$${valorInventarioTotal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} <span class="metric-unit">MXN</span>`;
+        document.getElementById('countAlerts').innerHTML = `${alertasActivas} <span class="metric-unit">mínimos</span>`;
+        document.getElementById('alertCountBadge').innerText = alertasActivas;
+
+        // Renderizar las 5 barras de progreso
+        document.getElementById('catQtyVestidos').innerText = `${catStocks.Vestidos} un.`;
+        document.getElementById('barVestidos').style.width = `${Math.min(catStocks.Vestidos * 4, 100)}%`;
+        
+        document.getElementById('catQtyBlusas').innerText = `${catStocks.Blusas} un.`;
+        document.getElementById('barBlusas').style.width = `${Math.min(catStocks.Blusas * 4, 100)}%`;
+
+        document.getElementById('catQtyTops').innerText = `${catStocks.Tops} un.`;
+        document.getElementById('barTops').style.width = `${Math.min(catStocks.Tops * 4, 100)}%`;
+
+        document.getElementById('catQtyJeans').innerText = `${catStocks.Jeans} un.`;
+        document.getElementById('barJeans').style.width = `${Math.min(catStocks.Jeans * 4, 100)}%`;
+
+        document.getElementById('catQtyAccesorios').innerText = `${catStocks.Accesorios} un.`;
+        document.getElementById('barAccesorios').style.width = `${Math.min(catStocks.Accesorios * 4, 100)}%`;
+    }
+
+    // MENÚ DESPLEGABLE SIDEBAR
+    document.getElementById('btnMenuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+    });
+
+    // CONTROLADORES INTERACTIVOS DE LA TABLA
+    document.getElementById('tablaInventario').addEventListener('click', (e) => {
+        const botonAdd = e.target.closest('.btn-add');
+        const botonDelete = e.target.closest('.btn-delete');
+
+        if (botonAdd) {
+            const fila = botonAdd.closest('tr');
+            const sku = fila.getAttribute('data-sku');
+            const nombre = fila.querySelector('.prod-name').innerText;
+            const pill = fila.querySelector('.status-pill-qty');
+            let num = parseInt(pill.innerText);
+            
+            num += 1;
+            pill.innerText = num + " un.";
+            
+            let minUmbral = (sku === '#TF12') ? 15 : ((sku === '#BS40') ? 10 : 12);
+            if(num >= minUmbral) {
+                pill.className = "status-pill-qty pill-green";
+            } else if (num >= minUmbral / 2) {
+                pill.className = "status-pill-qty pill-orange";
+            }
+
+            lanzarToast(`Stock incrementado para ${nombre}`, 'success');
+            agregarMovimiento(`Aumento de inventario de ${sku} (+1 un.)`);
+            recalcularTodo();
+        }
+
+        if (botonDelete) {
+            const fila = botonDelete.closest('tr');
+            const sku = fila.getAttribute('data-sku');
+            const nombre = fila.querySelector('.prod-name').innerText;
+            
+            fila.remove();
+            
+            const alertaRow = document.getElementById(`alert-${sku}`);
+            if(alertaRow) alertaRow.remove();
+
+            lanzarToast(`Producto ${nombre} eliminado de la base de datos`, 'info');
+            agregarMovimiento(`Eliminación completa de SKU ${sku}`);
+            recalcularTodo();
+        }
+    });
+
+    // MANEJO DEL MODAL CON INGRESO DE PRECIOS
+    const modal = document.getElementById('modalNuevoProducto');
+    document.getElementById('btnAbrirModal').addEventListener('click', () => modal.classList.add('active'));
+    document.getElementById('btnCerrarModal').addEventListener('click', () => modal.classList.remove('active'));
+
+    document.getElementById('formRegistrar').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const sku = document.getElementById('inSku').value;
+        const nombre = document.getElementById('inNombre').value;
+        const cat = document.getElementById('inCategoria').value;
+        const precio = parseFloat(document.getElementById('inPrecio').value).toFixed(2);
+        const stock = parseInt(document.getElementById('inStock').value);
+
+        const tbody = document.querySelector('#tablaInventario tbody');
+        const nuevaFila = document.createElement('tr');
+        nuevaFila.setAttribute('data-sku', sku);
+        nuevaFila.setAttribute('data-category', cat);
+        nuevaFila.setAttribute('data-price', precio);
+        
+        let labelCat = cat === 'Jeans' ? 'Jeans / Pantalones' : cat;
+        let clasePill = stock < 12 ? "pill-orange" : "pill-green";
+
+        nuevaFila.innerHTML = `
+            <td>${sku}</td>
+            <td class="prod-name">${nombre}</td>
+            <td>${labelCat}</td>
+            <td>$${precio} USD</td>
+            <td><span class="status-pill-qty ${clasePill}">${stock} un.</span></td>
+            <td>
+                <div class="action-buttons-cell">
+                    <button class="btn-table-action btn-add"><span class="material-symbols-outlined">add</span></button>
+                    <button class="btn-table-action btn-delete"><span class="material-symbols-outlined">delete</span></button>
+                </div>
+            </td>
+        `;
+        tbody.appendChild(nuevaFila);
+
+        if (stock < 12) {
+            const listaAlertas = document.getElementById('listaAlertas');
+            const nuevaAlerta = document.createElement('div');
+            nuevaAlerta.className = "alert-item-row pink-bg";
+            nuevaAlerta.id = `alert-${sku}`;
+            nuevaAlerta.innerHTML = `
+                <div class="item-details"><span class="item-name">${nombre}</span><span class="item-sub">${sku} • Mín. 12</span></div>
+                <span class="item-badge-qty text-red" id="alertQty-${sku}">${stock} un.</span>
+            `;
+            listaAlertas.appendChild(nuevaAlerta);
+        }
+
+        lanzarToast(`Producto guardado: ${nombre}`, 'success');
+        agregarMovimiento(`Nuevo producto: ${sku} a un precio de $${precio}`);
+        recalcularTodo();
+
+        document.getElementById('formRegistrar').reset();
+        modal.classList.remove('active');
+    });
+
+    // EJECUCIÓN INICIAL AUTOMÁTICA AL CARGAR
+    window.onload = recalcularTodo;
+</script>
+
+</body>
+</html>
