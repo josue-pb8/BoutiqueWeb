@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Graper | Dashboard Estadísticas</title>
+    <!-- Vinculación a tu nuevo archivo CSS de estadísticas -->
+
+
+<link rel="stylesheet" href="../css/vista3Graficas.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Iconografía base para controles interactivos -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+
+<div class="dashboard-layout">
+    
+    <!-- BARRA LATERAL (Con íconos PNG locales de tu equipo) -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-container">
+            <img src="../Image/logotipo.jpg" alt="Logo" class="logo-img-team" onerror="this.style.display='none'">
+            <div class="logo-text">
+                <h2>BOUTIQUE</h2>
+                <span>GRAPER</span>
+            </div>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="#" class="menu-item">
+                <img src="../Image/inicio.png" alt="Inicio" class="menu-icon-png">
+                <span class="menu-text">Inicio</span>
+            </a>
+            <a href="administradorInventario2.html" class="menu-item">
+                <img src="../Image/inventario.png" alt="Inventario" class="menu-icon-png">
+                <span class="menu-text">Inventario</span>
+            </a>
+            <a href="#" class="menu-item">
+                <img src="../Image/productos.png" alt="Productos" class="menu-icon-png">
+                <span class="menu-text">Productos</span>
+            </a>
+            <a href="vista3Graficas.html" class="menu-item">
+                <img src="../Image/ventas.png" alt="Ventas" class="menu-icon-png">
+                <span class="menu-text">Ventas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <img src="../Image/cliente.png" alt="Clientes" class="menu-icon-png">
+                <span class="menu-text">Clientes</span>
+            </a>
+            <!-- ESTADÍSTICAS COMO PESTAÑA ACTIVA -->
+            <a href="#" class="menu-item active">
+                <img src="../Image/estadisticas.png" alt="Estadísticas" class="menu-icon-png">
+                <span class="menu-text">Estadísticas</span>
+            </a>
+            <a href="#" class="menu-item">
+                <img src="../Image/descuento.png" alt="Descuentos" class="menu-icon-png">
+                <span class="menu-text">Descuentos</span>
+            </a>
+            <div class="sidebar-spacer"></div>
+            <a href="#" class="menu-item btn-logout">
+                <img src="../Image/cerrarSesion.png" alt="Cerrar" class="menu-icon-png">
+                <span class="menu-text">Cerrar Sesión</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="main-container">
+        
+        <!-- BARRA SUPERIOR -->
+        <header class="top-navbar">
+            <div class="navbar-left">
+                <span class="material-symbols-outlined menu-toggle" id="btnMenuToggle">menu</span>
+                <span class="welcome-text">BIENVENIDO, Administrador!</span>
+            </div>
+            <div class="navbar-right">
+                <div class="search-box-top">
+                    <input type="text" placeholder="Buscar transacción o reporte...">
+                    <span class="material-symbols-outlined">search</span>
+                </div>
+                <div class="date-badge-top">
+                    <span class="material-symbols-outlined">calendar_today</span>
+                    <span>20 de mayo - 20 de junio, 2026</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- CUERPO DE LA VISTA (SCROLL GENERAL) -->
+        <div class="view-body-scrollable">
+            
+            <div class="dashboard-title-row">
+                <h1 class="view-title">ESTADÍSTICAS DEL NEGOCIO</h1>
+                <button class="btn-primary-action" onclick="alert('Exportando reporte consolidado...')">
+                    <span class="material-symbols-outlined">download</span> EXPORTAR REPORTE
+                </button>
+            </div>
+
+            <!-- METRICAS / TARJETAS DE KPI PRINCIPALES -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Ventas Totales</span>
+                    <h3 class="metric-value">$124,850.00 <span class="metric-unit">USD</span></h3>
+                    <span class="metric-trend trend-up">↑ 18% vs periodo anterior</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Ganancias Netas</span>
+                    <h3 class="metric-value">$48,230.00 <span class="metric-unit">USD</span></h3>
+                    <span class="metric-trend trend-up">↑ 22% vs periodo anterior</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Número de Ventas</span>
+                    <h3 class="metric-value">356 <span class="metric-unit">transacciones</span></h3>
+                    <span class="metric-trend trend-up">↑ 12% vs periodo anterior</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Clientes Nuevos</span>
+                    <h3 class="metric-value">86 <span class="metric-unit">registros</span></h3>
+                    <span class="metric-trend trend-up">↑ 18% vs periodo anterior</span>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE GRÁFICOS PRINCIPALES -->
+            <div class="charts-main-container">
+                
+                <!-- Gráfico de Ventas por Mes -->
+                <div class="chart-card wide-chart">
+                    <div class="chart-header">
+                        <h4 class="chart-title">Ventas por Mes</h4>
+                        <span class="chart-subtitle">Este año</span>
+                    </div>
+                    <div class="bar-chart-monthly-mock">
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 35%;"></div><span class="bar-label">Ene</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 42%;"></div><span class="bar-label">Feb</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 50%;"></div><span class="bar-label">Mar</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 48%;"></div><span class="bar-label">Abr</span></div>
+                        <div class="chart-bar-wrapper Highlight-bar"><div class="bar-fill" style="height: 95%;"></div><span class="bar-label">May ($98.4K)</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 65%;"></div><span class="bar-label">Jun</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 60%;"></div><span class="bar-label">Jul</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 55%;"></div><span class="bar-label">Ago</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 70%;"></div><span class="bar-label">Sep</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 75%;"></div><span class="bar-label">Oct</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 80%;"></div><span class="bar-label">Nov</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill" style="height: 88%;"></div><span class="bar-label">Dic</span></div>
+                    </div>
+                </div>
+
+                <!-- Desglose Lateral Derecho -->
+                <div class="charts-side-column">
+                    <!-- Ventas por Categoría -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h4 class="chart-title">Ventas por Categoría</h4>
+                            <span class="chart-subtitle">Este mes</span>
+                        </div>
+                        <div class="category-list-progress">
+                            <div class="progress-item">
+                                <div class="progress-labels"><span>Ropa (45%)</span><span class="font-bold">$56,182.50</span></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill fill-tan" style="width: 45%;"></div></div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-labels"><span>Perfumes (30%)</span><span class="font-bold">$37,425.00</span></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill fill-tan" style="width: 30%;"></div></div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-labels"><span>Maquillaje (15%)</span><span class="font-bold">$18,727.50</span></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill fill-tan" style="width: 15%;"></div></div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-labels"><span>Accesorios (10%)</span><span class="font-bold">$12,515.00</span></div>
+                                <div class="progress-bar-bg"><div class="progress-bar-fill fill-tan" style="width: 10%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SECCIÓN SECUNDARIA DE GRÁFICOS -->
+            <div class="charts-secondary-grid">
+                <!-- Productos Más Vendidos -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4 class="chart-title">Productos Más Vendidos</h4>
+                        <span class="chart-subtitle">Unidades vendidas este mes</span>
+                    </div>
+                    <div class="horizontal-bars-container">
+                        <div class="h-bar-row">
+                            <span class="h-bar-name">Perfume Rose</span>
+                            <div class="h-bar-bg"><div class="h-bar-fill" style="width: 92%;"></div></div>
+                            <span class="h-bar-qty">120 u.</span>
+                        </div>
+                        <div class="h-bar-row">
+                            <span class="h-bar-name">Vestido Floral</span>
+                            <div class="h-bar-bg"><div class="h-bar-fill" style="width: 78%;"></div></div>
+                            <span class="h-bar-qty">98 u.</span>
+                        </div>
+                        <div class="h-bar-row">
+                            <span class="h-bar-name">Blusa Elegante</span>
+                            <div class="h-bar-bg"><div class="h-bar-fill" style="width: 68%;"></div></div>
+                            <span class="h-bar-qty">87 u.</span>
+                        </div>
+                        <div class="h-bar-row">
+                            <span class="h-bar-name">Jeans Clásico</span>
+                            <div class="h-bar-bg"><div class="h-bar-fill" style="width: 45%;"></div></div>
+                            <span class="h-bar-qty">50 u.</span>
+                        </div>
+                        <div class="h-bar-row">
+                            <span class="h-bar-name">Labial Mate</span>
+                            <div class="h-bar-bg"><div class="h-bar-fill" style="width: 30%;"></div></div>
+                            <span class="h-bar-qty">32 u.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métodos de Pago -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4 class="chart-title">Ventas por Método de Pago</h4>
+                        <span class="chart-subtitle">Este mes</span>
+                    </div>
+                    <div class="category-list-progress">
+                        <div class="progress-item">
+                            <div class="progress-labels"><span>Efectivo (50%)</span><span class="font-bold">$62,425.00</span></div>
+                            <div class="progress-bar-bg"><div class="progress-bar-fill fill-dark" style="width: 50%;"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-labels"><span>Tarjeta de Crédito/Débito (30%)</span><span class="font-bold">$37,275.00</span></div>
+                            <div class="progress-bar-bg"><div class="progress-bar-fill fill-dark" style="width: 30%;"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-labels"><span>Transferencia (15%)</span><span class="font-bold">$18,687.50</span></div>
+                            <div class="progress-bar-bg"><div class="progress-bar-fill fill-dark" style="width: 15%;"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-labels"><span>Otro (5%)</span><span class="font-bold">$6,462.50</span></div>
+                            <div class="progress-bar-bg"><div class="progress-bar-fill fill-dark" style="width: 5%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ventas por Día de la Semana -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4 class="chart-title">Ventas por Día de la Semana</h4>
+                        <span class="chart-subtitle">Flujo semanal</span>
+                    </div>
+                    <div class="bar-chart-monthly-mock" style="height: 140px; align-items: flex-end;">
+                        <div class="chart-bar-wrapper"><div class="bar-fill fill-accent" style="height: 40%;"></div><span class="bar-label">Lun</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill fill-accent" style="height: 55%;"></div><span class="bar-label">Mar</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill fill-accent" style="height: 60%;"></div><span class="bar-label">Mié</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill fill-accent" style="height: 50%;"></div><span class="bar-label">Jue</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill fill-accent" style="height: 85%;"></div><span class="bar-label">Vie</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill fill-accent" style="height: 95%;"></div><span class="bar-label">Sáb</span></div>
+                        <div class="chart-bar-wrapper"><div class="bar-fill fill-accent" style="height: 30%;"></div><span class="bar-label">Dom</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOS TABLAS DE CONSOLIDACIÓN (Ambas con barra de desplazamiento vertical interna) -->
+            <div class="tables-split-row">
+                
+                <!-- Tabla 1: Resumen del Periodo -->
+                <div class="table-card-wrapper half-width-table">
+                    <div class="table-card-header">
+                        <h2 class="table-card-title">Resumen del Periodo</h2>
+                    </div>
+                    <div class="table-responsive-container">
+                        <table class="dashboard-summary-table text-center-cells">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Concepto</th>
+                                    <th>Este periodo</th>
+                                    <th>Periodo anterior</th>
+                                    <th>Variación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-left font-bold">Ventas totales</td>
+                                    <td>$124,850.00</td>
+                                    <td>$105,620.00</td>
+                                    <td><span class="trend-indicator trend-up">↑ 18%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left font-bold">Ganancias netas</td>
+                                    <td>$48,230.00</td>
+                                    <td>$39,580.00</td>
+                                    <td><span class="trend-indicator trend-up">↑ 22%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left font-bold">Número de ventas</td>
+                                    <td>356</td>
+                                    <td>318</td>
+                                    <td><span class="trend-indicator trend-up">↑ 12%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left font-bold">Productos vendidos</td>
+                                    <td>542</td>
+                                    <td>486</td>
+                                    <td><span class="trend-indicator trend-up">↑ 12%</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left font-bold">Ticket promedio</td>
+                                    <td>$350.14</td>
+                                    <td>$332.14</td>
+                                    <td><span class="trend-indicator trend-up">↑ 5%</span></td>
+                                end text-center-cells
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tabla 2: Top Clientes por Compras -->
+                <div class="table-card-wrapper half-width-table">
+                    <div class="table-card-header">
+                        <h2 class="table-card-title">Top Clientes por Compras</h2>
+                    </div>
+                    <div class="table-responsive-container">
+                        <table class="dashboard-summary-table text-center-cells">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="text-left">Cliente</th>
+                                    <th>Total compras</th>
+                                    <th>Compras</th>
+                                    <th>Última compra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="text-left font-bold">María López</td>
+                                    <td class="font-bold text-brown">$8,750.00</td>
+                                    <td>12</td>
+                                    <td>18/06/2024</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td class="text-left font-bold">Ana García</td>
+                                    <td class="font-bold text-brown">$5,320.00</td>
+                                    <td>8</td>
+                                    <td>15/06/2024</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td class="text-left font-bold">Carla Martínez</td>
+                                    <td class="font-bold text-brown">$4,980.00</td>
+                                    <td>9</td>
+                                    <td>20/06/2024</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td class="text-left font-bold">Laura Pérez</td>
+                                    <td class="font-bold text-brown">$3,850.00</td>
+                                    <td>6</td>
+                                    <td>12/06/2024</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td class="text-left font-bold">Paola Sánchez</td>
+                                    <td class="font-bold text-brown">$3,420.00</td>
+                                    <td>7</td>
+                                    <td>10/06/2024</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script>
+    // Sistema para contraer o expandir el menú lateral izquierdo
+    document.getElementById('btnMenuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+    });
+</script>
+</body>
+</html>
