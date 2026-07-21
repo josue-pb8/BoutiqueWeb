@@ -18,12 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
         avatarEl.textContent = iniciales;
     }
 
-    var ventasDelDia = 0;
-    var efectivoDelDia = 0;
-
     cargarEstadisticas();
-    cargarVentasRecientes();
-    cargarDatosCorte();
+    cargarVentasRecientes();        
 
     // Saludo dinámico
     const titulo = document.querySelector(".welcome-text h1");
@@ -36,35 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (hora >= 12 && hora < 19) saludo = "Buenas tardes";
         else saludo = "Buenas noches";
         titulo.textContent = saludo + ", " + nombre + "!";
-    }
-
-    function cargarDatosCorte() {
-        apiGet("/estadisticas/ventas-semanales").then(function(data) {
-            ventasDelDia = Number(data.montoTotal || 0);
-            efectivoDelDia = Math.round(ventasDelDia * 0.8 * 100) / 100;
-            actualizarCorteVisual();
-        }).catch(function() {
-            ventasDelDia = 0;
-            efectivoDelDia = 0;
-            actualizarCorteVisual();
-        });
-    }
-
-    function actualizarCorteVisual() {
-        var corteRows = document.querySelectorAll(".card-corte .detail-row");
-        if (corteRows[0]) {
-            corteRows[0].innerHTML = '<span>Total ventas (seg\u00FAn sistema)</span> <strong>$' + ventasDelDia.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong>';
-        }
-        if (corteRows[1]) {
-            corteRows[1].innerHTML = '<span>Efectivo estimado</span> <span>$' + efectivoDelDia.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</span>';
-        }
-        var modalCorteRows = document.querySelectorAll("#modalCorte .detail-row");
-        if (modalCorteRows[0]) {
-            modalCorteRows[0].innerHTML = '<span>Total ventas (sistema)</span><strong>$' + ventasDelDia.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong>';
-        }
-        if (modalCorteRows[1]) {
-            modalCorteRows[1].innerHTML = '<span>Efectivo en sistema</span><strong>$' + efectivoDelDia.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong>';
-        }
     }
 
     // Modal corte de caja
@@ -179,20 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function confirmarCorte() {
         var ahora = new Date();
-        var totalIngresado = 0;
-        var inputEfectivo = document.getElementById("inputEfectivoCorte");
-        if (inputEfectivo) {
-            totalIngresado = parseFloat(inputEfectivo.value) || 0;
-        }
-        var diferencia = totalIngresado - efectivoDelDia;
-
         var datos = {
             fecha: obtenerFechaHoy(),
             hora: formatoHora(ahora),
-            totalVentas: ventasDelDia,
-            efectivo: efectivoDelDia,
-            efectivoIngresado: totalIngresado,
-            diferencia: diferencia,
+            totalVentas: 12450.00,
+            efectivo: 10250.00,
+            diferencia: 0.00,
             empleado: user ? user.nombreUsuario : "Empleado"
         };
 
@@ -219,12 +178,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (modalBody2) {
                 modalBody2.innerHTML =
                     '<div class="corte-resumen-modal">' +
-                        '<div class="detail-row"><span>Total ventas del d\u00EDa</span><strong>$' + datos.totalVentas.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong></div>' +
-                        '<div class="detail-row"><span>Efectivo esperado</span><strong>$' + datos.efectivo.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong></div>' +
-                        '<div class="detail-row"><span>Efectivo ingresado</span><strong>$' + datos.efectivoIngresado.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong></div>' +
+                        '<div class="detail-row"><span>Total ventas (sistema)</span><strong>$' + datos.totalVentas.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong></div>' +
+                        '<div class="detail-row"><span>Efectivo en sistema</span><strong>$' + datos.efectivo.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong></div>' +
                         '<div class="detail-row total-row">' +
-                            '<strong>Diferencia</strong>' +
-                            '<strong id="diferenciaCorte" style="color:' + (diferencia === 0 ? '#22c55e' : '#ef4444') + '">$' + diferencia.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong>' +
+                            '<strong>Diferencia por cuadrar</strong>' +
+                            '<strong id="diferenciaCorte">$' + datos.diferencia.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + '</strong>' +
                         '</div>' +
                     '</div>';
             }
@@ -243,29 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
         btnCorte.addEventListener("click", function() {
             if (btnCorte.disabled) return;
             abrirModalCorte();
-            var inputEfectivo = document.getElementById("inputEfectivoCorte");
-            if (inputEfectivo) {
-                inputEfectivo.value = "";
-                inputEfectivo.focus();
-            }
-            var diffEl = document.getElementById("diferenciaCorte");
-            if (diffEl) {
-                diffEl.textContent = "$0.00";
-                diffEl.style.color = "#f59e0b";
-            }
-        });
-    }
-
-    var inputEfectivoCorte = document.getElementById("inputEfectivoCorte");
-    if (inputEfectivoCorte) {
-        inputEfectivoCorte.addEventListener("input", function() {
-            var ingresado = parseFloat(this.value) || 0;
-            var diff = ingresado - efectivoDelDia;
-            var diffEl = document.getElementById("diferenciaCorte");
-            if (diffEl) {
-                diffEl.textContent = "$" + diff.toLocaleString("es-MX", { minimumFractionDigits: 2 });
-                diffEl.style.color = diff === 0 ? "#22c55e" : "#ef4444";
-            }
         });
     }
 

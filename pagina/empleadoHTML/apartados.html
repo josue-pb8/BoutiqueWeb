@@ -89,13 +89,45 @@
                                 <tr>
                                     <th>Folio</th>
                                     <th>Cliente</th>
+                                    <th>Prenda / Ropa</th>
                                     <th>Total</th>
+                                    <th>Anticipo</th>
                                     <th>Restante</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <th>Límite de Retiro</th>
+                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody id="apartadosTableBody">
+                                <tr>
+                                    <td><strong>#APT-882</strong></td>
+                                    <td><strong>María López</strong></td>
+                                    <td>Vestido Gala Elegante Noche</td>
+                                    <td>$1,450.00</td>
+                                    <td class="text-green">$600.00</td>
+                                    <td class="text-red status-saldo"><strong>$850.00</strong></td>
+                                    <td><span class="tag-date">30 Jun 2026</span></td>
+                                    <td><button class="btn-abonar" data-remaining="850"><i class="fa-solid fa-money-bill-wave"></i> Abonar / Liquidar</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#APT-883</strong></td>
+                                    <td><strong>Ana García</strong></td>
+                                    <td>Blusa Seda Satín Floral</td>
+                                    <td>$680.00</td>
+                                    <td class="text-green">$300.00</td>
+                                    <td class="text-red status-saldo"><strong>$380.00</strong></td>
+                                    <td><span class="tag-date">05 Jul 2026</span></td>
+                                    <td><button class="btn-abonar" data-remaining="380"><i class="fa-solid fa-money-bill-wave"></i> Abonar / Liquidar</button></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#APT-884</strong></td>
+                                    <td><strong>Carla Martínez</strong></td>
+                                    <td>Blazer Ejecutivo Entallado</td>
+                                    <td>$1,890.00</td>
+                                    <td class="text-green">$700.00</td>
+                                    <td class="text-red status-saldo"><strong>$1,190.00</strong></td>
+                                    <td><span class="tag-date">12 Jul 2026</span></td>
+                                    <td><button class="btn-abonar" data-remaining="1190"><i class="fa-solid fa-money-bill-wave"></i> Abonar / Liquidar</button></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -122,49 +154,6 @@
             <div class="modal-footer">
                 <button class="btn-modal btn-modal-cancel" id="modalCancelar">Cancelar</button>
                 <button class="btn-modal btn-modal-confirm" id="modalConfirmar">Confirmar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL VER DETALLES DEL APARTADO -->
-    <div class="modal-overlay" id="modalDetalles">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Detalles del Apartado</h3>
-                <button class="modal-close" id="modalDetallesClose">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="detalle-apartado">
-                    <div class="detalle-row"><span>Folio:</span><strong id="detFolio"></strong></div>
-                    <div class="detalle-row"><span>Cliente:</span><strong id="detCliente"></strong></div>
-                    <div class="detalle-row"><span>Fecha de apartado:</span><strong id="detFecha"></strong></div>
-                    <div class="detalle-row"><span>Estado:</span><strong id="detEstado"></strong></div>
-                    <hr class="ticket-divider">
-                    <div class="detalle-row"><span>Total:</span><strong id="detTotal"></strong></div>
-                    <div class="detalle-row"><span>Abonado:</span><strong id="detAbonado" style="color:#16a34a;"></strong></div>
-                    <div class="detalle-row"><span>Pendiente:</span><strong id="detPendiente" style="color:#dc2626;"></strong></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-modal btn-modal-cancel" id="modalDetallesCerrar">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL CONFIRMAR CANCELAR APARTADO -->
-    <div class="modal-overlay" id="modalCancelarApartado">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Cancelar Apartado</h3>
-                <button class="modal-close" id="modalCancelarApartadoClose">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p class="modal-saldo">¿Estás seguro de que deseas cancelar el apartado <strong id="cancelarApartadoFolio"></strong>?</p>
-                <p class="modal-saldo" style="font-size:13px;color:#94a3b8;">Esta acción no se puede deshacer.</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-modal btn-modal-cancel" id="modalCancelarApartadoCancelar">Volver</button>
-                <button class="btn-modal btn-modal-confirm" id="modalCancelarApartadoConfirmar" style="background-color:#ef4444;">Cancelar Apartado</button>
             </div>
         </div>
     </div>

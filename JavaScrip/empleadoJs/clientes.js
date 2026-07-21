@@ -55,32 +55,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "</td>" +
                 "<td>" + escapeHtml(cliente.telefono || "Sin telefono") + "</td>" +
                 "<td>" + escapeHtml(cliente.email || "Sin correo") + "</td>" +
-                "<td>" + formatFecha(cliente.fechaRegistro) + "</td>" +
-                '<td class="acciones-cell">' +
-                    '<button class="btn-action-table btn-editar" data-id="' + cliente.id + '" data-nombre="' + escapeHtml((cliente.nombre || "") + " " + (cliente.apellido || "")) + '" data-telefono="' + escapeHtml(cliente.telefono || "") + '" data-email="' + escapeHtml(cliente.email || "") + '" title="Editar"><i class="fa-solid fa-pen-to-square"></i></button>' +
-                    '<button class="btn-action-table btn-eliminar" data-id="' + cliente.id + '" data-nombre="' + escapeHtml((cliente.nombre || "") + " " + (cliente.apellido || "")) + '" title="Eliminar"><i class="fa-solid fa-trash"></i></button>' +
-                "</td>";
+                "<td>" + formatFecha(cliente.fechaRegistro) + "</td>";
             tablaClientes.appendChild(tr);
-        });
-
-        tablaClientes.querySelectorAll(".btn-editar").forEach(function(btn) {
-            btn.addEventListener("click", function() {
-                abrirModalEditar(
-                    parseInt(btn.getAttribute("data-id")),
-                    btn.getAttribute("data-nombre"),
-                    btn.getAttribute("data-telefono"),
-                    btn.getAttribute("data-email")
-                );
-            });
-        });
-
-        tablaClientes.querySelectorAll(".btn-eliminar").forEach(function(btn) {
-            btn.addEventListener("click", function() {
-                abrirModalEliminar(
-                    parseInt(btn.getAttribute("data-id")),
-                    btn.getAttribute("data-nombre")
-                );
-            });
         });
     }
 
@@ -257,102 +233,4 @@ document.addEventListener("DOMContentLoaded", () => {
             renderizarClientes(filtrados);
         });
     }
-
-    // Modal Editar Cliente
-    var modalEditar = document.getElementById("modalEditarCliente");
-    var editarClienteId = document.getElementById("editarClienteId");
-    var editarNombre = document.getElementById("editarNombre");
-    var editarTelefono = document.getElementById("editarTelefono");
-    var editarCorreo = document.getElementById("editarCorreo");
-
-    function abrirModalEditar(id, nombre, telefono, email) {
-        editarClienteId.value = id;
-        editarNombre.value = nombre;
-        editarTelefono.value = telefono;
-        editarCorreo.value = email;
-        modalEditar.classList.add("active");
-    }
-
-    function cerrarModalEditar() {
-        modalEditar.classList.remove("active");
-    }
-
-    document.getElementById("modalEditarClose").addEventListener("click", cerrarModalEditar);
-    document.getElementById("modalEditarCancelar").addEventListener("click", cerrarModalEditar);
-    modalEditar.addEventListener("click", function(e) {
-        if (e.target === modalEditar) cerrarModalEditar();
-    });
-
-    document.getElementById("modalEditarConfirmar").addEventListener("click", function() {
-        var id = parseInt(editarClienteId.value);
-        var nombreCompleto = editarNombre.value.trim();
-        var partes = nombreCompleto.split(" ");
-        var nombreP = partes[0] || "";
-        var apellido = partes.slice(1).join(" ") || "";
-
-        var payload = {
-            nombre: nombreP,
-            apellido: apellido,
-            telefono: editarTelefono.value.trim(),
-            email: editarCorreo.value.trim()
-        };
-
-        apiPut("/clientes/" + id, payload).then(function() {
-            cerrarModalEditar();
-            cargarClientes();
-            var msgExito = document.createElement("div");
-            msgExito.className = "form-exito";
-            msgExito.textContent = "Cliente actualizado correctamente.";
-            formCliente.appendChild(msgExito);
-            setTimeout(function() { msgExito.remove(); }, 3000);
-        }).catch(function(err) {
-            var msgError = document.createElement("div");
-            msgError.className = "ticket-warning";
-            msgError.textContent = "Error: " + (err.error || "No se pudo actualizar el cliente.");
-            formCliente.appendChild(msgError);
-            setTimeout(function() { msgError.remove(); }, 4000);
-        });
-    });
-
-    // Modal Eliminar Cliente
-    var modalEliminar = document.getElementById("modalEliminarCliente");
-    var eliminarClienteId = null;
-    var eliminarClienteNombreEl = document.getElementById("eliminarClienteNombre");
-
-    function abrirModalEliminar(id, nombre) {
-        eliminarClienteId = id;
-        eliminarClienteNombreEl.textContent = nombre;
-        modalEliminar.classList.add("active");
-    }
-
-    function cerrarModalEliminar() {
-        modalEliminar.classList.remove("active");
-        eliminarClienteId = null;
-    }
-
-    document.getElementById("modalEliminarClose").addEventListener("click", cerrarModalEliminar);
-    document.getElementById("modalEliminarCancelar").addEventListener("click", cerrarModalEliminar);
-    modalEliminar.addEventListener("click", function(e) {
-        if (e.target === modalEliminar) cerrarModalEliminar();
-    });
-
-    document.getElementById("modalEliminarConfirmar").addEventListener("click", function() {
-        if (!eliminarClienteId) return;
-
-        apiDelete("/clientes/" + eliminarClienteId).then(function() {
-            cerrarModalEliminar();
-            cargarClientes();
-            var msgExito = document.createElement("div");
-            msgExito.className = "form-exito";
-            msgExito.textContent = "Cliente eliminado correctamente.";
-            formCliente.appendChild(msgExito);
-            setTimeout(function() { msgExito.remove(); }, 3000);
-        }).catch(function(err) {
-            var msgError = document.createElement("div");
-            msgError.className = "ticket-warning";
-            msgError.textContent = "Error: " + (err.error || "No se pudo eliminar el cliente.");
-            formCliente.appendChild(msgError);
-            setTimeout(function() { msgError.remove(); }, 4000);
-        });
-    });
 });
