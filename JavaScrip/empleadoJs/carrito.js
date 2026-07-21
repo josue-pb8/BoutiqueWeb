@@ -68,25 +68,31 @@ document.addEventListener("DOMContentLoaded", () => {
             var pendiente = total - abonado;
             var estado = apartado.estado || "ACTIVO";
 
-            var saldoHTML = "";
-            var accionHTML = "";
-
-            if (estado === "ACTIVO" && pendiente > 0) {
-                saldoHTML = "<strong>$" + pendiente.toFixed(2) + "</strong>";
-                accionHTML = '<button class="btn-abonar" data-apartado-id="' + apartado.id + '" data-remaining="' + pendiente + '"><i class="fa-solid fa-dollar-sign"></i> Abonar</button>';
+            var estadoHTML = "";
+            if (estado === "ACTIVO") {
+                estadoHTML = '<span class="tag-estado tag-activo">Activo</span>';
+            } else if (estado === "CANCELADO") {
+                estadoHTML = '<span class="tag-estado tag-cancelado">Cancelado</span>';
             } else {
-                saldoHTML = '<span style="color: #16a34a; font-weight: bold;">Liquidado</span>';
-                accionHTML = '<span style="color:#16a34a;"><i class="fa-solid fa-square-check"></i> Entregado</span>';
+                estadoHTML = '<span class="tag-estado tag-liquidado">Liquidado</span>';
             }
+
+            var accionesHTML = '<div class="acciones-cell">';
+            accionesHTML += '<button class="btn-action-table btn-ver-detalles" data-apartado-id="' + apartado.id + '" title="Ver detalles"><i class="fa-solid fa-eye"></i></button>';
+            if (estado === "ACTIVO" && pendiente > 0) {
+                accionesHTML += '<button class="btn-abonar" data-apartado-id="' + apartado.id + '" data-remaining="' + pendiente + '"><i class="fa-solid fa-dollar-sign"></i> Abonar</button>';
+                accionesHTML += '<button class="btn-action-table btn-cancelar-apartado" data-apartado-id="' + apartado.id + '" data-folio="#APT-' + String(apartado.id).padStart(3, "0") + '" title="Cancelar"><i class="fa-solid fa-xmark"></i></button>';
+            }
+            accionesHTML += '</div>';
 
             var tr = document.createElement("tr");
             tr.innerHTML =
                 "<td><strong>#APT-" + String(apartado.id).padStart(3, "0") + "</strong></td>" +
                 "<td>" + escapeHtml(nombreCliente) + "</td>" +
                 "<td>$" + total.toFixed(2) + "</td>" +
-                '<td class="status-saldo">' + saldoHTML + "</td>" +
-                "<td>" + formatFecha(apartado.fechaApartado) + "</td>" +
-                "<td>" + accionHTML + "</td>";
+                '<td class="status-saldo"><strong>$' + pendiente.toFixed(2) + "</strong></td>" +
+                "<td>" + estadoHTML + "</td>" +
+                "<td>" + accionesHTML + "</td>";
             tableBody.appendChild(tr);
         });
 
@@ -99,6 +105,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (isNaN(saldoRestante) || saldoRestante <= 0) return;
                 apartadoIdActual = id;
                 abrirModal(saldoRestante);
+            });
+        });
+
+        document.querySelectorAll(".btn-ver-detalles").forEach(function(button) {
+            button.addEventListener("click", function() {
+                var id = parseInt(button.getAttribute("data-apartado-id"));
+                var apartado = apartados.find(function(a) { return a.id === id; });
+                if (apartado) abrirModalDetalles(apartado);
+            });
+        });
+
+        document.querySelectorAll(".btn-cancelar-apartado").forEach(function(button) {
+            button.addEventListener("click", function() {
+                var id = parseInt(button.getAttribute("data-apartado-id"));
+                var folio = button.getAttribute("data-folio");
+                abrirModalCancelarApartado(id, folio);
             });
         });
     }
@@ -199,4 +221,81 @@ document.addEventListener("DOMContentLoaded", () => {
             renderizarApartados(filtrados);
         });
     }
+
+    // Modal Ver Detalles
+    var modalDetalles = document.getElementById("modalDetalles");
+    var detFolio = document.getElementById("detFolio");
+    var detCliente = document.getElementById("detCliente");
+    var detFecha = document.getElementById("detFecha");
+    var detEstado = document.getElementById("detEstado");
+    var detTotal = document.getElementById("detTotal");
+    var detAbonado = document.getElementById("detAbonado");
+    var detPendiente = document.getElementById("detPendiente");
+
+    function abrirModalDetalles(apartado) {
+        var cliente = apartado.cliente;
+        var nombreCliente = cliente ? (cliente.nombre + " " + cliente.apellido) : "Sin cliente";
+        var total = Number(apartado.total || 0);
+        var abonado = Number(apartado.abonado || 0);
+        var pendiente = total - abonado;
+        var estado = apartado.estado || "ACTIVO";
+
+        detFolio.textContent = "#APT-" + String(apartado.id).padStart(3, "0");
+        detCliente.textContent = nombreCliente;
+        detFecha.textContent = formatFecha(apartado.fechaApartado);
+        detEstado.textContent = estado;
+        detEstado.style.color = estado === "ACTIVO" ? "#cca43b" : estado === "CANCELADO" ? "#ef4444" : "#16a34a";
+        detTotal.textContent = "$" + total.toFixed(2);
+        detAbonado.textContent = "$" + abonado.toFixed(2);
+        detPendiente.textContent = "$" + pendiente.toFixed(2);
+        modalDetalles.classList.add("active");
+    }
+
+    function cerrarModalDetalles() {
+        modalDetalles.classList.remove("active");
+    }
+
+    document.getElementById("modalDetallesClose").addEventListener("click", cerrarModalDetalles);
+    document.getElementById("modalDetallesCerrar").addEventListener("click", cerrarModalDetalles);
+    modalDetalles.addEventListener("click", function(e) {
+        if (e.target === modalDetalles) cerrarModalDetalles();
+    });
+
+    // Modal Cancelar Apartado
+    var modalCancelarApartado = document.getElementById("modalCancelarApartado");
+    var cancelarApartadoId = null;
+    var cancelarApartadoFolio = document.getElementById("cancelarApartadoFolio");
+
+    function abrirModalCancelarApartado(id, folio) {
+        cancelarApartadoId = id;
+        cancelarApartadoFolio.textContent = folio;
+        modalCancelarApartado.classList.add("active");
+    }
+
+    function cerrarModalCancelarApartado() {
+        modalCancelarApartado.classList.remove("active");
+        cancelarApartadoId = null;
+    }
+
+    document.getElementById("modalCancelarApartadoClose").addEventListener("click", cerrarModalCancelarApartado);
+    document.getElementById("modalCancelarApartadoCancelar").addEventListener("click", cerrarModalCancelarApartado);
+    modalCancelarApartado.addEventListener("click", function(e) {
+        if (e.target === modalCancelarApartado) cerrarModalCancelarApartado();
+    });
+
+    document.getElementById("modalCancelarApartadoConfirmar").addEventListener("click", function() {
+        if (!cancelarApartadoId) return;
+
+        apiPut("/apartados/" + cancelarApartadoId + "/cancelar", {}).then(function() {
+            cerrarModalCancelarApartado();
+            cargarApartados();
+        }).catch(function(err) {
+            cerrarModalCancelarApartado();
+            var msgError = document.createElement("div");
+            msgError.className = "ticket-warning";
+            msgError.textContent = "Error: " + (err.error || "No se pudo cancelar el apartado.");
+            document.querySelector(".card-apartados-table").prepend(msgError);
+            setTimeout(function() { msgError.remove(); }, 4000);
+        });
+    });
 });

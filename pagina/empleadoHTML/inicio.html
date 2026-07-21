@@ -101,8 +101,8 @@
                         
                         <div class="corte-container">
                             <div class="corte-details">
-                                <div class="detail-row"><span>Total ventas (según sistema)</span> <strong>$12,450.00</strong></div>
-                                <div class="detail-row"><span>Efectivo</span> <span>$10,250.00</span></div>
+                                <div class="detail-row"><span>Total ventas (según sistema)</span> <strong id="corteTotalVentas">$0.00</strong></div>
+                                <div class="detail-row"><span>Efectivo esperado</span> <span id="corteEfectivo">$0.00</span></div>
 
                                 <div class="detail-row total-row">
                                     <div>
@@ -239,8 +239,12 @@
             </div>
             <div class="modal-body">
                 <div class="corte-resumen-modal">
-                    <div class="detail-row"><span>Total ventas (sistema)</span><strong>$12,450.00</strong></div>
-                    <div class="detail-row"><span>Efectivo en sistema</span><strong>$10,250.00</strong></div>
+                    <div class="detail-row"><span>Total ventas (sistema)</span><strong>$0.00</strong></div>
+                    <div class="detail-row"><span>Efectivo esperado</span><strong>$0.00</strong></div>
+                    <div class="corte-input-row">
+                        <label for="inputEfectivoCorte"><strong>Efectivo contado:</strong></label>
+                        <input type="number" id="inputEfectivoCorte" class="corte-input" placeholder="Ingresa el efectivo contado" step="0.01" min="0">
+                    </div>
                     <div class="detail-row total-row">
                         <strong>Diferencia por cuadrar</strong>
                         <strong id="diferenciaCorte">$0.00</strong>

@@ -96,45 +96,10 @@
                                     <th>Teléfono / Celular</th>
                                     <th>Correo Electrónico</th>
                                     <th>Fecha de Registro</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="clientesTableBody">
-                                <tr>
-                                    <td><strong>#CLI-001</strong></td>
-                                    <td>
-                                        <div class="cliente-cell">
-                                            <div class="cliente-avatar-placeholder">ML</div>
-                                            <strong>María López</strong>
-                                        </div>
-                                    </td>
-                                    <td>961 456 7890</td>
-                                    <td>maria.lopez@example.com</td>
-                                    <td>20 de mayo de 2024</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>#CLI-002</strong></td>
-                                    <td>
-                                        <div class="cliente-cell">
-                                            <div class="cliente-avatar-placeholder">AG</div>
-                                            <strong>Ana García</strong>
-                                        </div>
-                                    </td>
-                                    <td>961 789 1234</td>
-                                    <td>ana.garcia@example.com</td>
-                                    <td>18 de mayo de 2024</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>#CLI-003</strong></td>
-                                    <td>
-                                        <div class="cliente-cell">
-                                            <div class="cliente-avatar-placeholder">CM</div>
-                                            <strong>Carla Martínez</strong>
-                                        </div>
-                                    </td>
-                                    <td>961 321 6540</td>
-                                    <td>carla.mtz@example.com</td>
-                                    <td>15 de mayo de 2024</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -143,6 +108,55 @@
             </section>
 
         </main>
+    </div>
+
+    <!-- MODAL EDITAR CLIENTE -->
+    <div class="modal-overlay" id="modalEditarCliente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Editar Cliente</h3>
+                <button class="modal-close" id="modalEditarClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditarCliente">
+                    <input type="hidden" id="editarClienteId">
+                    <div class="form-group">
+                        <label for="editarNombre">Nombre Completo</label>
+                        <input type="text" id="editarNombre" placeholder="Nombre y apellido" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editarTelefono">Teléfono</label>
+                        <input type="tel" id="editarTelefono" placeholder="Teléfono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editarCorreo">Correo Electrónico</label>
+                        <input type="email" id="editarCorreo" placeholder="Correo (opcional)">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-modal-cancel" id="modalEditarCancelar">Cancelar</button>
+                <button class="btn-modal btn-modal-confirm" id="modalEditarConfirmar">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRMAR ELIMINAR CLIENTE -->
+    <div class="modal-overlay" id="modalEliminarCliente">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Eliminar Cliente</h3>
+                <button class="modal-close" id="modalEliminarClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-saldo">¿Estás seguro de que deseas eliminar al cliente <strong id="eliminarClienteNombre"></strong>?</p>
+                <p class="modal-saldo" style="font-size:13px;color:#94a3b8;">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-modal-cancel" id="modalEliminarCancelar">Cancelar</button>
+                <button class="btn-modal btn-modal-confirm" id="modalEliminarConfirmar" style="background-color:#ef4444;">Eliminar</button>
+            </div>
+        </div>
     </div>
 
     <!-- Script asignado -->
