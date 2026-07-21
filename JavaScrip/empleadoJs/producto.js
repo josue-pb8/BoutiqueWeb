@@ -2,6 +2,7 @@ if (!localStorage.getItem('token') || !['ADMIN','EMPLEADO'].includes(localStorag
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Modulo de Productos de Bella Boutique cargado.");
     
+    try {
     let user = JSON.parse(localStorage.getItem('usuario'));
     if (!user || !user.nombreUsuario) {
         localStorage.removeItem('token');
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         var iniciales = partes.map(function(p) { return p.charAt(0); }).join("").substring(0, 2).toUpperCase();
         avatarEl.textContent = iniciales;
     }
+    } catch(e) { window.location.href = '../../index.html'; return; }
 
     var searchInput = document.getElementById("searchProduct");
     var filterCategory = document.getElementById("filterCategory");
@@ -91,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 badgeClass = 'agotado';
                 badgeText = 'Agotado';
             } else if (stockTotal <= 3) {
-                badgeClass = 'agotándose';
+                badgeClass = 'agotandose';
                 badgeText = stockTotal + ' unid. (últimas)';
             }
 
@@ -126,9 +128,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (searchInput) searchInput.addEventListener("input", filtrarProductos);
     if (filterCategory) filterCategory.addEventListener("change", filtrarProductos);
 
-    function escapeHtml(text) {
-        var div = document.createElement("div");
-        div.appendChild(document.createTextNode(text));
-        return div.innerHTML;
-    }
+    apiGet("/categorias").then(function(categorias) {
+        if (!categorias) return;
+        categorias.forEach(function(c) {
+            var option = document.createElement("option");
+            option.value = c.nombre.toLowerCase();
+            option.textContent = c.nombre;
+            filterCategory.appendChild(option);
+        });
+    }).catch(function() {});
 });

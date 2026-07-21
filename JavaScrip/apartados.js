@@ -1,11 +1,15 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-    document.getElementsByClassName("user-role")[0].innerHTML = user.rol; 
-    
-    //document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    try {
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        if (user) {
+            var nameEl5 = document.getElementsByClassName("user-name")[0];
+            if (nameEl5) nameEl5.innerHTML = user.nombreUsuario;
+            var roleEl5 = document.getElementsByClassName("user-role")[0];
+            if (roleEl5) roleEl5.innerHTML = user.rol;
+        }
+    } catch(e) { window.location.href = '../index.html'; return; }
     
     var apartadosData = [];
     var productosApartado = [];

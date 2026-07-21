@@ -2,13 +2,16 @@ let productosCatalogo = [];
 let productosLocalMap = {};
 let tallaSeleccionada = null;
 
-let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-
-    document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
-    
-
 document.addEventListener('DOMContentLoaded', () => {
+try {
+let user = JSON.parse(localStorage.getItem('usuario'));
+    if (user) {
+        var nameElCliProd = document.getElementsByClassName("user-name")[0];
+        if (nameElCliProd) nameElCliProd.innerHTML = user.nombreUsuario;
+        var avatarElCliProd = document.getElementsByClassName("avatar-placeholder")[0];
+        if (avatarElCliProd) avatarElCliProd.innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    }
+} catch(e) {}
     cargarProductos();
     configurarFiltros();
     configurarBusqueda();
@@ -82,7 +85,7 @@ function renderizarProductos(productos) {
         var stockClass = item.stockTotal === 0 ? 'stock-agotado' : (item.stockTotal <= 3 ? 'stock-poco' : 'stock-disponible');
         var stockIcon = item.stockTotal === 0 ? '&#10060;' : (item.stockTotal <= 3 ? '&#9888;' : '&#10004;');
         card.innerHTML =
-            '<img src="' + (item.imagen ? getImagenUrl(escapeHtml(item.imagen)) : '../../Image/productos.png') + '" alt="' + escapeHtml(item.nombre) + '" class="product-img">' +
+            '<img src="' + (item.imagen ? escapeHtml(getImagenUrl(item.imagen)) : '../../Image/productos.png') + '" alt="' + escapeHtml(item.nombre) + '" class="product-img">' +
             '<div class="product-info">' +
                 '<span class="product-category">' + escapeHtml(item.categoria) + '</span>' +
                 '<h3 class="product-title">' + escapeHtml(item.nombre) + '</h3>' +
@@ -179,7 +182,7 @@ function abrirDetalle(id) {
     var elPrecio = document.getElementById('detalle-precio');
     var elStock = document.getElementById('detalle-stock');
     var elDescripcion = document.getElementById('detalle-descripcion');
-    if (elImagen) { elImagen.src = producto.imagen ? getImagenUrl(escapeHtml(producto.imagen)) : '../../Image/productos.png'; elImagen.alt = producto.nombre; }
+    if (elImagen) { elImagen.src = producto.imagen ? escapeHtml(getImagenUrl(producto.imagen)) : '../../Image/productos.png'; elImagen.alt = producto.nombre; }
     if (elNombre) elNombre.textContent = producto.nombre;
     if (elMarca) elMarca.textContent = producto.marca;
     if (elCategoria) elCategoria.textContent = producto.categoria;

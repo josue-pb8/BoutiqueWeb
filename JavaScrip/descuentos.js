@@ -1,12 +1,15 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-        document.getElementsByClassName("user-role")[0].innerHTML = user.rol; 
-
-    
-    //document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    try {
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        if (user) {
+            var nameEl6 = document.getElementsByClassName("user-name")[0];
+            if (nameEl6) nameEl6.innerHTML = user.nombreUsuario;
+            var roleEl6 = document.getElementsByClassName("user-role")[0];
+            if (roleEl6) roleEl6.innerHTML = user.rol;
+        }
+    } catch(e) { window.location.href = '../index.html'; return; }
 
     var descuentosData = [];
     var descuentoEditando = null;
@@ -181,12 +184,13 @@ $(document).ready(function () {
         var desc = descuentosData.find(function (d) { return d.id == id; });
         if (!desc) return;
         $('#modalEliminarDescNombre').text(desc.nombre);
-        $('#btnConfirmarEliminarDesc').data('id', id);
+        $('#btnConfirmarEliminarDesc').attr('data-id', id);
         abrirModal('modalEliminarDesc');
     });
 
-    $('#btnConfirmarEliminarDesc').on('click', function () {
-        var id = $(this).data('id');
+    $(document).on('click', '#btnConfirmarEliminarDesc', function () {
+        var id = $(this).attr('data-id');
+        if (!id) { mostrarToast('Error: ID no valido', 'error'); return; }
         apiDelete('/descuentos/' + id)
             .then(function () {
                 mostrarToast('Descuento eliminado', 'exito');

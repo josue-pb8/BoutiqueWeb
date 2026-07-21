@@ -1,9 +1,15 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario'));
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario;
-        document.getElementsByClassName("user-role")[0].innerHTML = user.rol;
+    try {
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        if (user) {
+            var nameEl0 = document.getElementsByClassName("user-name")[0];
+            if (nameEl0) nameEl0.innerHTML = user.nombreUsuario;
+            var roleEl0 = document.getElementsByClassName("user-role")[0];
+            if (roleEl0) roleEl0.innerHTML = user.rol;
+        }
+    } catch(e) { window.location.href = '../index.html'; return; }
 
     var graficaProductos = null;
     var graficaVentas = null;

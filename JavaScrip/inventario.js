@@ -1,9 +1,15 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-    document.getElementsByClassName("user-role")[0].innerHTML = user.rol; 
+    try {
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        if (user) {
+            var nameEl4 = document.getElementsByClassName("user-name")[0];
+            if (nameEl4) nameEl4.innerHTML = user.nombreUsuario;
+            var roleEl4 = document.getElementsByClassName("user-role")[0];
+            if (roleEl4) roleEl4.innerHTML = user.rol;
+        }
+    } catch(e) { window.location.href = '../index.html'; return; }
 
     var inventarioData = [];
     var stockBajoData = [];
@@ -35,10 +41,6 @@ $(document).ready(function () {
 
     }
 
-    function escapeHtml(text) {
-        return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
     function renderizarInventario(data) {
         var grupos = {};
         $.each(data, function (i, item) {
@@ -68,24 +70,19 @@ $(document).ready(function () {
             var tallasHtml = '';
             if (g.tallas.length > 0) {
                 $.each(g.tallas, function (j, t) {
-                    tallasHtml += '<span class="tag-size">' + t + '</span> ';
+                    tallasHtml += '<span class="tag-size">' + escapeHtml(t) + '</span> ';
                 });
             } else {
                 tallasHtml = '<span style="color:#94a3b8;">-</span>';
             }
             html += '<tr>';
-            html += '<td><div class="producto-info"><span>' + g.nombre + '</span></div></td>';
-            html += '<td>' + g.categoria + '</td>';
+            html += '<td><div class="producto-info"><span>' + escapeHtml(g.nombre) + '</span></div></td>';
+            html += '<td>' + escapeHtml(g.categoria) + '</td>';
             html += '<td>' + precioStr + '</td>';
             html += '<td>' + tallasHtml + '</td>';
             html += '<td>' + g.stockTotal + '</td>';
             html += '<td><div class="acciones-botones">';
-<<<<<<< HEAD
             html += '<button class="btn-icono btn-editar-inv" data-producto-id="' + pid + '" title="Editar stock">&#9998;</button>';
-=======
-            html += '<button class="btn-icono btn-editar-inv" data-id="' + item.id + '" title="Editar">&#9998;</button>';
-            html += '<button class="btn-icono btn-eliminar" data-id="' + item.id + '" data-nombre="' + nombre + '" title="Eliminar">&#128465;</button>';
->>>>>>> 57c8ae5887912fccda86e9ce30e62058170fda93
             html += '</div></td>';
             html += '</tr>';
         });
@@ -98,9 +95,9 @@ $(document).ready(function () {
             var nombre = item.producto ? item.producto.nombre : '-';
             var diferencia = (item.stock || 0) - (item.stockMinimo || 0);
             var estado = diferencia < 0 ? 'critico' : 'alerta';
-            var estadoLabel = estado === 'critico' ? 'Crítico' : 'Alerta';
+            var estadoLabel = estado === 'critico' ? 'Critico' : 'Alerta';
             html += '<tr>';
-            html += '<td><div class="producto-info"><img src="../Image/productos.png" class="img-producto" alt="Producto"><span>' + nombre + '</span></div></td>';
+            html += '<td><div class="producto-info"><img src="../Image/productos.png" class="img-producto" alt="Producto"><span>' + escapeHtml(nombre) + '</span></div></td>';
             html += '<td>' + (item.stock || 0) + '</td>';
             html += '<td>' + (item.stockMinimo || 0) + '</td>';
             html += '<td>' + diferencia + '</td>';
@@ -128,16 +125,56 @@ $(document).ready(function () {
         $('#' + target).addClass('tab-activo');
     });
 
-    // ---- Cards cliqueables ----
     $('.tarjeta-stat-card').eq(0).css('cursor', 'pointer').on('click', function () {
+        $('.tab-inventario[data-target="inventarioActual"]').click();
+    });
+    $('.tarjeta-stat-card').eq(1).css('cursor', 'pointer').on('click', function () {
         $('.tab-inventario[data-target="inventarioActual"]').click();
     });
     $('.tarjeta-stat-card').eq(2).css('cursor', 'pointer').on('click', function () {
         $('.tab-inventario[data-target="stockBajoLista"]').click();
     });
 
-<<<<<<< HEAD
-    // ---- Reabastecer desde Stock Bajo ----
+    $('#btnAgregarAlInventario').on('click', function () {
+        apiGet('/productos').then(function (productos) {
+            var $select = $('#campoAgregarInvProducto');
+            $select.find('option:gt(0)').remove();
+            $.each(productos || [], function (i, p) {
+                $select.append('<option value="' + p.id + '">' + p.nombre + '</option>');
+            });
+        }).catch(function () {});
+        $('#campoAgregarInvTalla').val('');
+        $('#campoAgregarInvStock').val(0);
+        $('#campoAgregarInvStockMin').val(5);
+        abrirModal('modalAgregarInv');
+    });
+
+    $('#btnGuardarAgregarInv').on('click', function () {
+        var productoId = parseInt($('#campoAgregarInvProducto').val());
+        var talla = $('#campoAgregarInvTalla').val().trim() || 'Unica';
+        var stock = parseInt($('#campoAgregarInvStock').val()) || 0;
+        var stockMinimo = parseInt($('#campoAgregarInvStockMin').val()) || 5;
+
+        if (!productoId) { mostrarToast('Selecciona un producto', 'error'); return; }
+
+        var payload = {
+            producto: { id: productoId },
+            talla: talla,
+            stock: stock,
+            stockMinimo: stockMinimo
+        };
+
+        apiPost('/inventario', payload)
+            .then(function () {
+                mostrarToast('Producto agregado al inventario', 'exito');
+                cerrarModal('modalAgregarInv');
+                cargarInventario();
+            })
+            .catch(function () {
+                mostrarToast('Error al agregar al inventario', 'error');
+            });
+    });
+
     $(document).on('click', '.btn-reabastecer', function () {
         var id = $(this).data('id');
         var item = inventarioData.find(function (i) { return i.id == id; }) || stockBajoData.find(function (i) { return i.id == id; });
@@ -146,7 +183,7 @@ $(document).ready(function () {
         var falta = (item.stockMinimo || 0) - (item.stock || 0);
         $('#campoReabastecerId').val(item.id);
         $('#campoReabastecerProducto').val(nombre);
-        $('#campoReabastecerFalta').text('Faltan ' + Math.max(falta, 0) + ' unidades para alcanzar el stock mínimo.');
+        $('#campoReabastecerFalta').text('Faltan ' + Math.max(falta, 0) + ' unidades para alcanzar el stock minimo.');
         $('#campoReabastecerCantidad').val(Math.max(falta, 1));
         abrirModal('modalReabastecer');
     });
@@ -154,7 +191,7 @@ $(document).ready(function () {
     $('#btnGuardarReabastecer').on('click', function () {
         var id = $('#campoReabastecerId').val();
         var cantidad = parseInt($('#campoReabastecerCantidad').val());
-        if (!cantidad || cantidad <= 0) { mostrarToast('Ingresa una cantidad válida', 'error'); return; }
+        if (!cantidad || cantidad <= 0) { mostrarToast('Ingresa una cantidad valida', 'error'); return; }
 
         var item = inventarioData.find(function (i) { return i.id == id; });
         if (!item) { mostrarToast('Producto no encontrado', 'error'); return; }
@@ -170,7 +207,6 @@ $(document).ready(function () {
             .catch(function () { mostrarToast('Error al reabastecer', 'error'); });
     });
 
-    // ---- Editar stock por producto ----
     $(document).on('click', '.btn-editar-inv', function () {
         var productoId = $(this).data('producto-id');
         var items = inventarioData.filter(function (i) { return i.producto && i.producto.id == productoId; });
@@ -178,11 +214,11 @@ $(document).ready(function () {
 
         var p = items[0].producto;
         var html = '<div class="detalle-fila" style="border-bottom:2px solid #C8A45D;padding-bottom:10px;margin-bottom:10px;">';
-        html += '<span class="detalle-label" style="font-size:15px;">' + p.nombre + '</span></div>';
+        html += '<span class="detalle-label" style="font-size:15px;">' + escapeHtml(p.nombre) + '</span></div>';
 
         $.each(items, function (i, item) {
             html += '<div class="detalle-fila" style="border-bottom:1px solid #eee;padding:8px 0;">';
-            html += '<span class="detalle-label" style="width:auto;min-width:60px;">Talla ' + (item.talla || 'Única') + ':</span>';
+            html += '<span class="detalle-label" style="width:auto;min-width:60px;">Talla ' + escapeHtml(item.talla || 'Unica') + ':</span>';
             html += '<span class="detalle-valor" style="display:flex;align-items:center;gap:8px;">';
             html += '<input type="number" id="edit-stock-' + item.id + '" value="' + (item.stock || 0) + '" min="0" style="width:80px;padding:4px 8px;border:1px solid #ddd;border-radius:4px;text-align:center;">';
             html += '<button class="btn-icono btn-save-stock" data-id="' + item.id + '" title="Guardar" style="border-color:#27a745;color:#27a745;">&#10003;</button>';
@@ -196,28 +232,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn-save-stock', function () {
         var id = $(this).data('id');
         var stock = parseInt($('#edit-stock-' + id).val());
-        if (isNaN(stock) || stock < 0) { mostrarToast('Stock inválido', 'error'); return; }
-=======
-    var deleteId = null;
-
-    $(document).on('click', '.btn-eliminar', function () {
-        deleteId = $(this).data('id');
-        $('#modalEliminarInvProducto').text($(this).data('nombre'));
-        abrirModal('modalEliminarInv');
-    });
-
-    $('#btnConfirmarEliminarInv').on('click', function () {
-        if (!deleteId) return;
-        apiDelete('/inventario/' + deleteId)
-            .then(function () { mostrarToast('Producto eliminado del inventario', 'exito'); cerrarModal('modalEliminarInv'); deleteId = null; cargarInventario(); })
-            .catch(function (err) { console.error('Error al eliminar inventario:', err); mostrarToast(err.mensaje || err.message || 'Error al eliminar', 'error'); });
-    });
-
-    $('#btnGuardarEditInv').on('click', function () {
-        var id = $('#campoEditInvId').val();
-        var stock = parseInt($('#campoEditInvExistencia').val());
         if (isNaN(stock) || stock < 0) { mostrarToast('Stock invalido', 'error'); return; }
->>>>>>> 57c8ae5887912fccda86e9ce30e62058170fda93
 
         apiPut('/inventario/' + id, { stock: stock })
             .then(function () {

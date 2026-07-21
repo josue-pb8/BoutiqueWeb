@@ -1,15 +1,16 @@
 let apartadosData = [];
 
 document.addEventListener('DOMContentLoaded', function() {
-    cargarApartadosDesdeServidor();
-    configurarBusqueda();
-});
-
+try {
 var user = JSON.parse(localStorage.getItem('usuario'));
 if (user) {
     document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario;
     document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
 }
+} catch(e) {}
+    cargarApartadosDesdeServidor();
+    configurarBusqueda();
+});
 
 function cargarApartadosDesdeServidor() {
     var container = document.getElementById('apartados-container');

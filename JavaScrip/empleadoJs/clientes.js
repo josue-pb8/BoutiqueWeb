@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(function() { msgExito.remove(); }, 3000);
         }).catch(function(err) {
             var msgError = document.createElement("div");
-            msgError.className = "ticket-warning";
+            msgError.className = "form-error";
             msgError.textContent = "Error: " + (err.error || "No se pudo registrar el cliente.");
             formCliente.appendChild(msgError);
             setTimeout(function() { msgError.remove(); }, 4000);

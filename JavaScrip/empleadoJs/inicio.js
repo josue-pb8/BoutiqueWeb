@@ -146,11 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function confirmarCorte() {
         var ahora = new Date();
+        var totalVentas = parseFloat(document.getElementById("kpi-ventas") ? document.getElementById("kpi-ventas").textContent.replace(/[$,]/g, '') : 0) || 0;
         var datos = {
             fecha: obtenerFechaHoy(),
             hora: formatoHora(ahora),
-            totalVentas: 12450.00,
-            efectivo: 10250.00,
+            totalVentas: totalVentas,
+            efectivo: totalVentas,
             diferencia: 0.00,
             empleado: user ? user.nombreUsuario : "Empleado"
         };
@@ -310,8 +311,8 @@ function cargarVentasRecientes() {
                 "<td>" + escapeHtml(venta.cliente || "Sin cliente") + "</td>" +
                 "<td>" + escapeHtml(venta.productos || "") + "</td>" +
                 "<td><strong>$" + total.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + "</strong></td>" +
-                '<td><span class="badge-pay efectivo">Efectivo</span></td>' +
-                '<td><span class="badge-state completa">Completada</span></td>';
+                '<td><span class="badge-pay ' + (venta.metodoPago || 'efectivo') + '">' + escapeHtml(venta.metodoPago || 'Efectivo') + '</span></td>' +
+                '<td><span class="badge-state ' + (venta.estado || 'completa') + '">' + escapeHtml(venta.estado || 'Completada') + '</span></td>';
             tbody.appendChild(tr);
         });
     }).catch(function() {});

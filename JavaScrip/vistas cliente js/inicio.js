@@ -2,14 +2,16 @@ let productosDetalle = {};
 let productosLista = [];
 let tallaSeleccionada = null;
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario;   
-    //$('.user-name').text(user.nombreUsuario);
-
-    document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
-    
-
 document.addEventListener('DOMContentLoaded', () => {
+    try {
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        if (user) {
+            var nameEl = document.getElementsByClassName("user-name")[0];
+            if (nameEl) nameEl.innerHTML = user.nombreUsuario;
+            var avatarEl = document.getElementsByClassName("avatar-placeholder")[0];
+            if (avatarEl) avatarEl.innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+        }
+    } catch(e) {}
     establecerSaludo();
     configurarBusqueda();
     cargarProductosDestacados();

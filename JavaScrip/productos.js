@@ -1,12 +1,15 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-        document.getElementsByClassName("user-role")[0].innerHTML = user.rol; 
-
-    
-    //document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    try {
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        if (user) {
+            var nameEl1 = document.getElementsByClassName("user-name")[0];
+            if (nameEl1) nameEl1.innerHTML = user.nombreUsuario;
+            var roleEl1 = document.getElementsByClassName("user-role")[0];
+            if (roleEl1) roleEl1.innerHTML = user.rol;
+        }
+    } catch(e) { window.location.href = '../index.html'; return; }
 
     var productosData = [];
     var productoEditando = null;
@@ -47,16 +50,16 @@ $(document).ready(function () {
             var estadoClase = activo ? 'estado-activo' : 'estado-inactivo';
             var estadoTexto = activo ? 'Activo' : 'Inactivo';
             var catNombre = p.categoria ? (typeof p.categoria === 'string' ? p.categoria : p.categoria.nombre) : '-';
-            var imagen = p.imagenUrl || '../Image/productos.png';
+            var imagen = p.imagen || p.imagenUrl || '../Image/productos.png';
 
              
             html += '<tr>';
-            html += '<td><img src="' + getImagenUrl(imagen) + '" class="img-producto" alt="' + p.nombre + '"></td>';
-            html += '<td><strong>' + p.nombre + '</strong></td>';
-            html += '<td>' + catNombre + '</td>';
+            html += '<td><img src="' + getImagenUrl(imagen) + '" class="img-producto" alt="' + escapeHtml(p.nombre) + '"></td>';
+            html += '<td><strong>' + escapeHtml(p.nombre) + '</strong></td>';
+            html += '<td>' + escapeHtml(catNombre) + '</td>';
             html += '<td>$' + formatNumber(p.precio) + '</td>';
             html += '<td>$' + formatNumber(p.costo || 0) + '</td>';
-            html += '<td>- u.</td>';
+            html += '<td>' + (p.stock || 0) + ' u.</td>';
             html += '<td><span class="' + estadoClase + '">' + estadoTexto + '</span></td>';
             html += '<td>';
             html += '<div class="acciones-botones">';
@@ -170,7 +173,7 @@ $(document).ready(function () {
         if (isNaN(precio) || precio <= 0) { mostrarToast('El precio debe ser mayor a $0', 'error'); return; }
 
         if (!productoEditando && !archivo) {
-            alert("Selecciona una imagen");
+            mostrarToast("Selecciona una imagen para el producto", 'error');
             return;
         }
 
@@ -200,15 +203,14 @@ $(document).ready(function () {
 
         if (archivo) {
             const reader = new FileReader();
-            reader.onload = async function(e) {
-                var base64 = e.target.result.split(",")[1];
+            reader.onload = function(e) {
                 var payload = {
                     nombre: nombre,
                     precio: precio,
                     costo: costo,
                     categoria: { id: categoriaId },
                     activo: estado === 'activo',
-                    imagen: base64,
+                    imagen: e.target.result,
                 };
                 enviarPayload(payload);
             };

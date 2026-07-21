@@ -1,12 +1,15 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-        document.getElementsByClassName("user-role")[0].innerHTML = user.rol; 
-
-    
-    //document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    try {
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        if (user) {
+            var nameEl2 = document.getElementsByClassName("user-name")[0];
+            if (nameEl2) nameEl2.innerHTML = user.nombreUsuario;
+            var roleEl2 = document.getElementsByClassName("user-role")[0];
+            if (roleEl2) roleEl2.innerHTML = user.rol;
+        }
+    } catch(e) { window.location.href = '../index.html'; return; }
 
     var ventasData = [];
 
@@ -132,18 +135,28 @@ $(document).ready(function () {
         abrirModal('modalDetallesVenta');
     });
 
-        $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
+    $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.btn-modal-cancelar', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.modal-overlay', function (e) { if (e.target === this) $(this).removeClass('activo'); });
 
     // --- Nueva venta ---
     var productosVenta = [];
-    var clientesVentaCache = [];
-    var productosVentaCache = [];
 
     function recargarCacheVenta() {
-        apiGet('/clientes').then(function (r) { clientesVentaCache = r; }).catch(function () {});
-        apiGet('/productos').then(function (r) { productosVentaCache = r; }).catch(function () {});
+        apiGet('/clientes').then(function (r) {
+            var $select = $('#campoVentaCliente');
+            $select.find('option:gt(0)').remove();
+            $.each(r || [], function (i, c) {
+                $select.append('<option value="' + c.id + '">' + c.nombre + ' ' + c.apellido + '</option>');
+            });
+        }).catch(function () {});
+        apiGet('/productos').then(function (r) {
+            var $select = $('#campoVentaProducto');
+            $select.find('option:gt(0)').remove();
+            $.each(r || [], function (i, p) {
+                $select.append('<option value="' + p.id + '" data-precio="' + p.precio + '">' + p.nombre + ' - $' + parseFloat(p.precio).toFixed(2) + '</option>');
+            });
+        }).catch(function () {});
     }
     recargarCacheVenta();
 
@@ -170,146 +183,42 @@ $(document).ready(function () {
         $('#totalNuevaVenta').text('$' + formatNumber(total));
     }
 
-    var timeoutVentaCliente;
-    $('#campoVentaCliente').on('input', function () {
-        clearTimeout(timeoutVentaCliente);
-        var val = $(this).val().toLowerCase();
-        if (val.length < 2) { return; }
-        timeoutVentaCliente = setTimeout(function () {
-            var listado = clientesVentaCache;
-            if (listado.length === 0) {
-                apiGet('/clientes').then(function (r) {
-                    clientesVentaCache = r;
-                    mostrarSugerenciasVentaCliente(r, val);
-                }).catch(function () {});
-                return;
-            }
-            mostrarSugerenciasVentaCliente(listado, val);
-        }, 200);
-    });
-
-    function mostrarSugerenciasVentaCliente(lista, val) {
-        var filtrados = lista.filter(function (c) { return (c.nombre + ' ' + c.apellido).toLowerCase().indexOf(val) > -1; });
-        if (filtrados.length === 0) return;
-        var sel = document.getElementById('campoVentaCliente');
-        var existente = document.getElementById('sugerenciasVentaCliente');
-        if (!existente) {
-            var div = document.createElement('div');
-            div.id = 'sugerenciasVentaCliente';
-            div.className = 'lista-sugerencias';
-            div.style.cssText = 'position:absolute;top:100%;left:0;right:0;z-index:10;background:#fff;border:1px solid #ddd;border-radius:0 0 8px 8px;max-height:180px;overflow-y:auto;';
-            sel.parentNode.style.position = 'relative';
-            sel.parentNode.appendChild(div);
-            existente = div;
-        }
-        var html = '';
-        $.each(filtrados, function (i, c) {
-            html += '<div class="sugerencia-item" data-id="' + c.id + '" data-nombre="' + (c.nombre + ' ' + c.apellido) + '">';
-            html += '<strong>' + c.nombre + ' ' + c.apellido + '</strong>';
-            html += '</div>';
-        });
-        existente.innerHTML = html;
-        existente.style.display = 'block';
-    }
-
-    $(document).on('click', '#sugerenciasVentaCliente .sugerencia-item', function () {
-        var $item = $(this);
-        $('#sugerenciasVentaCliente').hide();
-        $('#campoVentaCliente').val($item.data('nombre')).data('clienteId', $item.data('id'));
-    });
-
-    var timeoutVentaProducto;
-    $('#campoVentaProducto').on('input', function () {
-        clearTimeout(timeoutVentaProducto);
-        var val = $(this).val().toLowerCase();
-        if (val.length < 2) { return; }
-        timeoutVentaProducto = setTimeout(function () {
-            var listado = productosVentaCache;
-            if (listado.length === 0) {
-                apiGet('/productos').then(function (r) {
-                    productosVentaCache = r;
-                    mostrarSugerenciasVentaProducto(r, val);
-                }).catch(function () {});
-                return;
-            }
-            mostrarSugerenciasVentaProducto(listado, val);
-        }, 200);
-    });
-
-    function mostrarSugerenciasVentaProducto(lista, val) {
-        var filtrados = lista.filter(function (p) { return p.nombre.toLowerCase().indexOf(val) > -1; });
-        if (filtrados.length === 0) return;
-        var sel = document.getElementById('campoVentaProducto');
-        var existente = document.getElementById('sugerenciasVentaProducto');
-        if (!existente) {
-            var div = document.createElement('div');
-            div.id = 'sugerenciasVentaProducto';
-            div.className = 'lista-sugerencias';
-            div.style.cssText = 'position:absolute;top:100%;left:0;right:0;z-index:10;background:#fff;border:1px solid #ddd;border-radius:0 0 8px 8px;max-height:180px;overflow-y:auto;';
-            sel.parentNode.style.position = 'relative';
-            sel.parentNode.appendChild(div);
-            existente = div;
-        }
-        var html = '';
-        $.each(filtrados, function (i, p) {
-            html += '<div class="sugerencia-item" data-id="' + p.id + '" data-nombre="' + p.nombre + '" data-precio="' + p.precio + '">';
-            html += '<strong>' + p.nombre + '</strong>';
-            html += '</div>';
-        });
-        existente.innerHTML = html;
-        existente.style.display = 'block';
-    }
-
-    $(document).on('click', '#sugerenciasVentaProducto .sugerencia-item', function () {
-        var $item = $(this);
-        $('#sugerenciasVentaProducto').hide();
-        $('#campoVentaProducto').val($item.data('nombre')).data('productoId', $item.data('id'));
-        var precio = $item.data('precio');
+    $('#campoVentaProducto').on('change', function () {
+        var precio = $(this).find(':selected').data('precio');
         if (precio) $('#campoVentaPrecio').val(precio);
-        $('#campoVentaPrecio').focus();
-    });
-
-    $(document).on('click', function (e) {
-        if (!$(e.target).closest('.campo-grupo').length) {
-            $('.lista-sugerencias').hide();
-        }
     });
 
     $('#btnAgregarProductoVenta').on('click', function () {
-        var nombre = $('#campoVentaProducto').val().trim();
-        var productoId = parseInt($('#campoVentaProducto').data('productoId'));
+        var $selectProd = $('#campoVentaProducto');
+        var productoId = parseInt($selectProd.val());
+        var $selected = $selectProd.find(':selected');
+        var text = $selected.text() || '';
+        var nombre = text.split(' - ')[0].trim();
         var cantidad = parseInt($('#campoVentaCantidad').val()) || 1;
         var precio = parseFloat($('#campoVentaPrecio').val());
 
-        if (!nombre || isNaN(precio) || precio <= 0) {
-            mostrarToast('Completa nombre y precio del producto', 'error');
-            return;
-        }
-        if (!productoId) {
-            mostrarToast('Escribe el nombre del producto', 'error');
-            return;
-        }
+        if (!productoId) { mostrarToast('Selecciona un producto', 'error'); return; }
+        if (isNaN(precio) || precio <= 0) { mostrarToast('Ingresa un precio valido', 'error'); return; }
 
         productosVenta.push({ id: productoId, nombre: nombre, cantidad: cantidad, precio: precio });
-        $('#campoVentaProducto').val('').removeData('productoId');
+        $selectProd.val('');
         $('#campoVentaCantidad').val(1);
         $('#campoVentaPrecio').val('');
-        $('#sugerenciasVentaProducto').hide();
         actualizarProductosVenta();
-        $('#campoVentaProducto').focus();
     });
 
     $(document).on('click', '.btn-quitar-producto', function () {
-        var index = $(this).data('index');
-        productosVenta.splice(index, 1);
-        actualizarProductosVenta();
+        var index = parseInt($(this).attr('data-index'));
+        if (!isNaN(index) && index >= 0 && index < productosVenta.length) {
+            productosVenta.splice(index, 1);
+            actualizarProductosVenta();
+        }
     });
 
     $('#btnGuardarVenta').on('click', function () {
-        var clienteId = $('#campoVentaCliente').data('clienteId');
-        var clienteNombre = $('#campoVentaCliente').val().trim();
+        var clienteId = parseInt($('#campoVentaCliente').val());
 
-        if (!clienteId) { mostrarToast('Selecciona un cliente de la lista de sugerencias', 'error'); return; }
+        if (!clienteId) { mostrarToast('Selecciona un cliente', 'error'); return; }
         if (productosVenta.length === 0) { mostrarToast('Agrega al menos un producto', 'error'); return; }
 
         var empleadoId = getUsuarioId();
@@ -334,7 +243,7 @@ $(document).ready(function () {
                 cargarVentas();
             })
             .catch(function (err) {
-                var msg = err && (err.error || err.message || JSON.stringify(err)) || 'Error de conexión';
+                var msg = err && (err.error || err.message || JSON.stringify(err)) || 'Error de conexion';
                 mostrarToast('Error: ' + msg, 'error');
             });
     });

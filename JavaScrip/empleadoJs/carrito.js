@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (apartados.length === 0) {
             var trEmpty = document.createElement("tr");
-            trEmpty.innerHTML = '<td colspan="6" style="text-align:center; padding:30px; color:#94a3b8;">No hay apartados registrados.</td>';
+            trEmpty.innerHTML = '<td colspan="8" style="text-align:center; padding:30px; color:#94a3b8;">No hay apartados registrados.</td>';
             tableBody.appendChild(trEmpty);
             return;
         }
@@ -68,12 +68,22 @@ document.addEventListener("DOMContentLoaded", () => {
             var pendiente = total - abonado;
             var estado = apartado.estado || "ACTIVO";
 
+            var prenda = "-";
+            if (apartado.producto) {
+                prenda = apartado.producto.nombre || "-";
+            } else if (apartado.detalles && apartado.detalles.length > 0) {
+                var nombres = apartado.detalles.map(function(d) { return d.producto ? d.producto.nombre : (d.nombre || "-"); });
+                prenda = nombres.join(", ");
+            }
+
+            var fechaLimite = apartado.fechaLimite || apartado.fechaApartado || "-";
+
             var saldoHTML = "";
             var accionHTML = "";
 
             if (estado === "ACTIVO" && pendiente > 0) {
                 saldoHTML = "<strong>$" + pendiente.toFixed(2) + "</strong>";
-                accionHTML = '<button class="btn-abonar" data-apartado-id="' + apartado.id + '" data-remaining="' + pendiente + '"><i class="fa-solid fa-dollar-sign"></i> Abonar</button>';
+                accionHTML = '<button class="btn-abonar" data-apartado-id="' + apartado.id + '" data-remaining="' + pendiente + '"><i class="fa-solid fa-dollar-sign"></i> Abonar / Liquidar</button>';
             } else {
                 saldoHTML = '<span style="color: #16a34a; font-weight: bold;">Liquidado</span>';
                 accionHTML = '<span style="color:#16a34a;"><i class="fa-solid fa-square-check"></i> Entregado</span>';
@@ -82,10 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
             var tr = document.createElement("tr");
             tr.innerHTML =
                 "<td><strong>#APT-" + String(apartado.id).padStart(3, "0") + "</strong></td>" +
-                "<td>" + escapeHtml(nombreCliente) + "</td>" +
+                "<td><strong>" + escapeHtml(nombreCliente) + "</strong></td>" +
+                "<td>" + escapeHtml(prenda) + "</td>" +
                 "<td>$" + total.toFixed(2) + "</td>" +
+                '<td class="text-green">$' + abonado.toFixed(2) + "</td>" +
                 '<td class="status-saldo">' + saldoHTML + "</td>" +
-                "<td>" + formatFecha(apartado.fechaApartado) + "</td>" +
+                '<td><span class="tag-date">' + fechaLimite + "</span></td>" +
                 "<td>" + accionHTML + "</td>";
             tableBody.appendChild(tr);
         });

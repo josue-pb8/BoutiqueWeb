@@ -1,13 +1,18 @@
 let comprasData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
+ try {
+ let user = JSON.parse(localStorage.getItem('usuario'));
+    if (user) {
+        var nameElCliCompras = document.getElementsByClassName("user-name")[0];
+        if (nameElCliCompras) nameElCliCompras.innerHTML = user.nombreUsuario;
+        var avatarElCliCompras = document.getElementsByClassName("avatar-placeholder")[0];
+        if (avatarElCliCompras) avatarElCliCompras.innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    }
+ } catch(e) {}
     cargarCompras();
     configurarBusqueda();
 });
- let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-
-    document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
     
 
 function cargarCompras() {

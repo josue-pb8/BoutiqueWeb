@@ -1,16 +1,20 @@
 var clienteTelefono = '';
 
 document.addEventListener('DOMContentLoaded', () => {
+ try {
+ let user = JSON.parse(localStorage.getItem('usuario'));
+    if (user) {
+        var nameElCliPerfil = document.getElementsByClassName("user-name")[0];
+        if (nameElCliPerfil) nameElCliPerfil.innerHTML = user.nombreUsuario;
+        var avatarElCliPerfil = document.getElementsByClassName("avatar-placeholder")[0];
+        if (avatarElCliPerfil) avatarElCliPerfil.innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    }
+ } catch(e) {}
     cargarPerfil();
     configurarEdicion();
     configurarPassword();
     configurarBusqueda();
 });
-
- let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-
-    document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
     
 
 function cargarPerfil() {
@@ -35,6 +39,9 @@ function cargarPerfil() {
         if (avatar) avatar.textContent = iniciales.toUpperCase();
         if (headerAvatar) headerAvatar.textContent = iniciales.toUpperCase();
         if (userName) userName.textContent = nombreCompleto.trim();
+
+        if (inputNombre) inputNombre.setAttribute('data-original', inputNombre.value);
+        if (inputEmail) inputEmail.setAttribute('data-original', inputEmail.value);
     }).catch(function(err) {
         console.error("Error cargando perfil:", err);
     });
@@ -63,9 +70,9 @@ function configurarEdicion() {
 
     if (btnCancel) {
         btnCancel.addEventListener('click', function() {
-            inputs.forEach(function(input, index) {
+            inputs.forEach(function(input) {
                 if (input) {
-                    input.value = valoresOriginales[index];
+                    input.value = input.getAttribute('data-original') || '';
                     input.disabled = true;
                 }
             });
@@ -116,7 +123,7 @@ function configurarEdicion() {
                 if (avatar) avatar.textContent = iniciales;
                 if (headerAvatar) headerAvatar.textContent = iniciales;
 
-                inputs.forEach(function(input, i) { if (input) { input.disabled = true; valoresOriginales[i] = input.value; } });
+                inputs.forEach(function(input) { if (input) { input.disabled = true; input.setAttribute('data-original', input.value); } });
                 if (actions) actions.style.display = 'none';
                 if (btnEdit) btnEdit.style.display = 'block';
 

@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     var totalAcumulado = 0;
     var ticketItems = [];
 
+    try {
      let user = JSON.parse(localStorage.getItem('usuario'));
     if (!user || !user.nombreUsuario) {
         localStorage.removeItem('token');
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         var iniciales = partes.map(function(p) { return p.charAt(0); }).join("").substring(0, 2).toUpperCase();
         avatarEl.textContent = iniciales;
     }
+    } catch(e) { window.location.href = '../../index.html'; return; }
 
     // Modal confirmar venta
     var modalVenta = document.getElementById("modalConfirmarVenta");

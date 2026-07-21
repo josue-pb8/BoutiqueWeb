@@ -210,7 +210,9 @@ body {
     background: #ffffff;
     border: 1px solid #3b3b3b;
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 65vh;
     flex-grow: 1;
 }
 
