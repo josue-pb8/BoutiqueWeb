@@ -17,28 +17,54 @@ $(document).ready(function () {
     function cargarInventario() {
         apiGet('/inventario')
             .then(function (respuesta) {
-                inventarioData = respuesta;
-                $('#totalProductos').text(respuesta.length || 0);
-                var conStock = respuesta.filter(function (i) { return (i.stock || 0) > 0; }).length;
+                var lista = Array.isArray(respuesta) ? respuesta : [];
+                if (lista.length === 0) {
+                    cargarDesdeProductos();
+                    return;
+                }
+                inventarioData = lista;
+                $('#totalProductos').text(lista.length || 0);
+                var conStock = lista.filter(function (i) { return (i.stock || 0) > 0; }).length;
                 $('#entradasMes').text(conStock);
-                renderizarInventario(respuesta);
+                renderizarInventario(lista);
+                cargarAlertasStock(lista);
+            })
+            .catch(function () {
+                cargarDesdeProductos();
+            });
+    }
+
+    function cargarDesdeProductos() {
+        apiGet('/productos')
+            .then(function (productos) {
+                var lista = Array.isArray(productos) ? productos : [];
+                inventarioData = lista.map(function (p) {
+                    return {
+                        id: p.id,
+                        producto: { id: p.id, nombre: p.nombre, precio: p.precio, categoria: p.categoria },
+                        stock: p.stock || 0,
+                        stockMinimo: 5,
+                        talla: 'Unica'
+                    };
+                });
+                $('#totalProductos').text(lista.length);
+                var conStock = lista.filter(function (p) { return (p.stock || 0) > 0; }).length;
+                $('#entradasMes').text(conStock);
+                renderizarInventario(inventarioData);
+                cargarAlertasStock(inventarioData);
             })
             .catch(function () {
                 $('#totalProductos').text('0');
+                $('#entradasMes').text('0');
                 $('#cuerpoInventario').html('<tr><td colspan="6" style="text-align:center;color:#888;">Sin inventario</td></tr>');
             });
+    }
 
-        apiGet('/inventario/alertas-stock')
-            .then(function (respuesta) {
-                stockBajoData = respuesta;
-                $('#stockBajo').text(respuesta.length);
-                renderizarStockBajo(respuesta);
-            })
-            .catch(function () {
-                $('#stockBajo').text('0');
-                $('#cuerpoStockBajo').html('<tr><td colspan="6" style="text-align:center;color:#888;">Sin alertas</td></tr>');
-            });
-
+    function cargarAlertasStock(lista) {
+        var stockBajo = (lista || []).filter(function (i) { return (i.stock || 0) <= (i.stockMinimo || 5); });
+        stockBajoData = stockBajo;
+        $('#stockBajo').text(stockBajo.length);
+        renderizarStockBajo(stockBajo);
     }
 
     function renderizarInventario(data) {
