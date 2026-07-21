@@ -194,7 +194,7 @@ $(document).ready(function () {
             .then(function () {
                 mostrarToast('Producto agregado al inventario', 'exito');
                 cerrarModal('modalAgregarInv');
-                cargarInventario();
+                cargarDesdeProductos();
             })
             .catch(function () {
                 mostrarToast('Error al agregar al inventario', 'error');
@@ -228,7 +228,7 @@ $(document).ready(function () {
             .then(function () {
                 mostrarToast('Producto reabastecido', 'exito');
                 cerrarModal('modalReabastecer');
-                cargarInventario();
+                cargarDesdeProductos();
             })
             .catch(function () { mostrarToast('Error al reabastecer', 'error'); });
     });
@@ -264,7 +264,7 @@ $(document).ready(function () {
             .then(function () {
                 mostrarToast('Stock actualizado', 'exito');
                 cerrarModal('modalVerInventario');
-                cargarInventario();
+                cargarDesdeProductos();
             })
             .catch(function () { mostrarToast('Error al actualizar', 'error'); });
     });
