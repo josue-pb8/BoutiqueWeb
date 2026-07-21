@@ -1,0 +1,127 @@
+/* ==========================================================================
+   BÚSQUEDA DE PRODUCTOS
+   ========================================================================== */
+.buscar-producto {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 12px;
+    height: 38px;
+    background: white;
+}
+
+.buscar-producto input {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    width: 280px;
+}
+
+.buscar-producto img {
+    width: 18px;
+    height: 18px;
+}
+
+.filtro-categoria {
+    height: 38px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    background: white;
+    cursor: pointer;
+}
+
+.btn-agregar {
+    background-color: #C8A45D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #b39150;
+}
+
+/* ==========================================================================
+   TABLA DE PRODUCTOS
+   ========================================================================== */
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+}
+
+.tabla-productos th {
+    background: #f8f4ee;
+    font-weight: 700;
+    color: #333;
+    font-size: 12px;
+}
+
+.tabla-productos td {
+    color: #444;
+}
+
+.tabla-productos tr:hover {
+    background-color: #fafafa;
+}
+
+.tabla-productos .img-producto {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #f0f0f0;
+}
+
+.estado-activo {
+    background: #dff3e3;
+    color: green;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.estado-inactivo {
+    background: #ffe0e0;
+    color: red;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.btn-eliminar {
+    padding: 5px 10px;
+    border: 1px solid #ef4444;
+    background: #fff0f0;
+    color: #ef4444;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-eliminar:hover {
+    background: #ef4444;
+    color: white;
+}

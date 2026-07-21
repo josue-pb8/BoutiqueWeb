@@ -1,0 +1,321 @@
+/* ==========================================================================
+   TARJETA CARD
+   ========================================================================== */
+.acciones-cards {
+    display: flex;
+    gap: 20px;
+}
+
+.tarjeta-stat-card {
+    background-color: #ffffff;
+    border: 1px solid #3b3b3b;
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta-icono-card {
+    width: 48px;
+    height: 48px;
+    background-color: #f0b171;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarjeta-icono-card img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.tarjeta-info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tarjeta-titulo-card {
+    font-size: 13px;
+    color: #7c7c7c;
+    font-weight: 500;
+}
+
+.tarjeta-monto-card {
+    font-size: 22px;
+    color: #1a1a1a;
+    margin: 0;
+    font-weight: 700;
+}
+
+.tarjeta-porcentaje-card {
+    font-size: 12px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.tarjeta-porcentaje-card.positivo-card {
+    color: #27a745;
+}
+
+.tarjeta-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tab-panel .tabla-inventario td.stock-bajo {
+    color: #ef4444;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   TABS INVENTARIO
+   ========================================================================== */
+.tabs-inventario {
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #ebdcdc;
+}
+
+.tab-inventario {
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #7c7c7c;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tab-inventario:hover {
+    color: #333;
+}
+
+.tab-inventario.tab-activo {
+    color: #C8A45D;
+    border-bottom-color: #C8A45D;
+}
+
+.tabs-contenido {
+    padding: 1.5rem 2rem;
+}
+
+.tab-panel {
+    display: none;
+    background: white;
+    border: 1px solid #ebdcdc;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 13px;
+    color: #555;
+    min-height: 120px;
+}
+
+.tab-panel.tab-activo {
+    display: block;
+}
+
+.tab-panel .tabla-inventario {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tab-panel .tabla-inventario th,
+.tab-panel .tabla-inventario td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+}
+
+.tab-panel .tabla-inventario th {
+    background: #f8f4ee;
+    font-weight: 700;
+    color: #333;
+    font-size: 12px;
+}
+
+.tab-panel .tabla-inventario td {
+    color: #555;
+}
+
+.tab-panel .acciones-botones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tab-panel .btn-icono {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.tab-panel .btn-icono:hover {
+    background: #f0f0f0;
+}
+
+.tab-panel .btn-icono.btn-eliminar {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.tab-panel .btn-icono.btn-eliminar:hover {
+    background: #ef4444;
+    color: white;
+}
+
+.tab-panel .producto-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tab-panel .producto-info .img-producto {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f0f0f0;
+}
+
+.tab-panel .stock-critico {
+    color: #ef4444;
+    font-weight: 600;
+    background: transparent;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.tab-panel .stock-alerta {
+    color: #d97706;
+    font-weight: 600;
+    background: transparent;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.tab-panel .estado-critico {
+    color: #ef4444;
+    background: #ffe0e0;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tab-panel .estado-alerta {
+    color: #d97706;
+    background: #fff1d6;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tab-panel .tipo-entrada {
+    background: #dff3e3;
+    color: #27a745;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tab-panel .tipo-salida {
+    background: #ffe0e0;
+    color: #ef4444;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tab-panel .rol-admin {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    width: fit-content;
+}
+
+.tab-panel .rol-empleado {
+    background: #f3e8ff;
+    color: #7c3aed;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    width: fit-content;
+}
+
+.tab-panel .responsable-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tab-panel .nombre-responsable {
+    font-size: 12px;
+    color: #333;
+}
+
+/* ==========================================================================
+    7. RESPONSIVE
+    ========================================================================== */
+@media (max-width: 768px) {
+    .acciones-container {
+        padding: 1rem;
+        flex-direction: column;
+    }
+
+    .acciones-cards {
+        flex-wrap: wrap;
+    }
+
+    .tarjeta-stat-card {
+        width: 100%;
+    }
+
+    .tabs-inventario {
+        padding: 0 1rem;
+        overflow-x: auto;
+    }
+
+    .tab-inventario {
+        padding: 10px 16px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .tabs-contenido {
+        padding: 1rem;
+    }
+
+    .tab-panel {
+        overflow-x: auto;
+    }
+}

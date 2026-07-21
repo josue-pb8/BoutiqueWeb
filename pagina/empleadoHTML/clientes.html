@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Boutique - Clientes</title>
+    <!-- Importamos los estilos globales de inicio y luego los específicos de clientes -->
+    <link rel="stylesheet" href="/CSS/empleadoCss/inicio.css">
+    <link rel="stylesheet" href="/CSS/empleadoCss/clientes.css">
+    <!-- Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- BARRA LATERAL (Estructura idéntica) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../../Image/graper.jpeg" alt="Boutique Graper" class="sidebar-logo">
+                    <span>Boutique Graper</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="inicio.html" class="menu-item"><i class="fa-solid fa-house"></i> Inicio</a>
+                <a href="producto.html" class="menu-item"><i class="fa-solid fa-box"></i> Productos</a>
+                <a href="ventas.html" class="menu-item"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+                <a href="clientes.html" class="menu-item active"><i class="fa-solid fa-users"></i> Clientes</a>
+                <a href="apartados.html" class="menu-item"><i class="fa-solid fa-cart-plus"></i> Carrito</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../../index.html" class="menu-item logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            
+            <!-- ENCABEZADO SUPERIOR -->
+            <header class="content-header">
+                <div class="welcome-text">
+                    <h1>Gestión de Clientes</h1>
+                    <p>Registra nuevos compradores y administra su historial de contacto</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">AL</div>
+                    <div class="user-details">
+                        <span class="user-name">Ana López</span>
+
+                    </div>
+                </div>
+            </header>
+
+            <!-- BUSCADOR UNIFICADO -->
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchCliente" placeholder="Buscar cliente por nombre o teléfono...">
+            </div>
+
+            <!-- CUERPO DE CLIENTES -->
+            <section class="content-body">
+                
+                <!-- Formulario para agregar cliente rápido -->
+                <div class="card card-form-cliente">
+                    <h3><i class="fa-solid fa-user-plus text-gold"></i> Registrar Nuevo Cliente</h3>
+                    <form id="formCliente" class="cliente-form-grid">
+                        <div class="form-group">
+                            <label for="nombreCliente">Nombre Completo</label>
+                            <input type="text" id="nombreCliente" placeholder="Ej. María Flores" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefonoCliente">Teléfono</label>
+                            <input type="tel" id="telefonoCliente" placeholder="Ej. 961 123 4567" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correoCliente">Correo Electrónico (Opcional)</label>
+                            <input type="email" id="correoCliente" placeholder="Ej. maria@correo.com">
+                        </div>
+                        <div class="form-group btn-submit-container">
+                            <button type="submit" class="btn-guardar-cliente">Agregar Cliente</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabla de Clientes -->
+                <div class="card card-clientes-table">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre del Cliente</th>
+                                    <th>Teléfono / Celular</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Fecha de Registro</th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientesTableBody">
+                                <tr>
+                                    <td><strong>#CLI-001</strong></td>
+                                    <td>
+                                        <div class="cliente-cell">
+                                            <div class="cliente-avatar-placeholder">ML</div>
+                                            <strong>María López</strong>
+                                        </div>
+                                    </td>
+                                    <td>961 456 7890</td>
+                                    <td>maria.lopez@example.com</td>
+                                    <td>20 de mayo de 2024</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#CLI-002</strong></td>
+                                    <td>
+                                        <div class="cliente-cell">
+                                            <div class="cliente-avatar-placeholder">AG</div>
+                                            <strong>Ana García</strong>
+                                        </div>
+                                    </td>
+                                    <td>961 789 1234</td>
+                                    <td>ana.garcia@example.com</td>
+                                    <td>18 de mayo de 2024</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>#CLI-003</strong></td>
+                                    <td>
+                                        <div class="cliente-cell">
+                                            <div class="cliente-avatar-placeholder">CM</div>
+                                            <strong>Carla Martínez</strong>
+                                        </div>
+                                    </td>
+                                    <td>961 321 6540</td>
+                                    <td>carla.mtz@example.com</td>
+                                    <td>15 de mayo de 2024</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Script asignado -->
+    <script src="../../JavaScrip/api-config.js"></script>
+    <script src="../../JavaScrip/empleadoJs/clientes.js"></script>
+</body>
+</html>

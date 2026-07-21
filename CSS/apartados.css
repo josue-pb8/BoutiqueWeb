@@ -1,0 +1,214 @@
+/* ==========================================================================
+   BÚSQUEDA DE APARTADOS
+   ========================================================================== */
+.buscar-apartado {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 12px;
+    height: 38px;
+    background: white;
+}
+
+.buscar-apartado input {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    width: 280px;
+}
+
+.buscar-apartado img {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-nuevo-apartado {
+    background-color: #C8A45D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-nuevo-apartado:hover {
+    background-color: #b39150;
+}
+
+/* ==========================================================================
+   TABLA DE APARTADOS
+   ========================================================================== */
+.tabla-apartados {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-apartados th,
+.tabla-apartados td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+}
+
+.tabla-apartados th {
+    background: #f8f4ee;
+    font-weight: 700;
+    color: #333;
+    font-size: 12px;
+}
+
+.tabla-apartados td {
+    color: #444;
+}
+
+.telefono-celda {
+    font-size: 11px;
+    color: #7c7c7c;
+}
+
+.producto-celda {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.producto-celda:last-child {
+    margin-bottom: 0;
+}
+
+.img-producto-apartado {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f0f0f0;
+}
+
+.producto-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.atributo-celda {
+    font-size: 11px;
+    color: #7c7c7c;
+}
+
+.mas-productos {
+    font-size: 11px;
+    color: #C8A45D;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tabla-apartados tr:hover {
+    background-color: #fafafa;
+}
+
+.estado-pendiente {
+    background: #fff3cd;
+    color: #856404;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.estado-activo {
+    background: #d4edda;
+    color: #155724;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.estado-vencido {
+    background: #ffe0e0;
+    color: red;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.producto-agregado-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    background: #fafafa;
+    font-size: 13px;
+}
+
+.btn-quitar-producto {
+    background: none;
+    border: none;
+    color: #dc2626;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.btn-quitar-producto:hover {
+    color: #b91c1c;
+}
+
+.lista-sugerencias {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.lista-sugerencias .sugerencia-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.15s;
+}
+
+.lista-sugerencias .sugerencia-item:last-child {
+    border-bottom: none;
+}
+
+.lista-sugerencias .sugerencia-item:hover {
+    background: #f8f4ee;
+}
+
+.lista-sugerencias .sugerencia-item .sugerencia-sub {
+    font-size: 11px;
+    color: #888;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .buscar-apartado input {
+        width: 100%;
+    }
+}

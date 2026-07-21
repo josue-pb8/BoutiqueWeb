@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Boutique - Cerrar Sesión</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../../CSS/vistas cliente css/cerrar-sesion.css">
+</head>
+<body>
+    <div class="menu-lateral">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../../Image/logoGraper.jpeg" alt="Bella Boutique" class="logo-img">
+                    <div class="logo-text">
+                        <div style="font-size: 1.5rem; font-weight: 700; line-height: 1; color: white;">Graper</div>
+                        
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./inicio.html"><span class="material-symbols-outlined">home</span><span class="link-name">Inicio</span></a></li>
+                <li><a href="./productos.html"><span class="material-symbols-outlined">checkroom</span><span class="link-name">Productos</span></a></li>
+                <li><a href="./favoritos.html"><span class="material-symbols-outlined">favorite</span><span class="link-name">Favoritos</span></a></li>
+                <li><a href="./apartados.html"><span class="material-symbols-outlined">assignment</span><span class="link-name">Mis Apartados</span></a></li>
+                <li><a href="./compras.html"><span class="material-symbols-outlined">package_2</span><span class="link-name">Mis Compras</span></a></li>
+                <li><a href="./perfil.html"><span class="material-symbols-outlined">person</span><span class="link-name">Mi Perfil</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="./cerrar-sesion.html" class="logout-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="top-header">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="search-bar-top">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" id="search-input" placeholder="Buscar..." maxlength="100">
+                </div>
+                <div class="user-profile-display">
+                    <div class="avatar-placeholder">AL</div>
+                    <div class="user-info"><span class="user-name">Ana López</span></div>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="logout-card">
+                    <div class="logout-avatar" id="logout-avatar">AL</div>
+                    <h2>¿Cerrar sesión?</h2>
+                    <p class="logout-username" id="logout-username">Ana López</p>
+                    <p class="logout-message">Se cerrará tu sesión actual y serás redirigida al inicio de sesión.</p>
+                    <div class="logout-actions">
+                        <button class="btn-logout-confirm" id="btn-cerrar-sesion">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
+                            Sí, cerrar sesión
+                        </button>
+                        <button class="btn-logout-cancel" id="btn-cancelar">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../../JavaScrip/api-config.js"></script>
+    <script src="../../JavaScrip/vistas cliente js/cerrar-sesion.js"></script>
+</body>
+</html>

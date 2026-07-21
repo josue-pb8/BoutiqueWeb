@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Descuentos</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/descuentos.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html" class="active">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>DESCUENTOS</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="acciones-container">
+                <div class="acciones-filtros-left">
+                    <div class="buscar-descuento">
+                        <input type="search" placeholder="Buscar descuento...">
+                        <img src="../Image/buscador.png" alt="Buscar">
+                    </div>
+                </div>
+                <button class="btn-crear-descuento">
+                    <span class="btn-plus">+</span> Crear descuento
+                </button>
+            </div>
+
+            <div class="acciones-container-cards">
+                <div class="tarjeta-stat-card">
+                    <div class="tarjeta-icono-card icono-verde">
+                        <img src="../Image/palomita.png" alt="Icono">
+                    </div>
+                    <div class="tarjeta-info-card">
+                        <span class="tarjeta-titulo-card">Descuentos activos</span>
+                        <h3 class="tarjeta-monto-card" id="descActivos">0</h3>
+                        <p class="tarjeta-porcentaje-card positivo-card">Promociones activas</p>
+                    </div>
+                </div>
+                <div class="tarjeta-stat-card">
+                    <div class="tarjeta-icono-card icono-naranja">
+                        <img src="../Image/reloj.png" alt="Icono">
+                    </div>
+                    <div class="tarjeta-info-card">
+                        <span class="tarjeta-titulo-card">Próximo a finalizar</span>
+                        <h3 class="tarjeta-monto-card" id="descProximos">0</h3>
+                        <p class="tarjeta-porcentaje-card naranja-card">En los próximos 7 días</p>
+                    </div>
+                </div>
+                <div class="tarjeta-stat-card">
+                    <div class="tarjeta-icono-card icono-rojo">
+                        <img src="../Image/tacha.png" alt="Icono">
+                    </div>
+                    <div class="tarjeta-info-card">
+                        <span class="tarjeta-titulo-card">Descuentos vencidos</span>
+                        <h3 class="tarjeta-monto-card" id="descVencidos">0</h3>
+                        <p class="tarjeta-porcentaje-card rojo-card">Promociones finalizadas</p>
+                    </div>
+                </div>
+                <div class="tarjeta-stat-card">
+                    <div class="tarjeta-icono-card icono-azul">
+                        <img src="../Image/descuento.png" alt="Icono">
+                    </div>
+                    <div class="tarjeta-info-card">
+                        <span class="tarjeta-titulo-card">Total de descuentos</span>
+                        <h3 class="tarjeta-monto-card" id="descTotal">0</h3>
+                        <p class="tarjeta-porcentaje-card azul-card">Promociones registradas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs-descuentos">
+                <button class="tab-descuento tab-activo" data-target="panelTodos" type="button">Todos</button>
+                <button class="tab-descuento" data-target="panelActivos" type="button">Activos</button>
+                <button class="tab-descuento" data-target="panelProgramados" type="button">Programados</button>
+                <button class="tab-descuento" data-target="panelVencidos" type="button">Vencidos</button>
+            </div>
+
+            <div class="tabs-contenido-desc">
+                <div class="tab-panel-desc tab-activo" id="panelTodos">
+                    <table class="tabla-descuentos">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Descuento</th>
+                                <th>Precio original</th>
+                                <th>Precio con descuento</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTodos">
+                            <tr><td colspan="8" class="tabla-celda-centro">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-panel-desc" id="panelActivos">
+                    <table class="tabla-descuentos">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Descuento</th>
+                                <th>Precio original</th>
+                                <th>Precio con descuento</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoActivos">
+                            <tr><td colspan="8" class="tabla-celda-centro">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-panel-desc" id="panelProgramados">
+                    <table class="tabla-descuentos">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Descuento</th>
+                                <th>Precio original</th>
+                                <th>Precio con descuento</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoProgramados">
+                            <tr><td colspan="8" class="tabla-celda-centro">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-panel-desc" id="panelVencidos">
+                    <table class="tabla-descuentos">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Descuento</th>
+                                <th>Precio original</th>
+                                <th>Precio con descuento</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoVencidos">
+                            <tr><td colspan="8" class="tabla-celda-centro">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/descuentos.js"></script>
+
+    <div class="toast-notificacion" id="toastGlobal"></div>
+
+    <div class="modal-overlay" id="modalDescuento">
+        <div class="modal-contenido modal-contenido-grande">
+            <div class="modal-header">
+                <h3 id="modalDescuentoTitulo">Crear descuento</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalDescuentoForm">
+                    <div class="campo-grupo">
+                        <label>Producto</label>
+                        <input type="text" id="campoDescNombre" placeholder="Nombre del producto" required>
+                    </div>
+                    <div class="campo-fila">
+                        <div class="campo-grupo">
+                            <label>Tipo de descuento</label>
+                            <select id="campoDescTipo" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="20%">20%</option>
+                                <option value="15%">15%</option>
+                                <option value="10%">10%</option>
+                                <option value="2x1">2x1</option>
+                                <option value="3x2">3x2</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="campo-grupo">
+                            <label>Estado</label>
+                            <select id="campoDescEstado">
+                                <option value="activo">Activo</option>
+                                <option value="programado">Programado</option>
+                                <option value="vencido">Vencido</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="campo-fila">
+                        <div class="campo-grupo">
+                            <label>Precio original ($)</label>
+                            <input type="number" id="campoDescPrecioOriginal" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                        <div class="campo-grupo">
+                            <label>Precio con descuento ($)</label>
+                            <input type="number" id="campoDescPrecioDescuento" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="campo-fila">
+                        <div class="campo-grupo">
+                            <label>Fecha de inicio</label>
+                            <input type="text" id="campoDescInicio" placeholder="DD/MM/AAAA" required>
+                        </div>
+                        <div class="campo-grupo">
+                            <label>Fecha de fin</label>
+                            <input type="text" id="campoDescFin" placeholder="DD/MM/AAAA" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarDescuento">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEliminarDesc">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-confirmar">
+                <div class="icono-confirmar">&#128465;</div>
+                <h3>Eliminar descuento</h3>
+                <p>¿Estás seguro de eliminar el descuento de <strong id="modalEliminarDescNombre"></strong>?</p>
+                <div class="modal-footer modal-footer-centro">
+                    <button class="btn-modal-cancelar">Cancelar</button>
+                    <button class="btn-modal-eliminar" id="btnConfirmarEliminarDesc">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

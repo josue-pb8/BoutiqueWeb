@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Boutique - Mis Apartados</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="../../CSS/vistas cliente css/apartados.css">
+</head>
+<body>
+    <div class="menu-lateral">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../../Image/logoGraper.jpeg" alt="Bella Boutique" class="logo-img">
+                    <div class="logo-text">
+                        <div style="font-size: 1.5rem; font-weight: 700; line-height: 1; color: white;">Graper</div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./inicio.html"><span class="material-symbols-outlined">home</span><span class="link-name">Inicio</span></a></li>
+                <li><a href="./productos.html"><span class="material-symbols-outlined">checkroom</span><span class="link-name">Productos</span></a></li>
+                <li><a href="./favoritos.html"><span class="material-symbols-outlined">favorite</span><span class="link-name">Favoritos</span></a></li>
+                <li><a href="./apartados.html" class="active"><span class="material-symbols-outlined">assignment</span><span class="link-name">Mis Apartados</span></a></li>
+                <li><a href="./compras.html"><span class="material-symbols-outlined">package_2</span><span class="link-name">Mis Compras</span></a></li>
+                <li><a href="./perfil.html"><span class="material-symbols-outlined">person</span><span class="link-name">Mi Perfil</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="./cerrar-sesion.html" class="logout-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="link-name">Cerrar Sesion</span>
+                </a>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="top-header">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="search-bar-top">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" id="search-input" placeholder="Buscar apartados..." maxlength="100">
+                </div>
+                <div class="user-profile-display">
+                    <div class="avatar-placeholder">AL</div>
+                    <div class="user-info"><span class="user-name">Ana Lopez</span></div>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="page-header">
+                    <h1 class="main-title">Mis Apartados</h1>
+                    <p class="subtitle" id="apartados-subtitle">Productos que apartaste para recoger en tienda.</p>
+                </div>
+                <div class="apartados-list" id="apartados-container" style="display: none;"></div>
+                <div class="empty-state" id="empty-apartados" style="display: none;">
+                    <span class="material-symbols-outlined" style="font-size: 64px; color: #cbd5e1; margin-bottom: 1rem;">assignment</span>
+                    <h2>No tienes apartados</h2>
+                    <p style="color: #64748b; margin-bottom: 1.5rem;">Aparta productos desde el catalogo para recogerlos en tienda.</p>
+                    <a href="./productos.html" class="btn-go-catalog">Ver Catalogo</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Detalle Apartado -->
+    <div class="modal-overlay" id="modal-detalle-apartado" onclick="cerrarModalDetalle(event)">
+        <div class="modal-content-apartado" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="cerrarModalDetalleDirecto()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <div id="modal-detalle-body"></div>
+        </div>
+    </div>
+
+    <script src="../../JavaScrip/api-config.js"></script>
+    <script src="../../JavaScrip/vistas cliente js/apartados.js"></script>
+</body>
+</html>

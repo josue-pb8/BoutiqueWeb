@@ -1,0 +1,300 @@
+/* ==========================================================================
+   SHARED - Estilos comunes para todas las páginas del dashboard
+   ========================================================================== */
+
+/* 1. Variables de entorno */
+:root {
+    --bg-primary: #C8A45D;
+    --bg-secondary: #d898e4;
+    --text-main: #000000;
+    --text-muted: #000000;
+    --accent-color: #cb54c3;
+    --main-bg: #f1f5f9;
+    --sidebar-width: 200px;
+    --transition-speed: 0.3s;
+}
+
+/* 2. Reseteo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--main-bg);
+    overflow: hidden;
+}
+
+/* 3. Layout principal */
+.menu-lateral {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* 4. Menú lateral */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100%;
+    background-color: var(--bg-primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem 1rem;
+}
+
+.sidebar-header {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--bg-secondary);
+}
+
+.sidebar-header .logo-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-main);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.nav-icon-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--main-bg);
+    transition: transform var(--transition-speed) ease;
+}
+
+.nav-links {
+    list-style: none;
+    margin-top: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+}
+
+.nav-links a, .logout-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover, .logout-link:hover {
+    background-color: var(--bg-secondary);
+    color: var(--text-main);
+}
+
+.nav-links a.active {
+    background-color: var(--accent-color);
+    color: var(--text-main);
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.sidebar-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--bg-secondary);
+}
+
+.logout-link:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+/* 5. Área de trabajo principal */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.top-header {
+    background-color: #C8A45D;
+    padding: 0.75rem 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-header h1 {
+    font-size: 1.5rem;
+    color: #1e293b;
+}
+
+.user-profile-display {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.5rem;
+}
+
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #e2e8f0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.user-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.user-role {
+    font-size: 0.85rem;
+    color: #000000;
+}
+
+/* 6. Acciones compartidas */
+.acciones-container {
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.acciones-filtros {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filtro-estado {
+    height: 38px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    background: white;
+    cursor: pointer;
+}
+
+.btn-plus {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+/* 7. Tabla compartida */
+.tabla-container {
+    margin: 0 2rem 1.5rem 2rem;
+    background: #ffffff;
+    border: 1px solid #3b3b3b;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.tabla-vacia {
+    text-align: center;
+    color: #999;
+    padding: 24px 16px !important;
+    font-style: italic;
+}
+
+/* 8. Botones de acción compartidos */
+.acciones-botones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-icono {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.btn-icono:hover {
+    background: #C8A45D;
+    border-color: #C8A45D;
+}
+
+.btn-icono.btn-eliminar {
+    border-color: #ef4444;
+}
+
+.btn-icono.btn-eliminar:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+}
+
+.btn-editar {
+    padding: 5px 10px;
+    border: 1px solid #C8A45D;
+    background: #fff7e6;
+    color: #C8A45D;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-editar:hover {
+    background: #C8A45D;
+    color: white;
+}
+
+/* 9. Responsive compartido */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        transform: translateX(-100%);
+        z-index: 100;
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.activo {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        width: 100%;
+    }
+
+    .acciones-filtros {
+        flex-wrap: wrap;
+    }
+
+    .tabla-container {
+        overflow-x: auto;
+    }
+}

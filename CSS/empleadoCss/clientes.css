@@ -1,0 +1,153 @@
+/* ==========================================
+   TARJETA DEL FORMULARIO DE REGISTRO
+   ========================================== */
+.card-form-cliente {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 25px;
+}
+
+.card-form-cliente h3 {
+    font-size: 16px;
+    color: #1e293b;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.text-gold {
+    color: #cca43b;
+}
+
+.cliente-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.form-group input {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background-color: #f8fafc;
+}
+
+.form-group input:focus {
+    border-color: #cca43b;
+    background-color: #ffffff;
+}
+
+.btn-guardar-cliente {
+    background-color: #cca43b;
+    color: white;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-guardar-cliente:hover {
+    background-color: #b59032;
+}
+
+/* ==========================================
+   TABLA DE CLIENTES
+   ========================================== */
+.card-clientes-table {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.cliente-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cliente-avatar-placeholder {
+    width: 32px;
+    height: 32px;
+    background-color: #fffbeb;
+    color: #cca43b;
+    border: 1px solid #fde68a;
+    font-weight: 700;
+    font-size: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==========================================
+   ESTILOS DE VALIDACIÓN
+   ========================================== */
+.form-group input.input-error {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.form-group input.input-success {
+    border-color: #16a34a;
+    background-color: #f0fdf4;
+}
+
+.form-group .error-message {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    animation: fadeInError 0.2s ease;
+}
+
+.form-group .error-message::before {
+    content: "\f06a";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 11px;
+}
+
+@keyframes fadeInError {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-exito {
+    color: #16a34a;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    animation: fadeInError 0.2s ease;
+}
+
+.form-exito::before {
+    content: "\f058";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}

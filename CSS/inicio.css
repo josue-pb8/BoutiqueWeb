@@ -1,0 +1,309 @@
+/* ==========================================================================
+   DASHBOARD
+   ========================================================================== */
+.dashboard-container {
+    padding: 1.5rem 2rem;
+    overflow-y: auto;
+}
+
+.dashboard-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-bottom: 15px;
+}
+
+.btn-nueva-venta {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-nueva-venta:hover {
+    background-color: #222222;
+}
+
+.btn-agregar-producto {
+    background-color: #C8A45D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-agregar-producto:hover {
+    background-color: #b39150;
+}
+
+.dashboard-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    width: 100%;
+}
+
+.tarjeta-stat {
+    background-color: #ffffff;
+    border: 1px solid #3b3b3b;
+    border-radius: 12px;
+    padding: 20px;
+    width: 280px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.tarjeta-icono {
+    width: 48px;
+    height: 48px;
+    background-color: #f0b171;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarjeta-icono img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.tarjeta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tarjeta-titulo {
+    font-size: 13px;
+    color: #7c7c7c;
+    font-weight: 500;
+}
+
+.tarjeta-monto {
+    font-size: 22px;
+    color: #1a1a1a;
+    margin: 0;
+    font-weight: 700;
+}
+
+.tarjeta-porcentaje {
+    font-size: 12px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.tarjeta-porcentaje.positivo {
+    color: #27a745;
+}
+
+.tarjeta-enlace {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    border-top: 1px solid #ebdcdc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #4a4a4a;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.tarjeta-enlace:hover {
+    background-color: #fafafa;
+    color: #000000;
+}
+
+.tarjeta-enlace .flecha {
+    margin-left: 6px;
+    transition: transform 0.2s ease;
+}
+
+.tarjeta-enlace:hover .flecha {
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   7. TABLAS DEL DASHBOARD
+   ========================================================================== */
+.dashboard-tablas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.tabla-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-bottom: 1px solid #ebdcdc;
+}
+
+.tabla-header h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.btn-ver-mas {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border: 1px solid #C8A45D;
+    background: #fff7e6;
+    color: #C8A45D;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-ver-mas:hover {
+    background: #C8A45D;
+    color: white;
+}
+
+.btn-ver-mas .flecha {
+    transition: transform 0.2s ease;
+}
+
+.btn-ver-mas:hover .flecha {
+    transform: translateX(3px);
+}
+
+.chart-container {
+    background-color: #ffffff;
+    border: 1px solid #3b3b3b;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.chart-canvas-wrap {
+    padding: 16px;
+    height: 260px;
+    position: relative;
+}
+
+.tabla-completa {
+    margin-top: 16px;
+}
+
+.tabla-ventas-recientes {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-ventas-recientes th,
+.tabla-ventas-recientes td {
+    padding: 6px 10px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 11px;
+}
+
+.tabla-ventas-recientes th {
+    background: #f8f4ee;
+    font-weight: 700;
+    color: #333;
+    font-size: 10px;
+}
+
+.tabla-ventas-recientes td {
+    color: #444;
+}
+
+.tabla-ventas-recientes tr:hover {
+    background-color: #fafafa;
+}
+
+.estado-completada {
+    background: #dff3e3;
+    color: green;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.estado-pendiente {
+    background: #fff1d6;
+    color: #9a6200;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.estado-cancelada {
+    background: #ffe0e0;
+    color: red;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .dashboard-tablas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .chart-canvas-wrap {
+        height: 220px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .dashboard-preview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-stat {
+        width: 100%;
+    }
+}

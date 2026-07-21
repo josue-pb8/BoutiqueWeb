@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Boutique - Inicio</title>
+    <link rel="stylesheet" href="/CSS/empleadoCss/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../../Image/graper.jpeg" alt="Boutique Graper" class="sidebar-logo">
+                    <span>Boutique Graper</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="inicio.html" class="menu-item active"><i class="fa-solid fa-house"></i> Inicio</a>
+                <a href="producto.html" class="menu-item"><i class="fa-solid fa-box"></i> Productos</a>
+                <a href="ventas.html" class="menu-item"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+                <a href="clientes.html" class="menu-item"><i class="fa-solid fa-users"></i> Clientes</a>
+                <a href="apartados.html" class="menu-item"><i class="fa-solid fa-cart-plus"></i> Carrito</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../../index.html" class="menu-item logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="content-header">
+                <div class="welcome-text">
+                    <h1>¡Hola, Ana López!</h1>
+                    <p>Bienvenida al panel de empleado</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">AL</div>
+                    <div class="user-details">
+                        <span class="user-name">Ana López</span>
+
+                    </div>
+                </div>
+            </header>
+
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Buscar producto, cliente o venta...">
+            </div>
+
+            <section class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon icon-gold-bg"><i class="fa-solid fa-bag-shopping"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Ventas del día</span>
+                        <span class="kpi-value">$12,450.00</span>
+                        <span class="kpi-sub">5 ventas realizadas</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon icon-green-bg"><i class="fa-solid fa-box-open"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Productos vendidos</span>
+                        <span class="kpi-value">28</span>
+                        <span class="kpi-sub">Unidades</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon icon-purple-bg"><i class="fa-solid fa-users"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Clientes atendidos</span>
+                        <span class="kpi-value">12</span>
+                        <span class="kpi-sub">Clientes</span>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon icon-orange-bg"><i class="fa-solid fa-cart-flatbed-suitcase"></i></div>
+                    <div class="kpi-info">
+                        <span class="kpi-title">Apartados activos</span>
+                        <span class="kpi-value">5</span>
+                        <span class="kpi-sub">Apartados</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+                
+                <div class="left-column">
+                    
+                    <div class="card card-corte">
+                        <div class="card-header-inline">
+                            <h3>Corte de caja</h3>
+                            <span class="badge-status" id="badgeCorte"><span class="dot"></span> <span id="badgeCorteTexto">Jornada activa</span></span>
+                        </div>
+                        <p class="card-subtitle" id="corteSubtitle">Finaliza tu jornada registrando tu corte de caja.</p>
+                        
+                        <div class="corte-container">
+                            <div class="corte-details">
+                                <div class="detail-row"><span>Total ventas (según sistema)</span> <strong>$12,450.00</strong></div>
+                                <div class="detail-row"><span>Efectivo</span> <span>$10,250.00</span></div>
+
+                                <div class="detail-row total-row">
+                                    <div>
+                                        <strong>Diferencia por cuadrar</strong>
+                                        <small>(Total sistema - Total contado)</small>
+                                    </div>
+                                    <div class="text-right">
+                                        <strong class="gold-text">$0.00</strong>
+                                        <span class="badge-success">Todo en orden</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="corte-completado-info" id="corteCompletadoInfo" style="display:none;">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <span id="corteCompletadoTexto"></span>
+                        </div>
+                        <button class="btn-corte" id="btnCorte"><i class="fa-solid fa-lock"></i> Realizar corte de caja</button>
+                        <p class="corte-footer-text">Al finalizar tu jornada, registra el dinero y cierra tu caja.</p>
+                    </div>
+
+                    <div class="card card-table">
+                        <div class="card-header-inline">
+                            <h3>Ventas recientes</h3>
+                            <a href="#" class="link-view-all">Ver todas</a>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Hora</th>
+                                        <th>Cliente</th>
+                                        <th>Productos</th>
+                                        <th>Total</th>
+                                        <th>Método de pago</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>03:25 PM</td>
+                                        <td>María López</td>
+                                        <td>3 productos</td>
+                                        <td><strong>$1,250.00</strong></td>
+                                        <td><span class="badge-pay efectivo">Efectivo</span></td>
+                                        <td><span class="badge-state completa">Completada</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>02:10 PM</td>
+                                        <td>Ana García</td>
+                                        <td>1 producto</td>
+                                        <td><strong>$680.00</strong></td>
+                                        <td><span class="badge-pay efectivo">Efectivo</span></td>
+                                        <td><span class="badge-state completa">Completada</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>01:05 PM</td>
+                                        <td>Carla Martínez</td>
+                                        <td>2 productos</td>
+                                        <td><strong>$950.00</strong></td>
+                                        <td><span class="badge-pay efectivo">Efectivo</span></td>
+                                        <td><span class="badge-state completa">Completada</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="right-column">
+                    
+                    <div class="card">
+                        <div class="card-header-inline">
+                            <h3>Actividad de hoy</h3>
+                        </div>
+                        <div class="daily-notes-area">
+                            <textarea id="dailyNotes" placeholder="Escribe las actividades realizadas en el día..." rows="5"></textarea>
+                            <button class="btn-save-notes" id="btnSaveNotes"><i class="fa-solid fa-floppy-disk"></i> Guardar notas</button>
+                            <p class="notes-status" id="notesStatus"></p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Acciones rápidas</h3>
+                        <div class="actions-quick-buttons">
+                            <button class="btn-action-quick" onclick="window.location.href='ventas.html'">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                Nueva venta
+                            </button>
+                            <button class="btn-action-quick" onclick="window.location.href='apartados.html'">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                Carrito
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Recordatorios</h3>
+                        <div class="reminder-list">
+                            <div class="reminder-item text-orange">
+                                <div class="reminder-icon"><i class="fa-solid fa-bell"></i></div>
+                                <div class="reminder-text">
+                                    <strong>Tienes 5 apartados pendientes de pago</strong>
+                                    <span>Revisa los apartados activos</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-right arrow"></i>
+                            </div>
+                            <div class="reminder-item text-brown">
+                                <div class="reminder-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                                <div class="reminder-text">
+                                    <strong>3 productos con stock bajo</strong>
+                                    <span>Revisa el inventario</span>
+                                </div>
+                                <i class="fa-solid fa-chevron-right arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL CORTE DE CAJA -->
+    <div class="modal-overlay" id="modalCorte">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Corte de Caja</h3>
+                <button class="modal-close" id="modalCorteClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="corte-resumen-modal">
+                    <div class="detail-row"><span>Total ventas (sistema)</span><strong>$12,450.00</strong></div>
+                    <div class="detail-row"><span>Efectivo en sistema</span><strong>$10,250.00</strong></div>
+                    <div class="detail-row total-row">
+                        <strong>Diferencia por cuadrar</strong>
+                        <strong id="diferenciaCorte">$0.00</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-modal-cancel" id="modalCorteCancelar">Cancelar</button>
+                <button class="btn-modal btn-modal-confirm" id="modalCorteConfirmar">Finalizar Jornada</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../JavaScrip/api-config.js"></script>
+    <script src="../../JavaScrip/empleadoJs/inicio.js"></script>
+</body>
+</html>

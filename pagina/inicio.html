@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Inicio</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/inicio.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html" class="active">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>INICIO</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-container">
+                <div class="dashboard-actions">
+                    <button class="btn-nueva-venta">
+                        <span class="btn-plus">+</span> Nueva venta
+                    </button>
+                    <button class="btn-agregar-producto">
+                        <span class="btn-plus">+</span> Agregar producto
+                    </button>
+                </div>
+
+                <div class="dashboard-preview">
+                    <div class="tarjeta-stat">
+                        <div class="tarjeta-icono">
+                            <img src="../Image/ventas.png" alt="Icono">
+                        </div>
+                        <div class="tarjeta-info">
+                            <span class="tarjeta-titulo">Ventas del día</span>
+                            <h3 class="tarjeta-monto" id="ventasDia">$0.00</h3>
+                            <p class="tarjeta-porcentaje positivo" id="ventasDiaComparacion">Cargando...</p>
+                        </div>
+                        <a href="ventas.html" class="tarjeta-enlace">Ver ventas <span class="flecha">&rarr;</span></a>
+                    </div>
+
+                    <div class="tarjeta-stat">
+                        <div class="tarjeta-icono">
+                            <img src="../Image/peso.png" alt="Icono">
+                        </div>
+                        <div class="tarjeta-info">
+                            <span class="tarjeta-titulo">Ganancias semanal</span>
+                            <h3 class="tarjeta-monto" id="gananciasSemana">$0.00</h3>
+                            <p class="tarjeta-porcentaje positivo" id="gananciasComparacion">Cargando...</p>
+                        </div>
+                        <a href="#" class="tarjeta-enlace">Ver ganancias <span class="flecha">&rarr;</span></a>
+                    </div>
+
+                    <div class="tarjeta-stat">
+                        <div class="tarjeta-icono">
+                            <img src="../Image/cliente.png" alt="Icono">
+                        </div>
+                        <div class="tarjeta-info">
+                            <span class="tarjeta-titulo">Productos con stock bajo</span>
+                            <h3 class="tarjeta-monto" id="nuevosClientes">0</h3>
+                            <p class="tarjeta-porcentaje positivo">Productos por agotarse</p>
+                        </div>
+                        <a href="clientes.html" class="tarjeta-enlace">Ver clientes <span class="flecha">&rarr;</span></a>
+                    </div>
+
+                    <div class="tarjeta-stat">
+                        <div class="tarjeta-icono">
+                            <img src="../Image/apartado.png" alt="Icono">
+                        </div>
+                        <div class="tarjeta-info">
+                            <span class="tarjeta-titulo">Apartados activos</span>
+                            <h3 class="tarjeta-monto" id="apartadosActivos">0</h3>
+                            <p class="tarjeta-porcentaje positivo">esta semana</p>
+                        </div>
+                        <a href="#" class="tarjeta-enlace">Ver apartados <span class="flecha">&rarr;</span></a>
+                    </div>
+                </div>
+
+                <div class="dashboard-tablas">
+                    <div class="chart-container">
+                        <div class="tabla-header">
+                            <h3>Productos más vendidos</h3>
+                            <a href="productos.html" class="btn-ver-mas">Ver más <span class="flecha">&rarr;</span></a>
+                        </div>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="graficaProductosVendidos"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="tabla-header">
+                            <h3>Ventas por día</h3>
+                            <a href="ventas.html" class="btn-ver-mas">Ver más <span class="flecha">&rarr;</span></a>
+                        </div>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="graficaVentasPorDia"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="tabla-header">
+                            <h3>Pérdidas por semana</h3>
+                            <a href="inventario.html" class="btn-ver-mas">Ver más <span class="flecha">&rarr;</span></a>
+                        </div>
+                        <div class="chart-canvas-wrap">
+                            <canvas id="graficaPerdidasSemana"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabla-container tabla-completa">
+                    <div class="tabla-header">
+                        <h3>Ventas recientes</h3>
+                        <a href="ventas.html" class="btn-ver-mas">Ver más <span class="flecha">&rarr;</span></a>
+                    </div>
+                    <table class="tabla-ventas-recientes">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Productos</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaRecientes">
+                            <tr><td colspan="5" class="tabla-vacia">Cargando datos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/inicio.js"></script>
+</body>
+</html>

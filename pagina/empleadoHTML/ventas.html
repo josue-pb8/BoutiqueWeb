@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Boutique - Ventas</title>
+    <!-- Importamos estilos globales de inicio y los específicos de ventas -->
+    <link rel="stylesheet" href="/CSS/empleadoCss/inicio.css">
+    <link rel="stylesheet" href="/CSS/empleadoCss/ventas.css">
+    <!-- Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- BARRA LATERAL (Idéntica estructura) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../../Image/graper.jpeg" alt="Boutique Graper" class="sidebar-logo">
+                    <span>Boutique Graper</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <a href="inicio.html" class="menu-item"><i class="fa-solid fa-house"></i> Inicio</a>
+                <a href="producto.html" class="menu-item"><i class="fa-solid fa-box"></i> Productos</a>
+                <a href="ventas.html" class="menu-item active"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+                <a href="clientes.html" class="menu-item"><i class="fa-solid fa-users"></i> Clientes</a>
+                <a href="apartados.html" class="menu-item"><i class="fa-solid fa-cart-plus"></i> Carrito</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../../index.html" class="menu-item logout"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            
+            <!-- ENCABEZADO SUPERIOR -->
+            <header class="content-header">
+                <div class="welcome-text">
+                    <h1>Módulo de Ventas</h1>
+                    <p>Registra las compras de tus clientes de manera rápida</p>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">AL</div>
+                    <div class="user-details">
+                        <span class="user-name">Ana López</span>
+
+                    </div>
+                </div>
+            </header>
+
+            <!-- BUSCADOR UNIFICADO -->
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="salesSearch" placeholder="Escribe el nombre o código de la prenda...">
+            </div>
+
+            <!-- DOS COLUMNAS: SELECCIÓN DE PRENDAS Y TICKET -->
+            <div class="sales-grid">
+                
+                <!-- COLUMNA IZQUIERDA: CATÁLOGO RÁPIDO -->
+                <div class="sales-products-section">
+                    <div class="quick-products-list" id="quickProducts">
+                        <!-- Producto 1 -->
+                        <div class="product-item-card" data-id="1" data-name="Vestido Gala Elegante" data-price="1450">
+                            <div class="item-image">
+                                <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="80" height="80" rx="12" fill="#fffbeb"/>
+                                    <path d="M40 14 C36 14 32 16 30 20 L28 28 L22 30 L24 34 L30 32 L32 52 C32 54 34 58 40 62 C46 58 48 54 48 52 L50 32 L56 34 L58 30 L52 28 L50 20 C48 16 44 14 40 14Z" fill="#cca43b" stroke="#b59032" stroke-width="1"/>
+                                    <ellipse cx="40" cy="20" rx="4" ry="3" fill="#fffbeb" opacity="0.6"/>
+                                    <line x1="40" y1="24" x2="40" y2="36" stroke="#b59032" stroke-width="0.8" opacity="0.5"/>
+                                </svg>
+                            </div>
+                            <div class="item-details">
+                                <strong>Vestido Gala Elegante</strong>
+                                <span>$1,450.00</span>
+                            </div>
+                            <button class="btn-add-item"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <!-- Producto 2 -->
+                        <div class="product-item-card" data-id="2" data-name="Blusa Seda Satín" data-price="680">
+                            <div class="item-image">
+                                <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="80" height="80" rx="12" fill="#fdf2f8"/>
+                                    <path d="M30 18 L26 18 L20 22 L22 28 L28 25 L28 56 L52 56 L52 25 L58 28 L60 22 L54 18 L50 18 C50 18 48 16 40 16 C32 16 30 18 30 18Z" fill="#f9a8d4" stroke="#ec4899" stroke-width="1"/>
+                                    <path d="M34 18 C34 18 36 22 40 22 C44 22 46 18 46 18" fill="none" stroke="#ec4899" stroke-width="0.8"/>
+                                    <line x1="40" y1="22" x2="40" y2="28" stroke="#ec4899" stroke-width="0.6" opacity="0.4"/>
+                                    <rect x="32" y="30" width="16" height="1" rx="0.5" fill="#ec4899" opacity="0.3"/>
+                                    <rect x="34" y="36" width="12" height="1" rx="0.5" fill="#ec4899" opacity="0.3"/>
+                                </svg>
+                            </div>
+                            <div class="item-details">
+                                <strong>Blusa Seda Satín</strong>
+                                <span>$680.00</span>
+                            </div>
+                            <button class="btn-add-item"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <!-- Producto 3 -->
+                        <div class="product-item-card" data-id="3" data-name="Blazer Ejecutivo" data-price="1890">
+                            <div class="item-image">
+                                <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="80" height="80" rx="12" fill="#f1f5f9"/>
+                                    <path d="M28 16 L24 16 L18 22 L20 60 L36 60 L38 38 L40 42 L42 38 L44 60 L60 60 L62 22 L56 16 L52 16 L46 20 C44 22 42 22 40 22 C38 22 36 22 34 20 L28 16Z" fill="#334155" stroke="#1e293b" stroke-width="1"/>
+                                    <path d="M34 20 L40 30 L46 20" fill="#f1f5f9" stroke="#1e293b" stroke-width="0.8"/>
+                                    <line x1="40" y1="30" x2="40" y2="56" stroke="#1e293b" stroke-width="0.6" opacity="0.4"/>
+                                    <circle cx="36" cy="40" r="1.2" fill="#94a3b8"/>
+                                    <circle cx="36" cy="48" r="1.2" fill="#94a3b8"/>
+                                </svg>
+                            </div>
+                            <div class="item-details">
+                                <strong>Blazer Ejecutivo</strong>
+                                <span>$1,890.00</span>
+                            </div>
+                            <button class="btn-add-item"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: TICKET DE VENTA ACTUAL -->
+                <div class="sales-ticket-section">
+                    <div class="card ticket-card">
+                        <h3>Detalle de Venta</h3>
+                        
+                        <!-- Lista de productos añadidos -->
+                        <div class="ticket-items" id="ticketItemsContainer">
+                            <p class="empty-ticket-msg">No hay productos en el carrito.</p>
+                        </div>
+
+                        <hr class="ticket-divider">
+
+                        <!-- Opciones de Pago -->
+                        <div class="payment-method-box">
+                            <label for="paymentMethod">Método de pago:</label>
+                            <select id="paymentMethod" disabled>
+                                <option value="efectivo" selected>Efectivo</option>
+                            </select>
+                        </div>
+
+                        <!-- Totales de la operación -->
+                        <div class="ticket-summary">
+                            <div class="summary-row"><span>Subtotal</span> <span id="subtotalVal">$0.00</span></div>
+                            <div class="summary-row"><span>Descuento (0%)</span> <span id="discountVal">$0.00</span></div>
+                            <div class="summary-row total-final-row"><strong>Total a pagar</strong> <strong id="totalVal">$0.00</strong></div>
+                        </div>
+
+                        <button class="btn-complete-sale" id="btnCompleteSale"><i class="fa-solid fa-cash-register"></i> Registrar Venta</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL CONFIRMAR VENTA -->
+    <div class="modal-overlay" id="modalConfirmarVenta">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar Venta</h3>
+                <button class="modal-close" id="modalVentaClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-saldo">Total a pagar: <strong id="modalVentaTotal">$0.00</strong></p>
+                <p class="modal-saldo">Método de pago: <strong id="modalVentaMetodo">Efectivo</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-modal-cancel" id="modalVentaCancelar">Cancelar</button>
+                <button class="btn-modal btn-modal-confirm" id="modalVentaConfirmar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de ventas asignado -->
+    <script src="../../JavaScrip/api-config.js"></script>
+    <script src="../../JavaScrip/empleadoJs/ventas.js"></script>
+</body>
+</html>

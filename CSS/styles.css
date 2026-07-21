@@ -1,0 +1,184 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-image: url('/Image/boutique.jpeg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Contenedor del Login */
+.login-container {
+    width: 100%;
+    max-width: 500px; /* Subimos de 400px a 500px para que sea más ancha */
+    padding: 20px;
+}
+
+.login-box {
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* Estilo del Logo / Encabezado */
+.logo h2 {
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+}
+
+.logo p {
+    font-size: 12px;
+    color: #8c8c8c;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+/* Formularios e Inputs */
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    color: #4a4a4a;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #fafafa;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #1a1a1a;
+    background-color: #fff;
+    outline: none;
+}
+
+/* Opciones y Enlaces */
+.register-link a {
+    color: #1a1a1a;
+    font-size: 13px;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border 0.3s;
+}
+
+.register-link a:hover {
+    border-bottom: 1px solid #1a1a1a;
+}
+
+/* Botón de Ingreso */
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    background: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-login:hover {
+    background: #404040;
+}
+
+.register-link {
+    margin-top: 25px;
+    font-size: 13px;
+    color: #777;
+}
+.back-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.btn-back {
+    text-decoration: none;
+    color: #7a6f6f;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    border: 1px solid #ebdada;
+    transition: 0.2s;
+}
+
+.btn-back:hover {
+    background-color: #fbebeb;
+    color: #d46363;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el logo y los textos */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-logo {
+    width: 80px;        /* Controla el ancho del logo */
+    height: 100px;       /* Mantiene la proporción de la imagen */
+    margin-bottom: 10px; /* Separa el logo del texto GRAPER */
+    object-fit: contain;
+}
+
+.respuesta-msg {
+    display: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.respuesta-msg.cargando {
+    display: block;
+    background: #e8f4fd;
+    color: #0369a1;
+}
+
+.respuesta-msg.exito {
+    display: block;
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.respuesta-msg.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}

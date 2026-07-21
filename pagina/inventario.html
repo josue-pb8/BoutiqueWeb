@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Inventario</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/inventario.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html" class="active">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>INVENTARIO</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="acciones-container">
+                <div class="acciones-cards">
+                    <div class="tarjeta-stat-card">
+                        <div class="tarjeta-icono-card">
+                            <img src="../Image/inventario.png" alt="Icono">
+                        </div>
+                        <div class="tarjeta-info-card">
+                            <span class="tarjeta-titulo-card">Productos totales</span>
+                            <h3 class="tarjeta-monto-card" id="totalProductos">0</h3>
+                            <p class="tarjeta-porcentaje-card positivo-card">Productos registrados</p>
+                        </div>
+                    </div>
+                    <div class="tarjeta-stat-card">
+                        <div class="tarjeta-icono-card">
+                            <img src="../Image/inventario.png" alt="Icono">
+                        </div>
+                        <div class="tarjeta-info-card">
+                            <span class="tarjeta-titulo-card">Productos con stock</span>
+                            <h3 class="tarjeta-monto-card" id="entradasMes">0</h3>
+                            <p class="tarjeta-porcentaje-card positivo-card">Con existencia</p>
+                        </div>
+                    </div>
+                    <div class="tarjeta-stat-card">
+                        <div class="tarjeta-icono-card">
+                            <img src="../Image/inventario.png" alt="Icono">
+                        </div>
+                        <div class="tarjeta-info-card">
+                            <span class="tarjeta-titulo-card">Stock bajo</span>
+                            <h3 class="tarjeta-monto-card" id="stockBajo">0</h3>
+                            <p class="tarjeta-porcentaje-card positivo-card">Revisar inventario</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tabs-inventario">
+                <button class="tab-inventario tab-activo" data-target="inventarioActual" type="button">Inventario actual</button>
+                <button class="tab-inventario" data-target="stockBajoLista" type="button">Stock bajo</button>
+            </div>
+            <div class="tabs-contenido">
+                <div class="tab-panel tab-activo" id="inventarioActual">
+                    <table class="tabla-inventario">
+                        <thead>
+                            <tr>
+                                <th>Prenda</th>
+                                <th>Categoría</th>
+                                <th>Precio unitario</th>
+                                <th>Tallas disponibles</th>
+                                <th>Stock total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoInventario">
+                            <tr><td colspan="6" class="tabla-celda-centro">Cargando inventario...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-panel" id="stockBajoLista">
+                    <table class="tabla-inventario">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Stock actual</th>
+                                <th>Stock mínimo</th>
+                                <th>Diferencia</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoStockBajo">
+                            <tr><td colspan="6" class="tabla-celda-centro">Cargando stock bajo...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/inventario.js"></script>
+
+    <div class="toast-notificacion" id="toastGlobal"></div>
+
+    <div class="modal-overlay" id="modalVerInventario">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Detalle del producto</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-detalle" id="modalInvDetalle"></div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalReabastecer">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-header">
+                <h3>Reabastecer producto</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="campo-grupo">
+                    <label>Producto</label>
+                    <input type="text" id="campoReabastecerProducto" readonly class="input-readonly">
+                </div>
+                <p id="campoReabastecerFalta" class="texto-advertencia"></p>
+                <input type="hidden" id="campoReabastecerId">
+                <div class="campo-grupo">
+                    <label>Cantidad a ingresar</label>
+                    <input type="number" id="campoReabastecerCantidad" min="1" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarReabastecer">Reabastecer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEditarInventario">
+        <div class="modal-contenido modal-contenido-medio">
+            <div class="modal-header">
+                <h3>Editar producto en inventario</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="campoEditInvId">
+                <div class="campo-grupo">
+                    <label>Producto</label>
+                    <input type="text" id="campoEditInvProducto" required>
+                </div>
+                <div class="campo-grupo">
+                    <label>Existencia actual</label>
+                    <input type="number" id="campoEditInvExistencia" min="0" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarEditInv">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEliminarInv">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-confirmar">
+                <div class="icono-confirmar">&#128465;</div>
+                <h3>Eliminar del inventario</h3>
+                <p>¿Eliminar <strong id="modalEliminarInvProducto"></strong> del inventario?</p>
+                <div class="modal-footer modal-footer-centro">
+                    <button class="btn-modal-cancelar">Cancelar</button>
+                    <button class="btn-modal-eliminar" id="btnConfirmarEliminarInv">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Clientes</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/clientes.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html" class="active">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>CLIENTES</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="acciones-container">
+                <div class="acciones-filtros">
+                    <div class="buscar-cliente">
+                        <input type="search" placeholder="Buscar por nombre o correo...">
+                        <img src="../Image/buscador.png" alt="Buscar">
+                    </div>
+                </div>
+                <button class="btn-nuevo-cliente">
+                    <span class="btn-plus">+</span> Nuevo cliente
+                </button>
+            </div>
+
+            <div class="tabla-container">
+                <table class="tabla-clientes">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre del Cliente</th>
+                            <th>Correo Electrónico</th>
+                            <th>Fecha de Registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                        <tr><td colspan="5" class="tabla-vacia">Cargando clientes...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/clientes.js"></script>
+
+    <div class="toast-notificacion" id="toastGlobal"></div>
+
+    <div class="modal-overlay" id="modalVerCliente">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Detalle del cliente</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-detalle" id="modalClienteDetalle"></div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalCliente">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3 id="modalClienteTitulo">Nuevo cliente</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalClienteForm">
+                    <div class="campo-grupo">
+                        <label>Nombre completo</label>
+                        <input type="text" id="campoClienteNombre" placeholder="Ej: María López" required>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Correo electrónico</label>
+                        <input type="email" id="campoClienteCorreo" placeholder="correo@ejemplo.com" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarCliente">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEliminarCliente">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-confirmar">
+                <div class="icono-confirmar">&#128465;</div>
+                <h3>Eliminar cliente</h3>
+                <p>¿Estás seguro de eliminar a <strong id="modalEliminarClienteNombre"></strong>?</p>
+                <div class="modal-footer modal-footer-centro">
+                    <button class="btn-modal-cancelar">Cancelar</button>
+                    <button class="btn-modal-eliminar" id="btnConfirmarEliminarCliente">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

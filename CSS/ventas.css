@@ -1,0 +1,136 @@
+/* ==========================================================================
+   BÚSQUEDA DE VENTAS
+   ========================================================================== */
+.buscar-venta {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 12px;
+    height: 38px;
+    background: white;
+}
+
+.buscar-venta input {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    width: 280px;
+}
+
+.buscar-venta img {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-nueva-venta {
+    background-color: #C8A45D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-nueva-venta:hover {
+    background-color: #b39150;
+}
+
+/* ==========================================================================
+   TABLA DE VENTAS
+   ========================================================================== */
+.tabla-ventas {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-ventas th,
+.tabla-ventas td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+}
+
+.tabla-ventas th {
+    background: #f8f4ee;
+    font-weight: 700;
+    color: #333;
+    font-size: 12px;
+}
+
+.tabla-ventas td {
+    color: #444;
+}
+
+.tabla-ventas tr:hover {
+    background-color: #fafafa;
+}
+
+.estado-completada {
+    background: #dff3e3;
+    color: green;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.estado-pendiente {
+    background: #fff1d6;
+    color: #9a6200;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.estado-cancelada {
+    background: #ffe0e0;
+    color: red;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.btn-ver-detalles {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-ver-detalles:hover {
+    background: #C8A45D;
+    color: white;
+    border-color: #C8A45D;
+}
+
+.btn-eliminar {
+    border-color: #ef4444;
+}
+
+.btn-eliminar:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .buscar-venta input {
+        width: 100%;
+    }
+}

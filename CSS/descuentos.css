@@ -1,0 +1,339 @@
+/* ==========================================================================
+   ACCIONES Y FILTROS
+   ========================================================================== */
+.acciones-filtros-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-crear-descuento {
+    background-color: #C8A45D;
+    color: #ffffff;
+    border: none;
+    height: 38px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-crear-descuento:hover {
+    background-color: #b39150;
+}
+
+.buscar-descuento {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 12px;
+    height: 38px;
+    background: white;
+}
+
+.buscar-descuento input {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    width: 280px;
+}
+
+.buscar-descuento img {
+    width: 18px;
+    height: 18px;
+}
+
+/* ==========================================================================
+   6. TARJETAS
+   ========================================================================== */
+.acciones-container-cards {
+    padding: 0 2rem 0.5rem;
+    display: flex;
+    gap: 20px;
+}
+
+.tarjeta-stat-card {
+    background-color: #ffffff;
+    border: 1px solid #ebdcdc;
+    border-radius: 12px;
+    padding: 20px;
+    flex: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+}
+
+.tarjeta-icono-card {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarjeta-icono-card img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.icono-verde {
+    background-color: #d4edda;
+}
+
+.icono-naranja {
+    background-color: #fff3cd;
+}
+
+.icono-rojo {
+    background-color: #f8d7da;
+}
+
+.icono-azul {
+    background-color: #d1ecf1;
+}
+
+.tarjeta-info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tarjeta-titulo-card {
+    font-size: 12px;
+    color: #7c7c7c;
+    font-weight: 500;
+}
+
+.tarjeta-monto-card {
+    font-size: 20px;
+    color: #1a1a1a;
+    margin: 0;
+    font-weight: 700;
+}
+
+.tarjeta-porcentaje-card {
+    font-size: 11px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.tarjeta-porcentaje-card.positivo-card {
+    color: #27a745;
+}
+
+.tarjeta-porcentaje-card.naranja-card {
+    color: #d97706;
+}
+
+.tarjeta-porcentaje-card.rojo-card {
+    color: #ef4444;
+}
+
+.tarjeta-porcentaje-card.azul-card {
+    color: #1d4ed8;
+}
+
+/* ==========================================================================
+   7. TABS DESCUENTOS
+   ========================================================================== */
+.tabs-descuentos {
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #ebdcdc;
+}
+
+.tab-descuento {
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #7c7c7c;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tab-descuento:hover {
+    color: #333;
+}
+
+.tab-descuento.tab-activo {
+    color: #C8A45D;
+    border-bottom-color: #C8A45D;
+}
+
+/* ==========================================================================
+   8. TABLA DESCUENTOS
+   ========================================================================== */
+.tabs-contenido-desc {
+    padding: 1.5rem 2rem;
+}
+
+.tab-panel-desc {
+    display: none;
+    background: white;
+    border: 1px solid #ebdcdc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.tab-panel-desc.tab-activo {
+    display: block;
+}
+
+.tabla-descuentos {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-descuentos th,
+.tabla-descuentos td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+}
+
+.tabla-descuentos th {
+    background: #f8f4ee;
+    font-weight: 700;
+    color: #333;
+    font-size: 12px;
+}
+
+.tabla-descuentos td {
+    color: #555;
+}
+
+.tabla-descuentos tr:hover {
+    background-color: #fafafa;
+}
+
+.producto-info-desc {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.producto-info-desc .img-producto-desc {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f0f0f0;
+}
+
+.estado-activo-desc {
+    background: #dff3e3;
+    color: #27a745;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.estado-programado-desc {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.estado-vencido-desc {
+    background: #ffe0e0;
+    color: #ef4444;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.acciones-botones-desc {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn-icono-desc {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.btn-icono-desc:hover {
+    background: #f0f0f0;
+}
+
+.btn-icono-desc.btn-eliminar-desc {
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+.btn-icono-desc.btn-eliminar-desc:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* ==========================================================================
+   7. RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .acciones-container-cards {
+        flex-wrap: wrap;
+    }
+
+    .tarjeta-stat-card {
+        width: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .acciones-container-cards {
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .tarjeta-stat-card {
+        width: 100%;
+    }
+
+    .acciones-container {
+        padding: 0 1rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .acciones-filtros-left {
+        flex-wrap: wrap;
+    }
+
+    .buscar-descuento input {
+        width: 180px;
+    }
+
+    .tabs-contenido-desc {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+}

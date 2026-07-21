@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Apartados</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/apartados.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html" class="active">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>APARTADOS</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="acciones-container">
+                <div class="acciones-filtros">
+                    <div class="buscar-apartado">
+                        <input type="search" placeholder="Buscar por cliente...">
+                        <img src="../Image/buscador.png" alt="Buscar">
+                    </div>
+                    <select class="filtro-estado" title="Filtrar por estado">
+                        <option value="">Todos los estados</option>
+                        <option value="pago en efectivo">Pago en efectivo</option>
+                    </select>
+                </div>
+                <button class="btn-nuevo-apartado">
+                    <span class="btn-plus">+</span> Nuevo apartado
+                </button>
+            </div>
+
+            <div class="tabla-container">
+                <table class="tabla-apartados">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Productos</th>
+                            <th>Total</th>
+                            <th>Abonado</th>
+                            <th>Restante</th>
+                            <th>Fecha límite</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                        <tr><td colspan="8" class="tabla-vacia">Cargando apartados...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/apartados.js"></script>
+
+    <div class="toast-notificacion" id="toastGlobal"></div>
+
+    <!-- Modal Abonar -->
+    <div class="modal-overlay" id="modalAbonar">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Registrar Abono</h3>
+                <button class="btn-cerrar-modal" id="btnCerrarModalAbono">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="campo-grupo">
+                    <label>Saldo pendiente</label>
+                    <p class="saldo-pendiente" id="modalSaldoTotal" style="font-size:18px;font-weight:700;color:#C8A45D;">$0.00</p>
+                </div>
+                <div class="campo-grupo">
+                    <label for="modalMontoAbono">Monto del abono ($)</label>
+                    <input type="number" id="modalMontoAbono" min="0" step="0.01" placeholder="0.00">
+                </div>
+                <p id="modalAbonoError" style="color:#dc2626;font-size:13px;margin-top:8px;"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar" id="btnCancelarAbono">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnConfirmarAbono">Registrar Abono</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalProductos">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Productos del apartado</h3>
+                <button class="btn-cerrar-modal" id="cerrarModal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body" id="modalListaProductos"></div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalNuevoApartado">
+        <div class="modal-contenido modal-contenido-grande">
+            <div class="modal-header">
+                <h3>Nuevo apartado</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalNuevoApartadoForm">
+                    <div class="campo-fila">
+                        <div class="campo-grupo" style="position:relative;">
+                            <label>Cliente</label>
+                            <input type="text" id="campoApartadoCliente" placeholder="Buscar cliente..." required autocomplete="off">
+                            <input type="hidden" id="campoApartadoClienteId">
+                            <div id="sugerenciasClientes" class="lista-sugerencias" style="position:absolute;top:100%;left:0;right:0;z-index:10;background:#fff;border:1px solid #ddd;border-radius:0 0 8px 8px;max-height:180px;overflow-y:auto;display:none;"></div>
+                        </div>
+                    </div>
+                    <div class="seccion-producto">
+                        <label class="etiqueta-seccion">Agregar producto</label>
+                        <div class="campo-grupo" style="position:relative;">
+                            <input type="text" id="campoApartadoProducto" placeholder="Buscar producto..." autocomplete="off">
+                            <input type="hidden" id="campoApartadoProductoId">
+                            <div id="sugerenciasProductos" class="lista-sugerencias" style="position:absolute;top:100%;left:0;right:0;z-index:10;background:#fff;border:1px solid #ddd;border-radius:0 0 8px 8px;max-height:180px;overflow-y:auto;display:none;"></div>
+                        </div>
+                        <div class="campo-fila">
+                            <div class="campo-grupo">
+                                <input type="text" id="campoApartadoAtributo" placeholder="Talla">
+                            </div>
+                            <div class="campo-grupo">
+                                <input type="number" id="campoApartadoPrecio" placeholder="Precio" min="0" step="0.01">
+                            </div>
+                            <button type="button" class="btn-modal-guardar btn-agregar-fila" id="btnAgregarProductoApartado">+ Agregar</button>
+                        </div>
+                    </div>
+                    <div id="listaProductosApartado" class="lista-productos"></div>
+                    <div class="campo-fila campos-resumen">
+                        <div class="campo-grupo">
+                            <label>Abono inicial ($)</label>
+                            <input type="number" id="campoApartadoAbono" placeholder="0.00" min="0" step="0.01">
+                        </div>
+                        <div class="campo-grupo">
+                            <label>Fecha límite</label>
+                            <input type="date" id="campoApartadoFecha" title="Fecha límite del apartado" required>
+                        </div>
+                    </div>
+                    <div class="detalle-fila resumen-total">
+                        <span class="detalle-label">Total</span><span class="detalle-valor" id="totalApartado">$0.00</span>
+                    </div>
+                    <div class="detalle-fila">
+                        <span class="detalle-label">Abonado</span><span class="detalle-valor valor-positivo" id="abonadoApartado">$0.00</span>
+                    </div>
+                    <div class="detalle-fila">
+                        <span class="detalle-label">Restante</span><span class="detalle-valor valor-negativo" id="restanteApartado">$0.00</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarApartado">Guardar apartado</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEliminarApartado">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-confirmar">
+                <div class="icono-confirmar">&#128465;</div>
+                <h3>Eliminar apartado</h3>
+                <p>¿Estás seguro de eliminar el apartado de <strong id="modalEliminarApartadoCliente"></strong>?</p>
+                <div class="modal-footer modal-footer-centro">
+                    <button class="btn-modal-cancelar">Cancelar</button>
+                    <button class="btn-modal-eliminar" id="btnConfirmarEliminarApartado">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    

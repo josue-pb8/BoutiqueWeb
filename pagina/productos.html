@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Productos</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/productos.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html" class="active">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>PRODUCTOS</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="acciones-container">
+                <div class="acciones-filtros">
+                    <div class="buscar-producto">
+                        <input type="search" placeholder="Buscar producto...">
+                        <img src="../Image/buscador.png" alt="Buscar">
+                    </div>
+                    <select class="filtro-categoria">
+                        <option value="">Todas las categorías</option>
+                        <option value="Ropa">Ropa</option>
+                        <option value="Maquillaje">Maquillaje</option>
+                        <option value="Bolsa">Bolsa</option>
+                        <option value="Accesorios">Accesorios</option>
+                    </select>
+                </div>
+                <button class="btn-agregar">
+                    <span class="btn-plus">+</span> Agregar producto
+                </button>
+            </div>
+
+            <div class="tabla-container">
+                <table class="tabla-productos">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Costo</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                        <tr><td colspan="8" class="tabla-vacia">Cargando productos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/productos.js"></script>
+
+    <div class="toast-notificacion" id="toastGlobal"></div>
+
+    <div class="modal-overlay" id="modalProducto">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3 id="modalProductoTitulo">Agregar producto</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalProductoForm">
+                    <div class="campo-grupo">
+                        <label>Nombre del producto</label>
+                        <input type="text" id="campoNombre" placeholder="Ej: Vestido Floral" required>
+                    </div>
+                    <div class="campo-fila">
+                        <div class="campo-grupo">
+                            <label>Categoría</label>
+                            <select id="campoCategoria" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="Ropa">Ropa</option>
+                                <option value="Maquillaje">Maquillaje</option>
+                                <option value="Bolsa">Bolsa</option>
+                                <option value="Accesorios">Accesorios</option>
+                            </select>
+                        </div>
+                        <div class="campo-grupo">
+                            <label>Estado</label>
+                            <select id="campoEstado">
+                                <option value="activo">Activo</option>
+                                <option value="inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="campo-fila">
+                        <div class="campo-grupo">
+                            <label>Precio de venta ($)</label>
+                            <input type="number" id="campoPrecio" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                        <div class="campo-grupo">
+                            <label>Costo ($)</label>
+                            <input type="number" id="campoCosto" placeholder="0.00" min="0" step="0.01" required>
+                        </div>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Stock</label>
+                        <input type="number" id="campoStock" placeholder="0" min="0" required>
+                    </div>
+
+                    <div class="campo-grupo">
+                        <label>foto</label>
+                        <input type="file" id="imagen" accept="image/*">
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarProducto">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEliminar">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-confirmar">
+                <div class="icono-confirmar">&#128465;</div>
+                <h3>Eliminar producto</h3>
+                <p>¿Estás seguro de que deseas eliminar <strong id="modalEliminarNombre"></strong>? Esta acción no se puede deshacer.</p>
+                <div class="modal-footer modal-footer-centro">
+                    <button class="btn-modal-cancelar">Cancelar</button>
+                    <button class="btn-modal-eliminar" id="btnConfirmarEliminar">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

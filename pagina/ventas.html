@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Ventas</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/ventas.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html" class="active">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>VENTAS</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="acciones-container">
+                <div class="acciones-filtros">
+                    <div class="buscar-venta">
+                        <input type="search" placeholder="Buscar por cliente, ID o fecha...">
+                        <img src="../Image/buscador.png" alt="Buscar">
+                    </div>
+                    <select class="filtro-estado">
+                        <option value="">Todos los estados</option>
+                        <option value="completada">Completada</option>
+                        <option value="pendiente">Pendiente</option>
+                        <option value="cancelada">Cancelada</option>
+                    </select>
+                </div>
+                <button class="btn-nueva-venta">
+                    <span class="btn-plus">+</span> Nueva venta
+                </button>
+            </div>
+
+            <div class="tabla-container">
+                <table class="tabla-ventas">
+                    <thead>
+                        <tr>
+                            <th>N° venta</th>
+                            <th>Cliente</th>
+                            <th>Empleado</th>
+                            <th>Fecha</th>
+                            <th>Productos</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                        <tr><td colspan="8" class="tabla-vacia">Cargando ventas...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/ventas.js"></script>
+
+    <div class="toast-notificacion" id="toastGlobal"></div>
+
+    <div class="modal-overlay" id="modalVerVenta">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3 id="modalVentaTitulo">Detalle de venta</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-detalle" id="modalVentaDetalle"></div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalDetallesVenta">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Productos de la venta</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body" id="modalDetalleLista"></div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEliminarVenta">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-confirmar">
+                <div class="icono-confirmar">&#128465;</div>
+                <h3>Eliminar venta</h3>
+                <p>¿Estás seguro de eliminar la venta <strong id="modalEliminarVentaId"></strong>?</p>
+                <div class="modal-footer modal-footer-centro">
+                    <button class="btn-modal-cancelar">Cancelar</button>
+                    <button class="btn-modal-eliminar" id="btnConfirmarEliminarVenta">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalNuevaVenta">
+        <div class="modal-contenido modal-contenido-grande">
+            <div class="modal-header">
+                <h3>Nueva venta</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalNuevaVentaForm">
+                    <div class="campo-grupo">
+                        <label>Cliente</label>
+                        <input type="text" id="campoVentaCliente" placeholder="Nombre del cliente" required>
+                    </div>
+                    <div class="seccion-producto">
+                        <label class="etiqueta-seccion">Agregar producto</label>
+                        <div class="campo-grupo">
+                            <input type="text" id="campoVentaProducto" placeholder="Nombre del producto" required>
+                        </div>
+                        <div class="campo-fila">
+                            <div class="campo-grupo">
+                                <label style="display:block;font-size:12px;font-weight:600;color:#444;margin-bottom:4px;">Cantidad</label>
+                                <input type="number" id="campoVentaCantidad" value="1" min="1" required>
+                            </div>
+                            <div class="campo-grupo">
+                                <label style="display:block;font-size:12px;font-weight:600;color:#444;margin-bottom:4px;">Precio unitario</label>
+                                <input type="number" id="campoVentaPrecio" placeholder="0.00" min="0.01" step="0.01" required>
+                            </div>
+                            <button type="button" class="btn-modal-guardar btn-agregar-fila" id="btnAgregarProductoVenta">+ Agregar</button>
+                        </div>
+                    </div>
+                    <div id="productosNuevaVenta" class="lista-productos"></div>
+                    <div class="detalle-fila resumen-total">
+                        <span class="detalle-label">Total</span>
+                        <span class="detalle-valor detalle-valor-grande" id="totalNuevaVenta">$0.00</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarVenta">Registrar venta</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
