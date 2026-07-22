@@ -1,20 +1,17 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-        document.getElementsByClassName("user-role")[0].innerHTML = user.rol; 
-
-    
-    //document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    let user = JSON.parse(localStorage.getItem('usuario'));
+    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario;
+    document.getElementsByClassName("user-role")[0].innerHTML = user.rol;
 
     var ventasData = [];
 
     function cargarVentas() {
         apiGet('/ventas')
             .then(function (respuesta) {
-                ventasData = respuesta;
-                renderizarTabla(respuesta);
+                ventasData = Array.isArray(respuesta) ? respuesta : [];
+                renderizarTabla(ventasData);
             })
             .catch(function () {
                 $('#cuerpoTabla').html('<tr><td colspan="8" style="text-align:center;color:#888;">Sin ventas registradas</td></tr>');
@@ -36,10 +33,15 @@ $(document).ready(function () {
             html += '<td>' + fecha + '</td>';
             html += '<td>' + numProductos + ' productos</td>';
             html += '<td>$' + formatNumber(total) + '</td>';
-            html += '<td><span class="estado-completada">Completada</span></td>';
+            var estadoVenta = v.estado || 'COMPLETADA';
+            var estadoVentaClase = 'estado-completada';
+            if (estadoVenta === 'CANCELADA') estadoVentaClase = 'estado-cancelada';
+            else if (estadoVenta === 'PENDIENTE') estadoVentaClase = 'estado-pendiente';
+            html += '<td><span class="' + estadoVentaClase + '">' + estadoVenta + '</span></td>';
             html += '<td><div class="acciones-botones">';
             html += '<button class="btn-icono btn-visualizar" data-id="' + v.id + '" title="Visualizar">&#128065;</button>';
             html += '<button class="btn-icono btn-ver-detalles" data-id="' + v.id + '" title="Detalles">&#128196;</button>';
+            html += '<button class="btn-icono btn-eliminar-venta" data-id="' + v.id + '" data-cliente="' + cliente + '" title="Eliminar">&#128465;</button>';
             html += '</div></td>';
             html += '</tr>';
         });
@@ -132,7 +134,7 @@ $(document).ready(function () {
         abrirModal('modalDetallesVenta');
     });
 
-        $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
+    $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.btn-modal-cancelar', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.modal-overlay', function (e) { if (e.target === this) $(this).removeClass('activo'); });
 
@@ -144,6 +146,14 @@ $(document).ready(function () {
     function recargarCacheVenta() {
         apiGet('/clientes').then(function (r) { clientesVentaCache = r; }).catch(function () {});
         apiGet('/productos').then(function (r) { productosVentaCache = r; }).catch(function () {});
+        apiGet('/metodos-pago').then(function (r) {
+            var $select = $('#campoVentaMetodoPago');
+            $select.empty().append('<option value="">Selecciona método de pago</option>');
+            $.each(r, function (i, mp) {
+                $select.append('<option value="' + mp.id + '">' + mp.nombre + '</option>');
+            });
+            $select.val('1');
+        }).catch(function () {});
     }
     recargarCacheVenta();
 
@@ -190,7 +200,6 @@ $(document).ready(function () {
 
     function mostrarSugerenciasVentaCliente(lista, val) {
         var filtrados = lista.filter(function (c) { return (c.nombre + ' ' + c.apellido).toLowerCase().indexOf(val) > -1; });
-        if (filtrados.length === 0) return;
         var sel = document.getElementById('campoVentaCliente');
         var existente = document.getElementById('sugerenciasVentaCliente');
         if (!existente) {
@@ -208,7 +217,7 @@ $(document).ready(function () {
             html += '<strong>' + c.nombre + ' ' + c.apellido + '</strong>';
             html += '</div>';
         });
-        existente.innerHTML = html;
+        existente.innerHTML = html || '<div class="sugerencia-item" style="color:#888;">Sin coincidencias</div>';
         existente.style.display = 'block';
     }
 
@@ -238,7 +247,6 @@ $(document).ready(function () {
 
     function mostrarSugerenciasVentaProducto(lista, val) {
         var filtrados = lista.filter(function (p) { return p.nombre.toLowerCase().indexOf(val) > -1; });
-        if (filtrados.length === 0) return;
         var sel = document.getElementById('campoVentaProducto');
         var existente = document.getElementById('sugerenciasVentaProducto');
         if (!existente) {
@@ -256,7 +264,7 @@ $(document).ready(function () {
             html += '<strong>' + p.nombre + '</strong>';
             html += '</div>';
         });
-        existente.innerHTML = html;
+        existente.innerHTML = html || '<div class="sugerencia-item" style="color:#888;">Sin coincidencias</div>';
         existente.style.display = 'block';
     }
 
@@ -307,7 +315,7 @@ $(document).ready(function () {
 
     $('#btnGuardarVenta').on('click', function () {
         var clienteId = $('#campoVentaCliente').data('clienteId');
-        var clienteNombre = $('#campoVentaCliente').val().trim();
+        var metodoPagoId = parseInt($('#campoVentaMetodoPago').val()) || 1;
 
         if (!clienteId) { mostrarToast('Selecciona un cliente de la lista de sugerencias', 'error'); return; }
         if (productosVenta.length === 0) { mostrarToast('Agrega al menos un producto', 'error'); return; }
@@ -317,7 +325,7 @@ $(document).ready(function () {
         var data = {
             empleadoId: empleadoId,
             clienteId: clienteId,
-            metodoPagoId: 1,
+            metodoPagoId: metodoPagoId,
             detalles: productosVenta.map(function (p) {
                 return {
                     productoId: p.id,
@@ -334,9 +342,29 @@ $(document).ready(function () {
                 cargarVentas();
             })
             .catch(function (err) {
-                var msg = err && (err.error || err.message || JSON.stringify(err)) || 'Error de conexión';
+                var msg = err && (err.error || err.message || JSON.stringify(err)) || 'Error de conexion';
                 mostrarToast('Error: ' + msg, 'error');
             });
+    });
+
+    // --- Eliminar venta ---
+    $(document).on('click', '.btn-eliminar-venta', function () {
+        var id = $(this).data('id');
+        var cliente = $(this).data('cliente');
+        $('#modalEliminarVentaId').text('#' + id + ' (' + cliente + ')');
+        $('#btnConfirmarEliminarVenta').data('id', id);
+        abrirModal('modalEliminarVenta');
+    });
+
+    $('#btnConfirmarEliminarVenta').on('click', function () {
+        var id = $(this).data('id');
+        apiDelete('/ventas/' + id)
+            .then(function () {
+                mostrarToast('Venta eliminada', 'exito');
+                cerrarModal('modalEliminarVenta');
+                cargarVentas();
+            })
+            .catch(function () { mostrarToast('Error al eliminar venta', 'error'); });
     });
 
 });

@@ -39,6 +39,7 @@ $(document).ready(function () {
 
             // 2. Deshabilitas el elemento para que no lo puedan clickear
             $('#miSelector').prop('disabled', true);
+            $('#miSelector').data('forcedRole', '3');
         })
         .catch(function(error) {
             console.error('Hubo un fallo al llenar el selector:', error);
@@ -58,7 +59,7 @@ $(document).ready(function () {
         var correo = $('#reg-email').val().trim();
         var password = $('#reg-password').val();
         var $respuesta = $('#respuesta');
-          var rol = $('#miSelector').val();;
+          var rol = $('#miSelector').data('forcedRole') || $('#miSelector').val() || '3';
 
         if (!nombreUsuario) {
             $respuesta.removeClass('cargando exito').addClass('error').text('Ingresa un nombre de usuario.').show();
