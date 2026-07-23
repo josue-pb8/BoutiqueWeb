@@ -46,6 +46,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="categorias.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Categorías</span>
+                    </a>
+                </li>
+                <li>
                     <a href="inventario.html">
                         <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
                         <span class="link-name">Inventario</span>
@@ -105,13 +111,14 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre del Cliente</th>
-                            <th>Correo Electrónico</th>
+                            <th>Telefono</th>
+                            <th>Correo Electronico</th>
                             <th>Fecha de Registro</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="cuerpoTabla">
-                        <tr><td colspan="5" class="tabla-vacia">Cargando clientes...</td></tr>
+                        <tr><td colspan="6" class="tabla-vacia">Cargando clientes...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -151,6 +158,22 @@
                     <div class="campo-grupo">
                         <label>Correo electrónico</label>
                         <input type="email" id="campoClienteCorreo" placeholder="correo@ejemplo.com" required>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Telefono</label>
+                        <input type="tel" id="campoClienteTelefono" placeholder="Telefono">
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Direccion</label>
+                        <input type="text" id="campoClienteDireccion" placeholder="Direccion">
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Fecha de nacimiento</label>
+                        <input type="date" id="campoClienteFechaNac">
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Foto</label>
+                        <input type="file" id="campoClienteFoto" accept="image/*">
                     </div>
                 </form>
             </div>

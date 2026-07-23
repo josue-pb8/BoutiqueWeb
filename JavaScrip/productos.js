@@ -27,6 +27,7 @@ $(document).ready(function () {
             .then(function (respuesta) {
                 categoriasCache = respuesta || [];
                 var $select = $('#campoCategoria');
+                var valActual = $select.val();
                 $select.empty().append('<option value="">Selecciona una categoria</option>');
                 var $filtro = $('#filtroCategoria');
                 $filtro.empty().append('<option value="">Todas las categorías</option>');
@@ -34,11 +35,18 @@ $(document).ready(function () {
                     $select.append('<option value="' + c.id + '">' + c.nombre + '</option>');
                     $filtro.append('<option value="' + c.nombre + '">' + c.nombre + '</option>');
                 });
+                if (valActual) $select.val(valActual);
+
+                var $filtro = $('.filtro-categoria');
+                var valFiltro = $filtro.val();
+                $filtro.find('option:gt(0)').remove();
+                $.each(categoriasCache, function (i, c) {
+                    $filtro.append('<option value="' + c.id + '">' + c.nombre + '</option>');
+                });
+                if (valFiltro) $filtro.val(valFiltro);
             })
             .catch(function () {
                 categoriasCache = [];
-                var $select = $('#campoCategoria');
-                $select.empty().append('<option value="">Selecciona una categoria</option><option value="1">General</option>');
             });
     }
 
@@ -62,7 +70,6 @@ $(document).ready(function () {
             var catNombre = p.categoria ? (typeof p.categoria === 'string' ? p.categoria : p.categoria.nombre) : '-';
             var imagen = p.imagen || p.imagenUrl || '../Image/productos.png';
 
-             
             html += '<tr>';
             html += '<td><img src="' + getImagenUrl(imagen) + '" class="img-producto" alt="' + escapeHtml(p.nombre) + '"></td>';
             html += '<td><strong>' + escapeHtml(p.nombre) + '</strong></td>';
@@ -102,6 +109,8 @@ $(document).ready(function () {
         $('#modalProductoForm')[0].reset();
         productoEditando = null;
         $('#modalProductoTitulo').text('Agregar producto');
+        $('#campoDescripcion').val('');
+        $('#campoMarca').val('');
     }
 
     cargarProductos();
@@ -116,14 +125,15 @@ $(document).ready(function () {
     });
 
     $('.filtro-categoria').on('change', function () {
-        var filtro = $(this).val().toLowerCase();
+        var filtro = $(this).val();
         $('.tabla-productos tbody tr').each(function () {
-            if (filtro === '') {
-                $(this).show();
-            } else {
-                var catCelda = $(this).find('td:eq(2)').text().toLowerCase();
-                $(this).toggle(catCelda === filtro);
-            }
+            if (!filtro) { $(this).show(); return; }
+            var catCelda = $(this).find('td:eq(2)').text();
+            var match = false;
+            $.each(categoriasCache, function (i, c) {
+                if (String(c.id) === filtro && catCelda === c.nombre) match = true;
+            });
+            $(this).toggle(match);
         });
     });
 
@@ -139,6 +149,8 @@ $(document).ready(function () {
         productoEditando = producto;
         $('#modalProductoTitulo').text('Editar producto');
         $('#campoNombre').val(producto.nombre);
+        $('#campoDescripcion').val(producto.descripcion || '');
+        $('#campoMarca').val(producto.marca || '');
         var catId = producto.categoria ? (typeof producto.categoria === 'object' ? producto.categoria.id : '') : '';
         $('#campoCategoria').val(catId);
         $('#campoPrecio').val(producto.precio);
@@ -171,12 +183,13 @@ $(document).ready(function () {
 
     $('#btnGuardarProducto').on('click', function () {
         var nombre = $('#campoNombre').val().trim();
+        var descripcion = $('#campoDescripcion').val().trim();
+        var marca = $('#campoMarca').val().trim();
         var categoriaId = parseInt($('#campoCategoria').val());
         var precio = parseFloat($('#campoPrecio').val());
         var costo = parseFloat($('#campoCosto').val()) || 0;
         var estado = $('#campoEstado').val();
-
-         const archivo = document.getElementById("imagen").files[0];
+        var archivo = document.getElementById("imagen").files[0];
 
         if (!nombre) { mostrarToast('Ingresa el nombre del producto', 'error'); return; }
         if (!categoriaId) { mostrarToast('Selecciona una categoria', 'error'); return; }
@@ -195,9 +208,7 @@ $(document).ready(function () {
                         cerrarModal('modalProducto');
                         cargarProductos();
                     })
-                    .catch(function () {
-                        mostrarToast('Error al actualizar producto', 'error');
-                    });
+                    .catch(function () { mostrarToast('Error al actualizar producto', 'error'); });
             } else {
                 apiPost('/productos', payload)
                     .then(function () {
@@ -205,9 +216,7 @@ $(document).ready(function () {
                         cerrarModal('modalProducto');
                         cargarProductos();
                     })
-                    .catch(function () {
-                        mostrarToast('Error al crear producto', 'error');
-                    });
+                    .catch(function () { mostrarToast('Error al crear producto', 'error'); });
             }
         }
 
@@ -226,27 +235,17 @@ $(document).ready(function () {
             };
             reader.readAsDataURL(archivo);
         } else {
-            var payload = {
-                nombre: nombre,
-                precio: precio,
-                costo: costo,
+            enviarPayload({
+                nombre: nombre, descripcion: descripcion, marca: marca,
+                precio: precio, costo: costo,
                 categoria: { id: categoriaId },
-                activo: estado === 'activo',
-            };
-            enviarPayload(payload);
+                activo: estado === 'activo'
+            });
         }
     });
 
-    $(document).on('click', '.btn-cerrar-modal', function () {
-        $(this).closest('.modal-overlay').removeClass('activo');
-    });
-
-    $(document).on('click', '.btn-modal-cancelar', function () {
-        $(this).closest('.modal-overlay').removeClass('activo');
-    });
-
-    $(document).on('click', '.modal-overlay', function (e) {
-        if (e.target === this) $(this).removeClass('activo');
-    });
+    $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
+    $(document).on('click', '.btn-modal-cancelar', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
+    $(document).on('click', '.modal-overlay', function (e) { if (e.target === this) $(this).removeClass('activo'); });
 
 });

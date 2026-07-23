@@ -1,4 +1,4 @@
-var API_BASE_URL = 'http://13.223.43.187:8081/api';
+var API_BASE_URL = 'http://' + window.location.hostname + ':8081/api';
 function getAuthHeaders() {
     var token = localStorage.getItem('token');
     var headers = { 'Content-Type': 'application/json' };
@@ -82,7 +82,29 @@ function getRol() {
 function getImagenUrl(imagenUrl) {
     if (!imagenUrl) return '';
     if (imagenUrl.startsWith('http')) return imagenUrl;
+    if (imagenUrl.startsWith('data:')) return imagenUrl;
+    if (imagenUrl.length > 100 && !imagenUrl.startsWith('/')) {
+        var mime = 'image/png';
+        if (imagenUrl.startsWith('/9j/')) mime = 'image/jpeg';
+        else if (imagenUrl.startsWith('UklGR')) mime = 'image/webp';
+        else if (imagenUrl.startsWith('iVBOR')) mime = 'image/png';
+        else if (imagenUrl.startsWith('R0lGOD')) mime = 'image/gif';
+        return 'data:' + mime + ';base64,' + imagenUrl;
+    }
     return API_BASE_URL.replace('/api', '') + imagenUrl;
+}
+
+function imagenFileAToDataUrl(file, callback) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        var dataUrl = e.target.result;
+        var partes = dataUrl.split(',');
+        var mime = partes[0].match(/data:(.*?);/);
+        var mimeStr = mime ? mime[1] : 'image/png';
+        var base64 = partes[1];
+        callback({ base64: base64, dataUrl: dataUrl, mime: mimeStr });
+    };
+    reader.readAsDataURL(file);
 }
 
 function requireRole(allowedRoles) {

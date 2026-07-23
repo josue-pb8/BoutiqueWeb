@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graper - Categorías</title>
+    <link rel="stylesheet" href="../CSS/shared.css">
+    <link rel="stylesheet" href="../CSS/categorias.css">
+    <link rel="stylesheet" href="../CSS/modal.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="menu-lateral">
+        <nav class="sidebar" aria-label="Navegación principal">
+            <div class="sidebar-header">
+                <div class="logo-content">
+                    <img src="../Image/logo.jpeg" alt="Logo" class="nav-icon-logo">
+                    <span>GRAPER</span>
+                </div>
+            </div>
+
+            <ul class="nav-links">
+                <li>
+                    <a href="inicio.html">
+                        <img src="../Image/inicio.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="productos.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Productos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ventas.html">
+                        <img src="../Image/ventas.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Ventas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="clientes.html">
+                        <img src="../Image/cliente.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="inventario.html">
+                        <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Inventario</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="apartados.html">
+                        <img src="../Image/apartado.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Apartados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="categorias.html" class="active">
+                        <img src="../Image/categoria.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Categorías</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="descuentos.html">
+                        <img src="../Image/descuento.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Descuentos</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-link">
+                    <img src="../Image/cerrarSesion.png" alt="Salir" class="nav-icon">
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-title">
+                    <h1>CATEGORÍAS</h1>
+                </div>
+                <div class="user-profile-display">
+                    <img src="../Image/perfil.png" alt="Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Administrador</span>
+                        <span class="user-role">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="acciones-container">
+                <div class="buscar-categoria">
+                    <input type="search" placeholder="Buscar categoría...">
+                    <img src="../Image/buscador.png" alt="Buscar">
+                </div>
+                <button class="btn-agregar-categoria">
+                    <span class="btn-plus">+</span> Agregar categoría
+                </button>
+            </div>
+
+            <div class="tabla-categorias-wrapper">
+                    <table class="tabla-categorias">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Descripción</th>
+                                <th>Productos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTabla">
+                            <tr>
+                                <td><div class="categoria-info"><img src="../Image/categoria.png" alt="Categoría" class="img-categoria"><span>Ropa de mujer</span></div></td>
+                                <td>Vestidos, blusas, faldas y accesorios para dama</td>
+                                <td>12</td>
+                                <td>
+                                    <div class="acciones-botones">
+                                        <button class="btn-icono" title="Editar">&#9998;</button>
+                                        <button class="btn-icono btn-eliminar" title="Eliminar">&#128465;</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div class="categoria-info"><img src="../Image/categoria.png" alt="Categoría" class="img-categoria"><span>Ropa de hombre</span></div></td>
+                                <td>Camisas, pantalones y chaquetas para caballero</td>
+                                <td>8</td>
+                                <td>
+                                    <div class="acciones-botones">
+                                        <button class="btn-icono" title="Editar">&#9998;</button>
+                                        <button class="btn-icono btn-eliminar" title="Eliminar">&#128465;</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><div class="categoria-info"><img src="../Image/categoria.png" alt="Categoría" class="img-categoria"><span>Accesorios</span></div></td>
+                                <td>Bolsas, cinturones, joyería y complementos</td>
+                                <td>10</td>
+                                <td>
+                                    <div class="acciones-botones">
+                                        <button class="btn-icono" title="Editar">&#9998;</button>
+                                        <button class="btn-icono btn-eliminar" title="Eliminar">&#128465;</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../JavaScrip/api-config.js"></script>
+    <script src="../JavaScrip/categorias.js"></script>
+
+    <div class="toast-notificacion" id="toastGlobal"></div>
+
+    <div class="modal-overlay" id="modalCategoria">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3 id="modalCategoriaTitulo">Nueva categoría</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalCategoriaForm">
+                    <div class="campo-grupo">
+                        <label>Nombre de la categoría</label>
+                        <input type="text" id="campoCatNombre" placeholder="Ej: Ropa de mujer" required>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Descripción</label>
+                        <textarea id="campoCatDescripcion" placeholder="Describe los productos de esta categoría..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarCategoria">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEliminarCat">
+        <div class="modal-contenido modal-contenido-eliminar">
+            <div class="modal-confirmar">
+                <div class="icono-confirmar">&#128465;</div>
+                <h3>Eliminar categoría</h3>
+                <p>¿Estás seguro de eliminar la categoría <strong id="modalEliminarCatNombre"></strong>?</p>
+                <div class="modal-footer modal-footer-centro">
+                    <button class="btn-modal-cancelar">Cancelar</button>
+                    <button class="btn-modal-eliminar" id="btnConfirmarEliminarCat">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

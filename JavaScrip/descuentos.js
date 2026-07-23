@@ -39,10 +39,10 @@ $(document).ready(function () {
                         nombre: d.nombre,
                         descuento: (d.porcentaje || 0) + '%',
                         porcentaje: d.porcentaje || 0,
-                        precioOriginal: 0,
-                        precioDescuento: 0,
-                        inicio: d.fechaInicio || '-',
-                        fin: d.fechaFin || '-',
+                        inicio: formatDateShort(d.fechaInicio),
+                        fin: formatDateShort(d.fechaFin),
+                        rawInicio: d.fechaInicio || '',
+                        rawFin: d.fechaFin || '',
                         estado: estado
                     };
                 });
@@ -52,6 +52,20 @@ $(document).ready(function () {
             .catch(function () {
                 $('#cuerpoTodos').html('<tr><td colspan="8" style="text-align:center;color:#888;">Sin descuentos</td></tr>');
             });
+    }
+
+    function formatDateShort(fecha) {
+        if (!fecha) return '-';
+        try {
+            if (typeof fecha === 'string' && fecha.length >= 10) {
+                var parts = fecha.substring(0, 10).split('-');
+                if (parts.length === 3) return parts[2] + '/' + parts[1] + '/' + parts[0];
+            }
+            if (Array.isArray(fecha)) {
+                return String(fecha[2]).padStart(2, '0') + '/' + String(fecha[1]).padStart(2, '0') + '/' + fecha[0];
+            }
+            return new Date(fecha).toLocaleDateString('es-MX');
+        } catch (e) { return '-'; }
     }
 
     function actualizarEstadisticas(descuentos) {
@@ -66,10 +80,8 @@ $(document).ready(function () {
         var estadoClase = 'estado-' + d.estado + '-desc';
         var estadoTexto = d.estado.charAt(0).toUpperCase() + d.estado.slice(1);
         var html = '<tr>';
-        html += '<td><div class="producto-info-desc"><img src="../Image/productos.png" class="img-producto-desc" alt="Producto"><span>' + d.nombre + '</span></div></td>';
+        html += '<td><strong>' + d.nombre + '</strong></td>';
         html += '<td>' + d.descuento + '</td>';
-        html += '<td>$' + formatNumber(d.precioOriginal) + '</td>';
-        html += '<td>$' + formatNumber(d.precioDescuento) + '</td>';
         html += '<td>' + d.inicio + '</td>';
         html += '<td>' + d.fin + '</td>';
         html += '<td><span class="' + estadoClase + '">' + estadoTexto + '</span></td>';
@@ -155,24 +167,24 @@ $(document).ready(function () {
         $('#modalDescuentoTitulo').text('Editar descuento');
         $('#campoDescNombre').val(desc.nombre);
         if (desc.porcentaje) $('#campoDescTipo').val(desc.porcentaje + '%');
-        $('#campoDescPrecioOriginal').val(desc.precioOriginal);
-        $('#campoDescPrecioDescuento').val(desc.precioDescuento);
         $('#campoDescEstado').val(desc.estado);
-        $('#campoDescInicio').val(desc.inicio);
-        $('#campoDescFin').val(desc.fin);
+        var inicioStr = desc.inicio && desc.inicio !== '-' ? desc.inicio.split('/').reverse().join('-') : '';
+        var finStr = desc.fin && desc.fin !== '-' ? desc.fin.split('/').reverse().join('-') : '';
+        $('#campoDescInicio').val(inicioStr);
+        $('#campoDescFin').val(finStr);
         abrirModal('modalDescuento');
     });
 
     $('#btnGuardarDescuento').on('click', function () {
         var nombre = $('#campoDescNombre').val().trim();
         var porcentajeStr = $('#campoDescTipo').val();
-        var precioOriginal = parseFloat($('#campoDescPrecioOriginal').val()) || 0;
-        var precioDescuento = parseFloat($('#campoDescPrecioDescuento').val()) || 0;
         var estado = $('#campoDescEstado').val();
-        var inicio = $('#campoDescInicio').val().trim();
-        var fin = $('#campoDescFin').val().trim();
+        var inicio = $('#campoDescInicio').val();
+        var fin = $('#campoDescFin').val();
 
         if (!nombre) { mostrarToast('Ingresa el nombre', 'error'); return; }
+        if (!inicio) { mostrarToast('Selecciona la fecha de inicio', 'error'); return; }
+        if (!fin) { mostrarToast('Selecciona la fecha de fin', 'error'); return; }
 
         var porcentaje = 15;
         var m = (porcentajeStr || '').match(/(\d+)/);
@@ -181,8 +193,8 @@ $(document).ready(function () {
         var payload = {
             nombre: nombre,
             porcentaje: porcentaje,
-            fechaInicio: inicio,
-            fechaFin: fin,
+            fechaInicio: inicio || null,
+            fechaFin: fin || null,
             activo: estado === 'activo'
         };
 
@@ -191,7 +203,7 @@ $(document).ready(function () {
             .then(function () {
                 mostrarToast(descuentoEditando ? 'Descuento actualizado' : 'Descuento creado', 'exito');
                 cerrarModal('modalDescuento');
-                location.reload();
+                cargarDescuentos();
             })
             .catch(function () {
                 mostrarToast('Error al guardar descuento', 'error');

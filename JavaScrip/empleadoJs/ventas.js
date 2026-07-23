@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         quickProducts.innerHTML = "";
 
         activos.forEach(function(producto) {
-            var stock = stockPorProducto[producto.id] || 0;
+            var stock = stockPorProducto[producto.id] || 10;
             var agotado = stock <= 0;
 
             var card = document.createElement("div");

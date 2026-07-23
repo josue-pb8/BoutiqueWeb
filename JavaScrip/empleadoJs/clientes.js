@@ -197,7 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         apiPost("/clientes", payload).then(function(cliente) {
-            cargarClientes();
+            if (cliente && cliente.id) {
+                todosLosClientes.unshift(cliente);
+            }
+            renderizarClientes(todosLosClientes);
             formCliente.reset();
             inputNombre.classList.remove("input-success");
             inputTelefono.classList.remove("input-success");

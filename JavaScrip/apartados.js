@@ -11,6 +11,7 @@ $(document).ready(function () {
         }
     } catch(e) { window.location.href = '../index.html'; return; }
     
+
     var apartadosData = [];
     var productosApartado = [];
 
@@ -51,12 +52,15 @@ $(document).ready(function () {
             html += '<td>$' + formatNumber(total) + '</td>';
             html += '<td>$' + formatNumber(abonado) + '</td>';
             html += '<td>$' + formatNumber(pendiente) + '</td>';
-            html += '<td>-</td>';
+            html += '<td>' + (a.fechaLimite || a.fechaApartado ? formatearFechaAp(a.fechaLimite || a.fechaApartado) : '-') + '</td>';
             html += '<td><span class="' + estadoClase + '">' + estado + '</span></td>';
             html += '<td><div class="acciones-botones">';
             html += '<button class="btn-icono btn-visualizar" data-id="' + a.id + '" title="Visualizar">&#128065;</button> ';
             if (estado === 'ACTIVO' && pendiente > 0) {
                 html += '<button class="btn-icono btn-abonar" data-id="' + a.id + '" data-pendiente="' + pendiente + '" title="Abonar">&#128176;</button>';
+            }
+            if (estado === 'ACTIVO') {
+                html += '<button class="btn-icono btn-eliminar-apartado" data-id="' + a.id + '" data-cliente="' + cliente + '" title="Cancelar apartado">&#128465;</button>';
             }
             html += '</div></td>';
             html += '</tr>';
@@ -68,6 +72,19 @@ $(document).ready(function () {
         return parseFloat(numero).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
+    function formatearFechaAp(fecha) {
+        if (!fecha) return '-';
+        try {
+            if (Array.isArray(fecha)) {
+                return String(fecha[2]).padStart(2, '0') + '/' + String(fecha[1]).padStart(2, '0') + '/' + fecha[0];
+            }
+            if (typeof fecha === 'string') {
+                return fecha.split('T')[0].split('-').reverse().join('/');
+            }
+            return new Date(fecha).toLocaleDateString('es-MX');
+        } catch (e) { return '-'; }
+    }
+
     function mostrarToast(mensaje, tipo) {
         var $toast = $('#toastGlobal');
         $toast.removeClass('toast-exito toast-error').addClass('toast-' + tipo).text(mensaje).addClass('activo');
@@ -76,6 +93,26 @@ $(document).ready(function () {
 
     function abrirModal(id) { $('#' + id).addClass('activo'); }
     function cerrarModal(id) { $('#' + id).removeClass('activo'); }
+
+    // --- Eliminar apartado ---
+    $(document).on('click', '.btn-eliminar-apartado', function () {
+        var id = $(this).data('id');
+        var cliente = $(this).data('cliente');
+        $('#modalEliminarApartadoCliente').text(cliente);
+        $('#btnConfirmarEliminarApartado').data('id', id);
+        abrirModal('modalEliminarApartado');
+    });
+
+    $('#btnConfirmarEliminarApartado').on('click', function () {
+        var id = $(this).data('id');
+        apiDelete('/apartados/' + id)
+            .then(function () {
+                mostrarToast('Apartado eliminado', 'exito');
+                cerrarModal('modalEliminarApartado');
+                cargarApartados();
+            })
+            .catch(function () { mostrarToast('Error al eliminar apartado', 'error'); });
+    });
 
     cargarApartados();
 
@@ -133,7 +170,7 @@ $(document).ready(function () {
     $('#btnConfirmarAbono').on('click', function () {
         var monto = parseFloat($('#modalMontoAbono').val());
         if (isNaN(monto) || monto <= 0) {
-            $('#modalAbonoError').text('Ingresa un monto válido mayor a $0.');
+            $('#modalAbonoError').text('Ingresa un monto valido mayor a $0.');
             return;
         }
         if (monto > abonarPendiente) {
@@ -162,7 +199,7 @@ $(document).ready(function () {
     }
 
     function cargarProductos() {
-        apiGet('/productos').then(function (r) { productosCache = r; console.log('Productos cache:', productosCache.length); }).catch(function (e) { console.log('Error productos:', e); });
+        apiGet('/productos').then(function (r) { productosCache = r; }).catch(function () {});
     }
 
     cargarClientes();
@@ -193,9 +230,7 @@ $(document).ready(function () {
                 apiGet('/clientes').then(function (r) {
                     clientesCache = r;
                     mostrarSugerenciasClientes(r, val);
-                }).catch(function () {
-                    $('#sugerenciasClientes').html('<div class="sugerencia-item" style="color:#888;">Error al cargar</div>').show();
-                });
+                }).catch(function () {});
                 return;
             }
             mostrarSugerenciasClientes(listado, val);
@@ -251,9 +286,7 @@ $(document).ready(function () {
                 apiGet('/productos').then(function (r) {
                     productosCache = r;
                     mostrarSugerenciasProductos(r, val);
-                }).catch(function () {
-                    $('#sugerenciasProductos').html('<div class="sugerencia-item" style="color:#888;">Error al cargar</div>').show();
-                });
+                }).catch(function () {});
                 return;
             }
             mostrarSugerenciasProductos(listado, val);
@@ -332,7 +365,7 @@ $(document).ready(function () {
 
         if (!clienteId) { mostrarToast('Selecciona un cliente de la lista de sugerencias', 'error'); return; }
         if (productosApartado.length === 0) { mostrarToast('Agrega al menos un producto', 'error'); return; }
-        if (!fechaLimite) { mostrarToast('Selecciona la fecha límite', 'error'); return; }
+        if (!fechaLimite) { mostrarToast('Selecciona la fecha limite', 'error'); return; }
 
         var empleadoId = getUsuarioId();
 
@@ -353,19 +386,13 @@ $(document).ready(function () {
         };
 
         apiPost('/apartados', data)
-            .then(function (nuevoApartado) {
-                var id = nuevoApartado ? (nuevoApartado.id || nuevoApartado.apartadoId) : null;
-                if (id && abono > 0) {
-                    return apiPut('/apartados/' + id + '/abono', { monto: abono });
-                }
-            })
             .then(function () {
                 cerrarModal('modalNuevoApartado');
                 mostrarToast('Apartado creado correctamente', 'exito');
                 cargarApartados();
             })
             .catch(function (err) {
-                var msg = err && (err.error || err.message || JSON.stringify(err)) || 'Error de conexión';
+                var msg = err && (err.error || err.message || JSON.stringify(err)) || 'Error de conexion';
                 mostrarToast('Error: ' + msg, 'error');
             });
     });

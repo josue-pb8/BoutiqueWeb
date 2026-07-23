@@ -16,8 +16,8 @@ $(document).ready(function () {
     function cargarVentas() {
         apiGet('/ventas')
             .then(function (respuesta) {
-                ventasData = respuesta;
-                renderizarTabla(respuesta);
+                ventasData = Array.isArray(respuesta) ? respuesta : [];
+                renderizarTabla(ventasData);
             })
             .catch(function () {
                 $('#cuerpoTabla').html('<tr><td colspan="8" style="text-align:center;color:#888;">Sin ventas registradas</td></tr>');
@@ -47,7 +47,11 @@ $(document).ready(function () {
             html += '<td>' + fecha + '</td>';
             html += '<td class="td-productos" title="' + escapeHtml(nombresProductos) + '">' + escapeHtml(nombresProductos) + '</td>';
             html += '<td>$' + formatNumber(total) + '</td>';
-            html += '<td><span class="estado-completada">Completada</span></td>';
+            var estadoVenta = v.estado || 'COMPLETADA';
+            var estadoVentaClase = 'estado-completada';
+            if (estadoVenta === 'CANCELADA') estadoVentaClase = 'estado-cancelada';
+            else if (estadoVenta === 'PENDIENTE') estadoVentaClase = 'estado-pendiente';
+            html += '<td><span class="' + estadoVentaClase + '">' + estadoVenta + '</span></td>';
             html += '<td><div class="acciones-botones">';
             html += '<button class="btn-icono btn-ver-venta" data-id="' + v.id + '" title="Ver detalle">&#128065;</button>';
             html += '<button class="btn-icono btn-eliminar-venta" data-id="' + v.id + '" title="Eliminar">&#128465;</button>';
@@ -164,6 +168,7 @@ $(document).ready(function () {
                 mostrarToast('Error al eliminar venta', 'error');
             });
     });
+
 
     $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.btn-modal-cancelar', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
@@ -372,6 +377,26 @@ $(document).ready(function () {
                 var msg = err && (err.error || err.message || JSON.stringify(err)) || 'Error de conexion';
                 mostrarToast('Error: ' + msg, 'error');
             });
+    });
+
+    // --- Eliminar venta ---
+    $(document).on('click', '.btn-eliminar-venta', function () {
+        var id = $(this).data('id');
+        var cliente = $(this).data('cliente');
+        $('#modalEliminarVentaId').text('#' + id + ' (' + cliente + ')');
+        $('#btnConfirmarEliminarVenta').data('id', id);
+        abrirModal('modalEliminarVenta');
+    });
+
+    $('#btnConfirmarEliminarVenta').on('click', function () {
+        var id = $(this).data('id');
+        apiDelete('/ventas/' + id)
+            .then(function () {
+                mostrarToast('Venta eliminada', 'exito');
+                cerrarModal('modalEliminarVenta');
+                cargarVentas();
+            })
+            .catch(function () { mostrarToast('Error al eliminar venta', 'error'); });
     });
 
 });

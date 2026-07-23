@@ -1,5 +1,27 @@
 /* ==========================================================================
-   TARJETA CARD
+    BOTON NUEVA ENTRADA
+    ========================================================================== */
+.btn-nueva-entrada {
+    background-color: #C8A45D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-nueva-entrada:hover {
+    background-color: #b39150;
+}
+
+/* ==========================================================================
+    TARJETA CARD
    ========================================================================== */
 .acciones-cards {
     display: flex;

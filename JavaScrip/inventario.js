@@ -208,6 +208,7 @@ $(document).ready(function () {
             });
     });
 
+
     $(document).on('click', '.btn-reabastecer', function () {
         var id = $(this).data('id');
         var item = inventarioData.find(function (i) { return i.id == id; }) || stockBajoData.find(function (i) { return i.id == id; });
@@ -279,6 +280,89 @@ $(document).ready(function () {
     $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.btn-modal-cancelar', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.modal-overlay', function (e) { if (e.target === this) $(this).removeClass('activo'); });
+
+    // --- Nueva entrada de inventario ---
+    var productosInvCache = [];
+
+    function cargarProductosInv() {
+        apiGet('/productos').then(function (r) { productosInvCache = r || []; }).catch(function () {});
+    }
+    cargarProductosInv();
+
+    $('#btnNuevaEntrada').on('click', function () {
+        $('#modalNuevaEntradaForm')[0].reset();
+        $('#campoInvProductoId').val('');
+        $('#sugerenciasInvProducto').hide();
+        cargarProductosInv();
+        abrirModal('modalNuevaEntrada');
+    });
+
+    var timeoutInvProducto;
+    $('#campoInvProducto').on('input', function () {
+        clearTimeout(timeoutInvProducto);
+        var val = $(this).val().toLowerCase();
+        if (val.length < 2) { $('#sugerenciasInvProducto').hide(); return; }
+        timeoutInvProducto = setTimeout(function () {
+            var listado = productosInvCache;
+            if (listado.length === 0) {
+                apiGet('/productos').then(function (r) {
+                    productosInvCache = r;
+                    mostrarSugerenciasInv(r, val);
+                }).catch(function () {});
+                return;
+            }
+            mostrarSugerenciasInv(listado, val);
+        }, 200);
+    });
+
+    function mostrarSugerenciasInv(lista, val) {
+        var filtrados = lista.filter(function (p) { return p.nombre.toLowerCase().indexOf(val) > -1; });
+        var html = '';
+        $.each(filtrados, function (i, p) {
+            html += '<div class="sugerencia-item" data-id="' + p.id + '" data-nombre="' + p.nombre + '">';
+            html += '<strong>' + p.nombre + '</strong>';
+            html += '</div>';
+        });
+        $('#sugerenciasInvProducto').html(html || '<div class="sugerencia-item" style="color:#888;">Sin coincidencias</div>').show();
+    }
+
+    $('#sugerenciasInvProducto').on('click', '.sugerencia-item', function () {
+        var $item = $(this);
+        $('#sugerenciasInvProducto').hide();
+        $('#campoInvProducto').val($item.data('nombre'));
+        $('#campoInvProductoId').val($item.data('id'));
+    });
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('#campoInvProducto').length && !$(e.target).closest('#sugerenciasInvProducto').length) {
+            $('#sugerenciasInvProducto').hide();
+        }
+    });
+
+    $('#btnGuardarNuevaEntrada').on('click', function () {
+        var productoId = parseInt($('#campoInvProductoId').val());
+        var talla = $('#campoInvTalla').val().trim();
+        var stock = parseInt($('#campoInvStock').val());
+        var stockMinimo = parseInt($('#campoInvStockMinimo').val()) || 10;
+
+        if (!productoId) { mostrarToast('Selecciona un producto de la lista', 'error'); return; }
+        if (isNaN(stock) || stock < 0) { mostrarToast('Ingresa un stock valido', 'error'); return; }
+
+        var data = {
+            producto: { id: productoId },
+            talla: talla || null,
+            stock: stock,
+            stockMinimo: stockMinimo
+        };
+
+        apiPost('/inventario', data)
+            .then(function () {
+                mostrarToast('Entrada de inventario creada', 'exito');
+                cerrarModal('modalNuevaEntrada');
+                cargarInventario();
+            })
+            .catch(function () { mostrarToast('Error al crear entrada', 'error'); });
+    });
 
     cargarInventario();
 
