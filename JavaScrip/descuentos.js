@@ -18,8 +18,22 @@ $(document).ready(function () {
         apiGet('/descuentos')
             .then(function (respuesta) {
                 var lista = Array.isArray(respuesta) ? respuesta : [];
+                var hoy = new Date();
+                hoy.setHours(0, 0, 0, 0);
                 descuentosData = lista.map(function (d) {
-                    var estado = (d.activo === true || d.activo === 'true') ? 'activo' : 'vencido';
+                    var activo = d.activo === true || d.activo === 'true';
+                    var fechaInicio = d.fechaInicio ? new Date(d.fechaInicio + 'T00:00:00') : null;
+                    var fechaFin = d.fechaFin ? new Date(d.fechaFin + 'T00:00:00') : null;
+                    var estado;
+                    if (!activo) {
+                        estado = 'vencido';
+                    } else if (fechaFin && fechaFin < hoy) {
+                        estado = 'vencido';
+                    } else if (fechaInicio && fechaInicio > hoy) {
+                        estado = 'programado';
+                    } else {
+                        estado = 'activo';
+                    }
                     return {
                         id: d.id,
                         nombre: d.nombre,
@@ -42,10 +56,8 @@ $(document).ready(function () {
 
     function actualizarEstadisticas(descuentos) {
         var activos = descuentos.filter(function (d) { return d.estado === 'activo'; }).length;
-        var programados = descuentos.filter(function (d) { return d.estado === 'programado'; }).length;
         var vencidos = descuentos.filter(function (d) { return d.estado === 'vencido'; }).length;
         $('#descActivos').text(activos);
-        $('#descProximos').text(programados);
         $('#descVencidos').text(vencidos);
         $('#descTotal').text(descuentos.length);
     }
@@ -109,6 +121,13 @@ $(document).ready(function () {
         $(this).addClass('tab-activo');
         $('.tab-panel-desc').removeClass('tab-activo');
         $('#' + target).addClass('tab-activo');
+    });
+
+    $('#cardDescVencidos').on('click', function () {
+        $('.tab-descuento').removeClass('tab-activo');
+        $('.tab-descuento[data-target="panelVencidos"]').addClass('tab-activo');
+        $('.tab-panel-desc').removeClass('tab-activo');
+        $('#panelVencidos').addClass('tab-activo');
     });
 
     $('.buscar-descuento input').on('keyup', function () {

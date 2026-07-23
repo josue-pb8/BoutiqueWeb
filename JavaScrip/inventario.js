@@ -14,6 +14,13 @@ $(document).ready(function () {
     var inventarioData = [];
     var stockBajoData = [];
 
+    function escapeHtml(text) {
+        if (text == null) return '';
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(String(text)));
+        return div.innerHTML;
+    }
+
     function cargarInventario() {
         apiGet('/inventario')
             .then(function (respuesta) {
@@ -194,7 +201,7 @@ $(document).ready(function () {
             .then(function () {
                 mostrarToast('Producto agregado al inventario', 'exito');
                 cerrarModal('modalAgregarInv');
-                cargarDesdeProductos();
+                cargarInventario();
             })
             .catch(function () {
                 mostrarToast('Error al agregar al inventario', 'error');
@@ -228,7 +235,7 @@ $(document).ready(function () {
             .then(function () {
                 mostrarToast('Producto reabastecido', 'exito');
                 cerrarModal('modalReabastecer');
-                cargarDesdeProductos();
+                cargarInventario();
             })
             .catch(function () { mostrarToast('Error al reabastecer', 'error'); });
     });
@@ -264,7 +271,7 @@ $(document).ready(function () {
             .then(function () {
                 mostrarToast('Stock actualizado', 'exito');
                 cerrarModal('modalVerInventario');
-                cargarDesdeProductos();
+                cargarInventario();
             })
             .catch(function () { mostrarToast('Error al actualizar', 'error'); });
     });

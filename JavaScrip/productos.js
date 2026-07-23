@@ -15,14 +15,24 @@ $(document).ready(function () {
     var productoEditando = null;
     var categoriasCache = [];
 
+    function escapeHtml(text) {
+        if (text == null) return '';
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(String(text)));
+        return div.innerHTML;
+    }
+
     function cargarCategorias() {
         apiGet('/categorias')
             .then(function (respuesta) {
                 categoriasCache = respuesta || [];
                 var $select = $('#campoCategoria');
                 $select.empty().append('<option value="">Selecciona una categoria</option>');
+                var $filtro = $('#filtroCategoria');
+                $filtro.empty().append('<option value="">Todas las categorías</option>');
                 $.each(categoriasCache, function (i, c) {
                     $select.append('<option value="' + c.id + '">' + c.nombre + '</option>');
+                    $filtro.append('<option value="' + c.nombre + '">' + c.nombre + '</option>');
                 });
             })
             .catch(function () {

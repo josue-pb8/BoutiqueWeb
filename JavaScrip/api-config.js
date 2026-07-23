@@ -1,5 +1,4 @@
-var API_BASE_URL = 'http://localhost:8081/api';
-
+var API_BASE_URL = 'http://13.223.43.187:8081/api';
 function getAuthHeaders() {
     var token = localStorage.getItem('token');
     var headers = { 'Content-Type': 'application/json' };

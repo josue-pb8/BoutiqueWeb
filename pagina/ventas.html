@@ -133,25 +133,12 @@
     <div class="toast-notificacion" id="toastGlobal"></div>
 
     <div class="modal-overlay" id="modalVerVenta">
-        <div class="modal-contenido">
+        <div class="modal-contenido modal-contenido-grande">
             <div class="modal-header">
                 <h3 id="modalVentaTitulo">Detalle de venta</h3>
                 <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
             </div>
-            <div class="modal-detalle" id="modalVentaDetalle"></div>
-            <div class="modal-footer">
-                <button class="btn-modal-cancelar">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modalDetallesVenta">
-        <div class="modal-contenido">
-            <div class="modal-header">
-                <h3>Productos de la venta</h3>
-                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
-            </div>
-            <div class="modal-body" id="modalDetalleLista"></div>
+            <div class="modal-body" id="modalVentaDetalle"></div>
             <div class="modal-footer">
                 <button class="btn-modal-cancelar">Cerrar</button>
             </div>
@@ -180,18 +167,16 @@
             </div>
             <div class="modal-body">
                 <form id="modalNuevaVentaForm">
-                    <div class="campo-grupo">
+                    <div class="campo-grupo campo-autocomplete">
                         <label>Cliente</label>
-                        <select id="campoVentaCliente" required>
-                            <option value="">Seleccionar cliente...</option>
-                        </select>
+                        <input type="text" id="campoVentaCliente" placeholder="Escribir nombre del cliente..." autocomplete="off" required>
+                        <ul class="autocomplete-lista" id="listaClientes"></ul>
                     </div>
                     <div class="seccion-producto">
                         <label class="etiqueta-seccion">Agregar producto</label>
-                        <div class="campo-grupo">
-                            <select id="campoVentaProducto" required>
-                                <option value="">Seleccionar producto...</option>
-                            </select>
+                        <div class="campo-grupo campo-autocomplete">
+                            <input type="text" id="campoVentaProducto" placeholder="Escribir nombre del producto..." autocomplete="off" required>
+                            <ul class="autocomplete-lista" id="listaProductos"></ul>
                         </div>
                         <div class="campo-fila">
                             <div class="campo-grupo">

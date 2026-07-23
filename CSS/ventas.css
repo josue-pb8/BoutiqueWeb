@@ -129,6 +129,13 @@
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */
+.td-productos {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media (max-width: 768px) {
     .buscar-venta input {
         width: 100%;

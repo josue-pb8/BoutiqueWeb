@@ -15,11 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function renderizarFavoritos() {
         let favoritos;
-        try { favoritos = JSON.parse(localStorage.getItem('bellaFavoritos')) || []; } catch { favoritos = []; }
+        try { favoritos = JSON.parse(localStorage.getItem('bellaFav suopeoritos')) || []; } catch { favoritos = []; }
     const container = document.getElementById('favorites-container');
     const emptyState = document.getElementById('empty-favorites');
     const subtitle = document.getElementById('fav-subtitle');
-
     if (!container || !emptyState) return;
 
     if (favoritos.length === 0) {

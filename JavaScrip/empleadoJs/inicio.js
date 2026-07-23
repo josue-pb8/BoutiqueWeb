@@ -308,7 +308,7 @@ function cargarVentasRecientes() {
             var total = Number(venta.total || 0);
             tr.innerHTML =
                 "<td>" + escapeHtml(venta.fecha || "") + "</td>" +
-                "<td>" + escapeHtml(venta.cliente || "Sin cliente") + "</td>" +
+                "<td>" + escapeHtml(venta.cliente || venta.clienteNombre || "Sin cliente") + "</td>" +
                 "<td>" + escapeHtml(venta.productos || "") + "</td>" +
                 "<td><strong>$" + total.toLocaleString("es-MX", { minimumFractionDigits: 2 }) + "</strong></td>" +
                 '<td><span class="badge-pay ' + (venta.metodoPago || 'efectivo') + '">' + escapeHtml(venta.metodoPago || 'Efectivo') + '</span></td>' +
