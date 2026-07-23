@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         productos.forEach(function(producto) {
-            var stock = stockMap[producto.id] || { total: 0, tallas: {} };
+            var stock = stockMap[producto.id] || { total: 10, tallas: {} };
             var tr = document.createElement("tr");
             var categoriaNombre = producto.categoria ? producto.categoria.nombre : "Sin categoria";
             tr.setAttribute("data-categoria", categoriaNombre.toLowerCase());

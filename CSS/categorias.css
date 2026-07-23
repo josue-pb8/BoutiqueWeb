@@ -1,0 +1,110 @@
+/* ==========================================================================
+   BÚSQUEDA DE CATEGORÍAS
+   ========================================================================== */
+.buscar-categoria {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0 12px;
+    height: 38px;
+    background: white;
+}
+
+.buscar-categoria input {
+    border: none;
+    outline: none;
+    font-size: 13px;
+    width: 300px;
+}
+
+.buscar-categoria img {
+    width: 18px;
+    height: 18px;
+}
+
+.btn-agregar-categoria {
+    background-color: #C8A45D;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-agregar-categoria:hover {
+    background-color: #b39150;
+}
+
+/* ==========================================================================
+   TABLA DE CATEGORÍAS
+   ========================================================================== */
+.tabla-categorias-wrapper {
+    padding: 0 2rem 1.5rem;
+}
+
+.tabla-categorias-wrapper .tabla-categorias {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #ebdcdc;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.tabla-categorias th,
+.tabla-categorias td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 13px;
+}
+
+.tabla-categorias th {
+    background: #f8f4ee;
+    font-weight: 700;
+    color: #333;
+    font-size: 12px;
+}
+
+.tabla-categorias td {
+    color: #555;
+}
+
+.tabla-categorias tr:hover {
+    background-color: #fafafa;
+}
+
+.categoria-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.categoria-info .img-categoria {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f0f0f0;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .acciones-container {
+        padding: 1rem;
+    }
+
+    .tabla-categorias-wrapper {
+        padding: 0 1rem 1rem;
+        overflow-x: auto;
+    }
+}
