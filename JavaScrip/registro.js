@@ -30,7 +30,9 @@ $(document).ready(function () {
         })
         .catch(function(error) {
             console.error('Hubo un fallo al llenar el selector:', error);
-            $selector.empty().append('<option value="">Error al cargar los datos</option>');
+            $selector.empty().append('<option value="CLIENTE">Cliente</option>');
+            $selector.val('CLIENTE');
+            $selector.data('forcedRole', 'CLIENTE');
         });
     }
 
