@@ -1,4 +1,3 @@
-const API_BASE_URL = 'http://35.168.202.45:8081/api';
 function redirigir(rol) {
   if (rol === 'ADMIN') {
     window.location.href = '/pagina/inicio.html';
