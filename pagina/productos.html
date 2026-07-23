@@ -46,6 +46,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="categorias.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Categorías</span>
+                    </a>
+                </li>
+                <li>
                     <a href="inventario.html">
                         <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
                         <span class="link-name">Inventario</span>
@@ -94,11 +100,7 @@
                         <img src="../Image/buscador.png" alt="Buscar">
                     </div>
                     <select class="filtro-categoria">
-                        <option value="">Todas las categorías</option>
-                        <option value="Ropa">Ropa</option>
-                        <option value="Maquillaje">Maquillaje</option>
-                        <option value="Bolsa">Bolsa</option>
-                        <option value="Accesorios">Accesorios</option>
+                        <option value="">Todas las categorias</option>
                     </select>
                 </div>
                 <button class="btn-agregar">
@@ -145,15 +147,19 @@
                         <label>Nombre del producto</label>
                         <input type="text" id="campoNombre" placeholder="Ej: Vestido Floral" required>
                     </div>
+                    <div class="campo-grupo">
+                        <label>Descripcion</label>
+                        <input type="text" id="campoDescripcion" placeholder="Descripcion del producto">
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Marca</label>
+                        <input type="text" id="campoMarca" placeholder="Marca del producto">
+                    </div>
                     <div class="campo-fila">
                         <div class="campo-grupo">
-                            <label>Categoría</label>
+                            <label>Categoria</label>
                             <select id="campoCategoria" required>
-                                <option value="">Seleccionar...</option>
-                                <option value="Ropa">Ropa</option>
-                                <option value="Maquillaje">Maquillaje</option>
-                                <option value="Bolsa">Bolsa</option>
-                                <option value="Accesorios">Accesorios</option>
+                                <option value="">Selecciona una categoria</option>
                             </select>
                         </div>
                         <div class="campo-grupo">

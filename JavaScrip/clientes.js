@@ -1,12 +1,9 @@
 if (!localStorage.getItem('token') || localStorage.getItem('rol') !== 'ADMIN') { window.location.href = '../index.html'; }
 $(document).ready(function () {
 
-    let user = JSON.parse(localStorage.getItem('usuario')); 
-    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario; 
-        document.getElementsByClassName("user-role")[0].innerHTML = user.rol; 
-
-    
-    //document.getElementsByClassName("avatar-placeholder")[0].innerHTML = user.nombreUsuario.charAt(0).toUpperCase();
+    let user = JSON.parse(localStorage.getItem('usuario'));
+    document.getElementsByClassName("user-name")[0].innerHTML = user.nombreUsuario;
+    document.getElementsByClassName("user-role")[0].innerHTML = user.rol;
 
     var clientesData = [];
     var clienteEditando = null;
@@ -18,7 +15,7 @@ $(document).ready(function () {
                 renderizarTabla(respuesta);
             })
             .catch(function () {
-                $('#cuerpoTabla').html('<tr><td colspan="5" style="text-align:center;color:#888;">Sin clientes registrados</td></tr>');
+                $('#cuerpoTabla').html('<tr><td colspan="6" style="text-align:center;color:#888;">Sin clientes registrados</td></tr>');
             });
     }
 
@@ -29,18 +26,24 @@ $(document).ready(function () {
             var nombre = (c.nombre || '') + ' ' + (c.apellido || '');
             var iniciales = ((c.nombre || '')[0] || '') + ((c.apellido || '')[0] || '');
             var fecha = formatearFecha(c.fechaRegistro);
+            var foto = c.fotoUrl || '';
+            var avatarHtml = foto
+                ? '<img src="' + getImagenUrl(foto) + '" class="cliente-avatar-img" alt="Foto" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">'
+                : '<div class="cliente-avatar-placeholder">' + escapeHtml(iniciales.toUpperCase()) + '</div>';
             html += '<tr>';
             html += '<td><strong>#CLI-' + String(c.id).padStart(3, '0') + '</strong></td>';
-            html += '<td><div class="cliente-cell"><div class="cliente-avatar-placeholder">' + escapeHtml(iniciales.toUpperCase()) + '</div><strong>' + escapeHtml(nombre.trim()) + '</strong></div></td>';
+            html += '<td><div class="cliente-cell">' + avatarHtml + '<strong>' + escapeHtml(nombre.trim()) + '</strong></div></td>';
+            html += '<td>' + (c.telefono || '-') + '</td>';
             html += '<td>' + (c.email || 'Sin correo') + '</td>';
             html += '<td>' + fecha + '</td>';
             html += '<td><div class="acciones-botones">';
             html += '<button class="btn-icono btn-visualizar" data-id="' + c.id + '" title="Visualizar">&#128065;</button>';
             html += '<button class="btn-icono btn-editar" data-id="' + c.id + '" title="Editar">&#9998;</button>';
+            html += '<button class="btn-icono btn-eliminar-cliente" data-id="' + c.id + '" data-nombre="' + escapeHtml(nombre.trim()) + '" title="Eliminar">&#128465;</button>';
             html += '</div></td>';
             html += '</tr>';
         });
-        $('#cuerpoTabla').html(html || '<tr><td colspan="5" style="text-align:center;color:#888;">Sin clientes</td></tr>');
+        $('#cuerpoTabla').html(html || '<tr><td colspan="6" style="text-align:center;color:#888;">Sin clientes</td></tr>');
     }
 
     function formatearFecha(fecha) {
@@ -98,6 +101,8 @@ $(document).ready(function () {
         var html = '';
         html += '<div class="detalle-fila"><span class="detalle-label">Nombre</span><span class="detalle-valor">' + nombre + '</span></div>';
         html += '<div class="detalle-fila"><span class="detalle-label">Correo</span><span class="detalle-valor">' + (cliente.email || '-') + '</span></div>';
+        html += '<div class="detalle-fila"><span class="detalle-label">Telefono</span><span class="detalle-valor">' + (cliente.telefono || '-') + '</span></div>';
+        html += '<div class="detalle-fila"><span class="detalle-label">Direccion</span><span class="detalle-valor">' + (cliente.direccion || '-') + '</span></div>';
         html += '<div class="detalle-fila"><span class="detalle-label">Fecha de registro</span><span class="detalle-valor">' + formatearFecha(cliente.fechaRegistro) + '</span></div>';
         $('#modalClienteDetalle').html(html);
         abrirModal('modalVerCliente');
@@ -111,15 +116,40 @@ $(document).ready(function () {
         $('#modalClienteTitulo').text('Editar cliente');
         $('#campoClienteNombre').val(cliente.nombre + ' ' + cliente.apellido);
         $('#campoClienteCorreo').val(cliente.email || '');
+        $('#campoClienteTelefono').val(cliente.telefono || '');
+        $('#campoClienteDireccion').val(cliente.direccion || '');
+        $('#campoClienteFechaNac').val(cliente.fechaNacimiento || '');
         abrirModal('modalCliente');
+    });
+
+    // --- Eliminar cliente ---
+    $(document).on('click', '.btn-eliminar-cliente', function () {
+        var id = $(this).data('id');
+        var nombre = $(this).data('nombre');
+        $('#modalEliminarClienteNombre').text(nombre);
+        $('#btnConfirmarEliminarCliente').data('id', id);
+        abrirModal('modalEliminarCliente');
+    });
+
+    $('#btnConfirmarEliminarCliente').on('click', function () {
+        var id = $(this).data('id');
+        apiDelete('/clientes/' + id)
+            .then(function () {
+                mostrarToast('Cliente eliminado', 'exito');
+                cerrarModal('modalEliminarCliente');
+                cargarClientes();
+            })
+            .catch(function () { mostrarToast('Error al eliminar cliente', 'error'); });
     });
 
     $('#btnGuardarCliente').on('click', function () {
         var nombreCompleto = $('#campoClienteNombre').val().trim();
         var correo = $('#campoClienteCorreo').val().trim();
+        var telefono = $('#campoClienteTelefono').val().trim();
+        var direccion = $('#campoClienteDireccion').val().trim();
+        var fechaNac = $('#campoClienteFechaNac').val();
 
         if (!nombreCompleto || nombreCompleto.length < 3) { mostrarToast('Ingresa un nombre valido', 'error'); return; }
-
         if (!correo) { mostrarToast('Ingresa un correo electronico', 'error'); return; }
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) { mostrarToast('Correo electronico invalido', 'error'); return; }
 
@@ -127,14 +157,39 @@ $(document).ready(function () {
         var nombre = partes[0];
         var apellido = partes.slice(1).join(' ') || ' ';
 
-        if (clienteEditando) {
-            apiPut('/clientes/' + clienteEditando.id, { nombre: nombre, apellido: apellido, email: correo, telefono: '' })
-                .then(function () { mostrarToast('Cliente actualizado', 'exito'); cerrarModal('modalCliente'); cargarClientes(); })
-                .catch(function () { mostrarToast('Error al actualizar', 'error'); });
+        var archivo = document.getElementById('campoClienteFoto') ? document.getElementById('campoClienteFoto').files[0] : null;
+
+        function enviarPayload(payload) {
+            if (clienteEditando) {
+                apiPut('/clientes/' + clienteEditando.id, payload)
+                    .then(function () { mostrarToast('Cliente actualizado', 'exito'); cerrarModal('modalCliente'); cargarClientes(); })
+                    .catch(function () { mostrarToast('Error al actualizar', 'error'); });
+            } else {
+                apiPost('/clientes', payload)
+                    .then(function () { mostrarToast('Cliente creado', 'exito'); cerrarModal('modalCliente'); cargarClientes(); })
+                    .catch(function () { mostrarToast('Error al crear cliente', 'error'); });
+            }
+        }
+
+        var payloadBase = {
+            nombreUsuario: correo,
+            contrasena: correo + '123',
+            nombre: nombre,
+            apellido: apellido,
+            email: correo,
+            telefono: telefono,
+            direccion: direccion,
+            fechaNacimiento: fechaNac || null,
+            perfil: '3'
+        };
+
+        if (archivo) {
+            imagenFileAToDataUrl(archivo, function (img) {
+                payloadBase.fotoUrl = img.base64;
+                enviarPayload(payloadBase);
+            });
         } else {
-            apiPost('/clientes', { nombreUsuario: correo, contrasena: correo, nombre: nombre, apellido: apellido, email: correo, telefono: '', perfil: '3' })
-                .then(function () { mostrarToast('Cliente creado', 'exito'); cerrarModal('modalCliente'); cargarClientes(); })
-                .catch(function () { mostrarToast('Error al crear cliente', 'error'); });
+            enviarPayload(payloadBase);
         }
     });
 

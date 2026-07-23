@@ -80,12 +80,7 @@ $(document).ready(function () {
             html += '<td>' + tallasHtml + '</td>';
             html += '<td>' + g.stockTotal + '</td>';
             html += '<td><div class="acciones-botones">';
-<<<<<<< HEAD
             html += '<button class="btn-icono btn-editar-inv" data-producto-id="' + pid + '" title="Editar stock">&#9998;</button>';
-=======
-            html += '<button class="btn-icono btn-editar-inv" data-id="' + item.id + '" title="Editar">&#9998;</button>';
-            html += '<button class="btn-icono btn-eliminar" data-id="' + item.id + '" data-nombre="' + nombre + '" title="Eliminar">&#128465;</button>';
->>>>>>> 57c8ae5887912fccda86e9ce30e62058170fda93
             html += '</div></td>';
             html += '</tr>';
         });
@@ -128,7 +123,6 @@ $(document).ready(function () {
         $('#' + target).addClass('tab-activo');
     });
 
-    // ---- Cards cliqueables ----
     $('.tarjeta-stat-card').eq(0).css('cursor', 'pointer').on('click', function () {
         $('.tab-inventario[data-target="inventarioActual"]').click();
     });
@@ -136,7 +130,16 @@ $(document).ready(function () {
         $('.tab-inventario[data-target="stockBajoLista"]').click();
     });
 
-<<<<<<< HEAD
+    // ---- Buscar inventario ----
+    $('#campoBuscarInventario').on('keyup', function () {
+        var texto = $(this).val().toLowerCase();
+        $('#cuerpoInventario tr').each(function () {
+            var nombre = $(this).find('td').eq(0).text().toLowerCase();
+            var categoria = $(this).find('td').eq(1).text().toLowerCase();
+            $(this).toggle(nombre.indexOf(texto) !== -1 || categoria.indexOf(texto) !== -1);
+        });
+    });
+
     // ---- Reabastecer desde Stock Bajo ----
     $(document).on('click', '.btn-reabastecer', function () {
         var id = $(this).data('id');
@@ -170,7 +173,7 @@ $(document).ready(function () {
             .catch(function () { mostrarToast('Error al reabastecer', 'error'); });
     });
 
-    // ---- Editar stock por producto ----
+    // ---- Editar stock por producto (agrupado) ----
     $(document).on('click', '.btn-editar-inv', function () {
         var productoId = $(this).data('producto-id');
         var items = inventarioData.filter(function (i) { return i.producto && i.producto.id == productoId; });
@@ -197,27 +200,6 @@ $(document).ready(function () {
         var id = $(this).data('id');
         var stock = parseInt($('#edit-stock-' + id).val());
         if (isNaN(stock) || stock < 0) { mostrarToast('Stock inválido', 'error'); return; }
-=======
-    var deleteId = null;
-
-    $(document).on('click', '.btn-eliminar', function () {
-        deleteId = $(this).data('id');
-        $('#modalEliminarInvProducto').text($(this).data('nombre'));
-        abrirModal('modalEliminarInv');
-    });
-
-    $('#btnConfirmarEliminarInv').on('click', function () {
-        if (!deleteId) return;
-        apiDelete('/inventario/' + deleteId)
-            .then(function () { mostrarToast('Producto eliminado del inventario', 'exito'); cerrarModal('modalEliminarInv'); deleteId = null; cargarInventario(); })
-            .catch(function (err) { console.error('Error al eliminar inventario:', err); mostrarToast(err.mensaje || err.message || 'Error al eliminar', 'error'); });
-    });
-
-    $('#btnGuardarEditInv').on('click', function () {
-        var id = $('#campoEditInvId').val();
-        var stock = parseInt($('#campoEditInvExistencia').val());
-        if (isNaN(stock) || stock < 0) { mostrarToast('Stock invalido', 'error'); return; }
->>>>>>> 57c8ae5887912fccda86e9ce30e62058170fda93
 
         apiPut('/inventario/' + id, { stock: stock })
             .then(function () {
@@ -231,6 +213,89 @@ $(document).ready(function () {
     $(document).on('click', '.btn-cerrar-modal', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.btn-modal-cancelar', function () { $(this).closest('.modal-overlay').removeClass('activo'); });
     $(document).on('click', '.modal-overlay', function (e) { if (e.target === this) $(this).removeClass('activo'); });
+
+    // --- Nueva entrada de inventario ---
+    var productosInvCache = [];
+
+    function cargarProductosInv() {
+        apiGet('/productos').then(function (r) { productosInvCache = r || []; }).catch(function () {});
+    }
+    cargarProductosInv();
+
+    $('#btnNuevaEntrada').on('click', function () {
+        $('#modalNuevaEntradaForm')[0].reset();
+        $('#campoInvProductoId').val('');
+        $('#sugerenciasInvProducto').hide();
+        cargarProductosInv();
+        abrirModal('modalNuevaEntrada');
+    });
+
+    var timeoutInvProducto;
+    $('#campoInvProducto').on('input', function () {
+        clearTimeout(timeoutInvProducto);
+        var val = $(this).val().toLowerCase();
+        if (val.length < 2) { $('#sugerenciasInvProducto').hide(); return; }
+        timeoutInvProducto = setTimeout(function () {
+            var listado = productosInvCache;
+            if (listado.length === 0) {
+                apiGet('/productos').then(function (r) {
+                    productosInvCache = r;
+                    mostrarSugerenciasInv(r, val);
+                }).catch(function () {});
+                return;
+            }
+            mostrarSugerenciasInv(listado, val);
+        }, 200);
+    });
+
+    function mostrarSugerenciasInv(lista, val) {
+        var filtrados = lista.filter(function (p) { return p.nombre.toLowerCase().indexOf(val) > -1; });
+        var html = '';
+        $.each(filtrados, function (i, p) {
+            html += '<div class="sugerencia-item" data-id="' + p.id + '" data-nombre="' + p.nombre + '">';
+            html += '<strong>' + p.nombre + '</strong>';
+            html += '</div>';
+        });
+        $('#sugerenciasInvProducto').html(html || '<div class="sugerencia-item" style="color:#888;">Sin coincidencias</div>').show();
+    }
+
+    $('#sugerenciasInvProducto').on('click', '.sugerencia-item', function () {
+        var $item = $(this);
+        $('#sugerenciasInvProducto').hide();
+        $('#campoInvProducto').val($item.data('nombre'));
+        $('#campoInvProductoId').val($item.data('id'));
+    });
+
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('#campoInvProducto').length && !$(e.target).closest('#sugerenciasInvProducto').length) {
+            $('#sugerenciasInvProducto').hide();
+        }
+    });
+
+    $('#btnGuardarNuevaEntrada').on('click', function () {
+        var productoId = parseInt($('#campoInvProductoId').val());
+        var talla = $('#campoInvTalla').val().trim();
+        var stock = parseInt($('#campoInvStock').val());
+        var stockMinimo = parseInt($('#campoInvStockMinimo').val()) || 10;
+
+        if (!productoId) { mostrarToast('Selecciona un producto de la lista', 'error'); return; }
+        if (isNaN(stock) || stock < 0) { mostrarToast('Ingresa un stock valido', 'error'); return; }
+
+        var data = {
+            producto: { id: productoId },
+            talla: talla || null,
+            stock: stock,
+            stockMinimo: stockMinimo
+        };
+
+        apiPost('/inventario', data)
+            .then(function () {
+                mostrarToast('Entrada de inventario creada', 'exito');
+                cerrarModal('modalNuevaEntrada');
+                cargarInventario();
+            })
+            .catch(function () { mostrarToast('Error al crear entrada', 'error'); });
+    });
 
     cargarInventario();
 

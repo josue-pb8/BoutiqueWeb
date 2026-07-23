@@ -45,6 +45,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="categorias.html">
+                        <img src="../Image/productos.png" alt="Icono" class="nav-icon">
+                        <span class="link-name">Categorías</span>
+                    </a>
+                </li>
+                <li>
                     <a href="inventario.html" class="active">
                         <img src="../Image/inventario.png" alt="Icono" class="nav-icon">
                         <span class="link-name">Inventario</span>
@@ -119,7 +125,9 @@
                         </div>
                     </div>
                 </div>
-
+                <button class="btn-nueva-venta btn-nueva-entrada" id="btnNuevaEntrada">
+                    <span class="btn-plus">+</span> Nueva entrada
+                </button>
             </div>
 
             <div class="tabs-inventario">
@@ -243,6 +251,43 @@
                     <button class="btn-modal-cancelar">Cancelar</button>
                     <button class="btn-modal-eliminar" id="btnConfirmarEliminarInv">Eliminar</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalNuevaEntrada">
+        <div class="modal-contenido modal-contenido-medio">
+            <div class="modal-header">
+                <h3>Nueva entrada de inventario</h3>
+                <button class="btn-cerrar-modal" aria-label="Cerrar">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="modalNuevaEntradaForm">
+                    <div class="campo-grupo">
+                        <label>Producto</label>
+                        <input type="text" id="campoInvProducto" placeholder="Buscar producto..." required>
+                        <input type="hidden" id="campoInvProductoId">
+                        <div id="sugerenciasInvProducto" class="lista-sugerencias" style="display:none;"></div>
+                    </div>
+                    <div class="campo-grupo">
+                        <label>Talla</label>
+                        <input type="text" id="campoInvTalla" placeholder="Ej: M, L, 38...">
+                    </div>
+                    <div class="campo-fila">
+                        <div class="campo-grupo">
+                            <label>Stock</label>
+                            <input type="number" id="campoInvStock" min="0" value="0" required>
+                        </div>
+                        <div class="campo-grupo">
+                            <label>Stock minimo</label>
+                            <input type="number" id="campoInvStockMinimo" min="0" value="10" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal-cancelar">Cancelar</button>
+                <button class="btn-modal-guardar" id="btnGuardarNuevaEntrada">Guardar</button>
             </div>
         </div>
     </div>
